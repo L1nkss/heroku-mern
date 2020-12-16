@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node build/index.js",
     "server": "nodemon index.ts",
+    "test-commit": "git add . && git commit -m 'test' && git push heroku master ",
     "build": "tsc --project ./"
   },
   "keywords": [],
