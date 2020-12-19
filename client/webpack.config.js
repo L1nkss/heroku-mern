@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "public"),
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -15,7 +15,7 @@ module.exports = {
   ],
   devtool: "source-map",
   devServer: {
-    contentBase: path.join(__dirname, "build"),
+    contentBase: path.join(__dirname, "public"),
     publicPath: "/",
     historyApiFallback: true,
     compress: true,
@@ -41,7 +41,7 @@ module.exports = {
   },
   plugins: [
       new HtmlWebpackPlugin({
-          template: path.resolve(__dirname, "build", "index.html")
+          template: path.resolve(__dirname, "public", "index.html")
       })
   ],
   resolve: {
