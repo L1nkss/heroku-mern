@@ -8,8 +8,7 @@
     "client": "npm run build --prefix client",
     "start": "npm run client && npm run server",
     "server": "nodemon index.ts",
-    "test-commit": "git add . && git commit -m 'test' && git push heroku master ",
-    "build": "tsc --project ./index.ts"
+    "test-commit": "git add . && git commit -m 'test' && git push heroku master "
   },
   "keywords": [],
   "author": "",
