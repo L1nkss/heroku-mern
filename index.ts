@@ -1,23 +1,16 @@
-import express from 'express';
-import path from 'path';
+const express = require("express");
 const app = express();
-const PORT = 5000;
-const router = express.Router();
+const path = require("path")
 
-// app.use(express.static('./client/'));
+console.log(path.join(__dirname, "client", "public"))
+app.use(express.static(path.join(__dirname, "client", "public")))
+app.use(express.static("client/public"))
 
-// router.get('/', (req, res) => {
-//     console.log(__dirname)
-//     res.send('Express + Typescript Server');
-// })
 
-// app.use('/', router)
-
-app.get('/', (req, res) => {
-    res.send(path.join(__dirname + '/client/index.html'))
-    res.send('Express + Typescript Server');
+app.use((req: any, res: any, next: any) => {
+    res.sendFile(path.join(__dirname, "client", "public", "index.html"))
 })
 
-app.listen(process.env.PORT || PORT, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`)
-});
+app.listen(5000, () => {
+    console.log('server works')
+})
