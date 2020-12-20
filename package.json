@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "npm run deploy --prefix client",
+    "postinstall": "npm run deploy --prefix client",
+    "client": "npm start --prefix client",
     "start": "npm run client && npm run server",
     "server": "nodemon index.ts",
     "test-commit": "git add . && git commit -m 'test' && git push heroku master "
