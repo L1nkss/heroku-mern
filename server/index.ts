@@ -11,12 +11,15 @@ const clientBuildPath2 = "../client/build"
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../client/build"));
+  }
+
 // app.use(express.static(path.join(__dirname, clientBuildPath2)))
 // app.use(express.static(path.join(__dirname, ".../client/build/index.html")))
 // app.use(express.static(path.join(__dirname, "./index.html")))
 
 app.get('*', (req: any, res: any) => {
-    console.log("s")
     // res.sendFile(path.join(__dirname, "../client/build/index.html"))
     // res.sendFile(path.join(__dirname, "./index.html"))
     res.sendFile(path.join(__dirname, "../client/build/index.html"))
