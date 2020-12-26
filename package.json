@@ -10,7 +10,7 @@
     "client": "cd client && npm run start",
     "start:prod": "cd server && node index.ts",
     "build:client": "cd client && npm run build",
-    "build:server": "cd server && tsx index.ts",
+    "build:server": "cd server && tsc index.ts",
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
     "heroku-postbuild": "npm run build",
     "install": "concurrently \"cd server && npm i\" \"cd client && npm i\""
