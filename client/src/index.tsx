@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 const Home = () => {
-    return <div>Home Page</div>
+    return <div>Home Page </div>
 }
 
 const About = () => {
