@@ -29,10 +29,10 @@ const App = () => {
             </nav>
             <Switch>
                 <Route path="/about">
-                    <Home />
+                    <About />
                 </Route>
                 <Route path="/">
-                    <About />
+                    <Home />
                 </Route>
             </Switch>
         </Router>
