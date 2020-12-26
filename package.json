@@ -11,7 +11,7 @@
     "start:prod": "cd server && node server.ts",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "install": "concurrently \"cd server && npm i'\" \"cd client && npm i\""
+    "install": "concurrently \"cd server && npm i\" \"cd client && npm i\""
   },
   "repository": {
     "type": "git",
