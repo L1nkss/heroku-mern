@@ -6,6 +6,7 @@ const port = process.env.PORT || 3001;
 const clientBuildPath = "../client/build/index.html"
 const clientBuildPath2 = "../client/build"
 
+
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
