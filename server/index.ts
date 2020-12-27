@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 app.get('*', (req: any, res: any) => {
     // res.sendFile(path.join(__dirname, "../client/build/index.html"))
     // res.sendFile(path.join(__dirname, "./index.html"))
-    res.sendFile(path.join(__dirname, "../client/build/index.html"))
+    res.sendFile(path.join(__dirname, "../../client/build/index.html"))
 })
 
 app.listen(port, host, () => {
