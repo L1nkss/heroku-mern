@@ -8,11 +8,11 @@
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:dev": "concurrently \"cd server && nodemon index.ts'\" \"npm run client\"",
     "client": "cd client && npm run start",
-    "start:prod": "cd server && node index.ts",
+    "start:prod": "cd server && node build/index.js",
     "build:client": "cd client && npm run build",
     "build:server": "cd server && tsc index.ts",
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
-    "heroku-postbuild": "npm run build",
+    "postinstall": "npm run build",
     "install": "concurrently \"cd server && npm i\" \"cd client && npm i\""
   },
   "repository": {
