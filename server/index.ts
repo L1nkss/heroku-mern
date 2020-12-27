@@ -6,14 +6,15 @@ const port = process.env.PORT || 3001;
 const clientBuildPath = "../client/build/index.html"
 const clientBuildPath2 = "../client/build"
 
+const root = path.join(__dirname, "../../client/build");
+
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
-    console.log("dirname", __dirname)
-    app.use(express.static("../../client/build/index.html"));
+    app.use(express.static(root));
   }
 
 // app.use(express.static(path.join(__dirname, clientBuildPath2)))
@@ -23,7 +24,8 @@ if (process.env.NODE_ENV === "production") {
 app.get('*', (req: any, res: any) => {
     // res.sendFile(path.join(__dirname, "../client/build/index.html"))
     // res.sendFile(path.join(__dirname, "./index.html"))
-    res.sendFile(path.join(__dirname, "../../client/build/index.html"))
+    // res.sendFile(path.join(__dirname, "../../client/build/index.html"))
+    res.sendFile('index.html', { root })
 })
 
 app.listen(port, host, () => {
