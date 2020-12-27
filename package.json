@@ -10,7 +10,7 @@
     "client": "cd client && npm run start",
     "start:prod": "cd server && node build/index.js",
     "build:client": "cd client && npm run build",
-    "build:server": "cd server && tsc index.ts",
+    "build:server": "cd server && npm run build",
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
     "postinstall": "npm run build",
     "install": "concurrently \"cd server && npm i\" \"cd client && npm i\""
