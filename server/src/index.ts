@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const port = process.env.PORT || 3001;
 const root = path.join(__dirname, "../../client/build");
 const mongoose = require('mongoose');
-const User = require('./models/user.ts');
+const User = require('./models/user');
 
 dotenv.config();
 
