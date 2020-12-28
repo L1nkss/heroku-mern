@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "nodemon src/index.ts",
     "start:prod": "node build/index.js",
     "build": "tsc"
   },
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.8",

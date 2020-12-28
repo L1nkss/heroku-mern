@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -12,7 +12,26 @@ const Home = () => {
 }
 
 const About = () => {
-    return <div>About Page</div>
+    const [users, setUsers] = useState<any[]>([]);
+
+    useEffect(() => {
+        console.log("Fetch запрос");
+        fetch('/user')
+            .then((response) => response.json())
+            .then((body) => setUsers(body.data))
+    }, []);
+
+    return (
+    <div>
+        <h1>About Page</h1>
+        {users?.map((user) => {
+            console.log(user);
+            return (
+                <div key={user._id}>{user.login}</div>
+            )
+        })}
+    </div>
+    )
 }
 
 

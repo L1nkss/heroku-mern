@@ -6,8 +6,9 @@
   "scripts": {
     "test-commit": "git add . && git commit -m 'test' && git push heroku master ",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:dev": "concurrently \"cd server && nodemon index.ts'\" \"npm run client\"",
+    "start:dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "cd client && npm run start",
+    "server": "cd server && npm run start",
     "start:prod": "cd server && node build/index.js",
     "build:client": "cd client && npm run build",
     "build:server": "cd server && npm run build",
