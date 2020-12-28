@@ -20,11 +20,9 @@ if (process.env.NODE_ENV === "production") {
 
 
 app.get('/user', async (req: any, res: any) => {
-    console.log("Запрос на сервер /user");
 
     try {
         const data = await User.find();
-        console.log("data", data)
         res.status(200);
         return res.json({data: data});
     } catch (e) {
@@ -44,7 +42,7 @@ async function start() {
             useCreateIndex: true
         });
 
-        console.log('МонгоДБ подключена')
+        console.log('MongoDB is connected')
     } catch (e) {
         console.log("Server Error", e);
         process.exit();
@@ -54,5 +52,5 @@ async function start() {
 start();
 
 app.listen(port, host, () => {
-    console.log('server works')
+    console.log('server starts')
 })
