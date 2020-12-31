@@ -3,8 +3,9 @@ const path = require("path");
 const router = express.Router();
 const usersRouter = require('./users');
 const authRouter = require('./authenticate');
-// const root = path.join(__dirname, "../../../client/build");
-const root = path.join(__dirname, "../../client/build");
+const root = path.join(__dirname, "../../../client/build");
+
+console.log("Путь к файлу в файле роутес.ts", root)
 
 // API routes
 router.use('/api/users', usersRouter)

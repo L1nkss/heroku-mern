@@ -14,6 +14,8 @@ const cookieParser = require('cookie-parser')
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
 
+console.log("Путь объект", routes)
+console.log("Путь к файлу в файле индекс", root)
 // Routes
 app.use(routes)
 
