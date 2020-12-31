@@ -16,9 +16,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-console.log("Путь объект", routes)
-console.log("Путь к файлу в файле индекс", root)
-
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(root));
 }
