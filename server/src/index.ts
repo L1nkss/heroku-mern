@@ -1,6 +1,5 @@
-// const express, { Application, } = require("express");
-import express, { Application, Request, Response, NextFunction } from 'express';
-const app: Application = express();
+import express from 'express';
+const app = express();
 const path = require("path");
 const dotenv = require('dotenv');
 const port: number = parseInt(`${process.env.PORT}`, 10) || 3001; // исправляем ошибку TS, если PORT - строка
