@@ -16,9 +16,7 @@ const About = () => {
 
     useEffect(() => {
         console.log("Fetch запрос");
-        fetch('/user')
-            .then((response) => response.json())
-            .then((body) => setUsers(body.data))
+        fetch('/api/users')
     }, []);
 
     return (
@@ -34,6 +32,56 @@ const About = () => {
     )
 }
 
+const Login = () => {
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        const { value, name } = evt.target;
+    
+        name === 'login' ? setLogin(value) : setPassword(value)
+    }
+
+    const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+
+        fetch('/api/authenticate', {
+            method: 'POST',
+            body: JSON.stringify({login, password}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((res) => {
+            console.log(res);
+        })
+
+    };
+
+    return (
+        <form onSubmit={onSubmit}>
+            <h1>Login Below!</h1>
+            <input
+            type="login"
+            name="login"
+            placeholder="Enter login"
+            value={login}
+            onChange={handleInputChange}
+            required
+            />
+            <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={handleInputChange}
+            required
+            />
+            <button type="submit">Логин</button>
+        </form>
+    )
+}
+
 
 const App = () => {
     return (
@@ -45,10 +93,16 @@ const App = () => {
                 <li>
                     <Link to="/about">About</Link>
                 </li>
+                <li>
+                    <Link to="/login">Login</Link>
+                </li>
             </nav>
             <Switch>
                 <Route path="/about">
                     <About />
+                </Route>
+                <Route path="/login">
+                    <Login />
                 </Route>
                 <Route path="/">
                     <Home />
