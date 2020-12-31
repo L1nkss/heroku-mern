@@ -13,17 +13,18 @@ dotenv.config();
 const cookieParser = require('cookie-parser')
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
+app.use(cookieParser());
+
 
 console.log("Путь объект", routes)
 console.log("Путь к файлу в файле индекс", root)
-// Routes
-app.use(routes)
-
-app.use(cookieParser());
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(root));
-  }
+}
+
+// Routes
+app.use(routes)
 
 async function start() {
     try {
