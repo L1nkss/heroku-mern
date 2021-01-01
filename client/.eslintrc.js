@@ -6,7 +6,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "react-hooks"],
   extends: [
-    "airbnb-typescript/base",
+    "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
