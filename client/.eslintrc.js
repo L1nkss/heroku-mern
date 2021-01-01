@@ -6,7 +6,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "react-hooks"],
   extends: [
-    "airbnb-typescript",
+    "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
@@ -16,6 +16,7 @@ module.exports = {
     "arrow-body-style": "off",
     "react/destructuring-assignment": "off",
     "no-plusplus": "off",
+    "import/extensions": "off",
     "max-len": ["error", { code: 150 }],
     "react/jsx-props-no-spreading": "off",
     "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
