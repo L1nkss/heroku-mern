@@ -1,0 +1,38 @@
+/* Инпут с поиском */
+
+.search {
+  position: relative;
+  cursor: pointer;
+  max-width: 300px;
+
+  &__input {
+    text-indent: 1em;
+    display: inline-block;
+    border: 0 none;
+    width: 0;
+    height: 3em;
+    border-radius: 3em;
+    transition: 0.3s;
+    outline: none;
+    padding: 1em 1.5em;
+    cursor: pointer;
+    vertical-align: baseline;
+    background-color: $orange-color;
+
+    &:focus {
+      width: 250px;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $white-color;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    pointer-events: none
+  }
+}

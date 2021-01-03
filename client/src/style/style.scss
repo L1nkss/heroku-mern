@@ -1,2 +1,8 @@
+// Различные хелперы
+@import "helpers/index";
+
 // Общие стили
 @import './common/common.scss';
+
+// Компоненты
+@import "./components/index";

@@ -1,0 +1,27 @@
+/* Меню навигации */
+
+.menu {
+  background-color: $light-grey;
+  text-align: left;
+  color: $light-orance;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    &--row {
+      flex-direction: row;
+    }
+  }
+
+  &__item {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid rgba($black-color,.125);
+    margin-bottom: -1px;
+
+    &--active {
+      border-left-color: $orange-color;
+    }
+  }
+}

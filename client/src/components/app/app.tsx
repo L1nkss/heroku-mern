@@ -1,8 +1,13 @@
 import React, { memo } from "react";
+import Header from "../header/header";
+import Main from "../main/main";
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <h1>Movie app</h1>
+    <div className="app">
+      <Header />
+      <Main />
+    </div>
   );
 };
 

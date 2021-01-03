@@ -1,0 +1,14 @@
+/* Стили для стилизации компонента content - где отрисовывается вся информация */
+
+.content {
+  flex-grow: 1;
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__header-menu {
+    margin-right: auto;
+  }
+}

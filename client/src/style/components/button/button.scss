@@ -1,0 +1,32 @@
+/* Кнопки */
+.button {
+  background-color: $white-color;
+  border: none;
+  color: $main-color;
+  font-weight: 700;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition: .3s;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    background-color: rgba($white-color, .9);
+  }
+
+  &--orange {
+    background-color: $main-color;
+    color: $white-color;
+
+    &:hover {
+      background-color: rgba($main-color, .9);
+    }
+  }
+
+  + .button {
+    margin-left: 12px;
+  }
+}

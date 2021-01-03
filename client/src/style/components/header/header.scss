@@ -1,0 +1,53 @@
+/* Хедер страниц */
+
+.header {
+  background-color: $main-bg-color;
+  min-height: 74px;
+
+  // Заголовок с названием
+  &__title {
+    color: $main-color;
+    margin-right: auto;
+  }
+
+  // Контент
+  &__content {
+    display: flex;
+    align-items: center;
+  }
+
+  // Хедер пользователя
+  &__user-menu {
+    color: $main-color;
+    position: relative;
+    min-width: 180px;
+    text-align: right;
+  }
+
+  // Имя пользователя
+  &__user-name {
+    cursor: pointer;
+
+    &:hover {
+      .header__dropdown {
+        display: block;
+      }
+    }
+  }
+
+  // Dropdown меню
+  &__dropdown {
+    min-width: 210px;
+    position: absolute;
+    right: 0;
+    display: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 5;
+
+    .menu__item {
+      &:hover {
+        opacity: .7;
+      }
+    }
+  }
+}

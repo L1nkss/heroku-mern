@@ -1,0 +1,6 @@
+/* Миксины */
+
+@mixin max-center-content {
+  max-width: $max-content-width;
+  margin: 0 auto;
+}

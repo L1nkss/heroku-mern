@@ -1,3 +1,18 @@
 /* Переменные */
-$main-bg-color: #262626; // Главный фоновый цвет
-$main-color: #ecdfbd // Главный цвет текста
+
+// цвета
+$main-bg-color: #1b1e2d; // Главный фоновый цвет
+$main-color: #ffad60; // Главный цвет текста
+$dark-grey: #343a40;
+$light-grey: #42474b;
+$white-color: #ffffff;
+$black-color: #000000;
+$grey-color: #42474b;
+$orange-color: #f06249;
+$light-orance: #ffad60;
+
+$content-background: $dark-grey; // цвет фона у контента
+
+
+// Размер
+$max-content-width: 1400px;
