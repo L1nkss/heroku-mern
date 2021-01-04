@@ -1,7 +1,9 @@
 import axios, { AxiosInstance } from "axios";
+import dotenv from "dotenv";
 import { BASE_URL } from "../constants/constants";
 
-const { REACT_APP_API_TOKEN } = process.env;
+// const { REACT_APP_API_TOKEN } = process.env;
+dotenv.config();
 
 class Api {
   private token: string | undefined;
@@ -42,5 +44,5 @@ class Api {
 
 export default new Api(
   BASE_URL,
-  REACT_APP_API_TOKEN,
+  process.env.REACT_APP_API_TOKEN,
 );
