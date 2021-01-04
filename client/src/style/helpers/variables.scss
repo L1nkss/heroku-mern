@@ -9,10 +9,19 @@ $white-color: #ffffff;
 $black-color: #000000;
 $grey-color: #42474b;
 $orange-color: #f06249;
-$light-orance: #ffad60;
-
+$light-orange: #ffad60;
 $content-background: $dark-grey; // цвет фона у контента
 
 
 // Размер
 $max-content-width: 1400px;
+
+
+
+// Переменные для Loader'a
+$offset: 187;
+$duration: 1.4s;
+
+// Прозрачность
+$menu-opacity: .125;
+$button-opacity: .9;

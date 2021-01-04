@@ -2,11 +2,14 @@
 
 .genre-list {
   max-width: 170px;
-  flex-grow: 1;
   margin-right: 16px;
+  align-self: baseline;
+  position: sticky;
+  top: 0;
+
 
   .menu__item {
-    &:hover {
+    &:hover:not(.menu__item--active) {
       border-left-color: rgba($orange-color, .5);
     }
   }

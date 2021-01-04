@@ -21,5 +21,6 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
     "react-hooks/exhaustive-deps": "warn", // Проверяем зависимости эффекта
+    "no-param-reassign": ["error", { props: false }],
   },
 };
