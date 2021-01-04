@@ -64,6 +64,8 @@ const genreSlice = createSlice({
   },
 });
 
-export const { getGenresRequest, getGenresSuccess, changeActiveGenre, changeCategory } = genreSlice.actions;
+export const {
+  getGenresRequest, getGenresSuccess, changeActiveGenre, changeCategory,
+} = genreSlice.actions;
 
 export default genreSlice.reducer;
