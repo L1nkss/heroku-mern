@@ -1,9 +1,43 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import Menu from "../menu/menu";
+import Popup from "../popup/popup";
+import LoginForm from "../loginForm/loginForm";
+import { IRootState } from "../../redux/reducers/types/types";
+import { setLoginStatus } from "../../redux/reducers/user/reducer";
 
+/*
+ todo
+ не очень красиво с formToShow, исправить по возможности выбор контента для Popup'a
+ */
 const Header: React.FC = () => {
-  const isLogin = false; // убрать после подключения БД
+  const dispatch = useDispatch();
+  const [showPopup, setShowPopup] = useState(false);
+  const [formToShow, setFormToShow] = useState("");
+  const isLogin = useSelector((state: IRootState) => state.user.isLogin);
+
+  const togglePopupStatus = () => {
+    setShowPopup((prevState) => !prevState);
+  };
+
+  const loginForm = () => {
+    return (
+      <form>
+        <div>
+          <input type="text" placeholder="Username" required />
+        </div>
+        <div>
+          <input type="password" placeholder="Password" required />
+        </div>
+      </form>
+    );
+  };
+  const toggleButtonsClick = () => {
+    if (formToShow === "login") return <LoginForm />;
+    return <></>;
+  };
   const userMenuActions = [
     {
       label: "Избранные фильмы",
@@ -17,15 +51,40 @@ const Header: React.FC = () => {
     },
     {
       label: "Выйти",
-      callback: () => console.log("Колбэк с выйти"),
+      callback: async () => {
+        try {
+          const response = await axios.post("/api/logout");
+          if (response.status === 200) dispatch(setLoginStatus(false));
+        } catch (e) {
+          console.log("Ошибка", e);
+        }
+      },
       key: 2,
     },
   ];
   const authButtons = useMemo(() => {
     return (
       <>
-        <button className="button" type="button">Логин</button>
-        <button className="button button--orange" type="button">Регистрация</button>
+        <button
+          className="button"
+          type="button"
+          onClick={() => {
+            setFormToShow("login");
+            togglePopupStatus();
+          }}
+        >
+          Логин
+        </button>
+        <button
+          className="button button--orange"
+          type="button"
+          onClick={() => {
+            setFormToShow("registration");
+            togglePopupStatus();
+          }}
+        >
+          Регистрация
+        </button>
       </>
     );
   }, []);
@@ -64,9 +123,10 @@ const Header: React.FC = () => {
           <Link to="/">The movie pet project</Link>
         </h1>
         <>
-          {isLogin ? authButtons : userProfile}
+          {isLogin ? userProfile : authButtons}
         </>
       </div>
+      { showPopup && <Popup closeClickCallback={togglePopupStatus}>{toggleButtonsClick()}</Popup>}
     </header>
   );
 };

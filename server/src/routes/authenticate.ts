@@ -13,7 +13,6 @@ router
     const { login, password } = req.body;
     UserSchema.findOne({ login }, (err: any, user: any) => {
       if (err) {
-        console.log("Error", err);
         res.status(500)
           .json({
             error: "Internal error please try again",
@@ -25,7 +24,6 @@ router
           });
       } else {
         user.isCorrectPassword(password, (error: any, same: any) => {
-          console.log(same);
           if (error) {
             res.status(500)
               .json({
@@ -42,7 +40,8 @@ router
               expiresIn: "1h",
             });
             res.cookie("token", token, { httpOnly: true })
-              .sendStatus(200);
+              .status(200)
+              .json({ user });
           }
         });
       }

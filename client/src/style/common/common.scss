@@ -41,3 +41,10 @@ h6 {
   @include max-center-content;
   padding: 16px;
 }
+
+// сообщение с ошибкой
+.error {
+  background-color: $error-background-color;
+  padding: 12px;
+  color: $white-color;
+}

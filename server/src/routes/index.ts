@@ -5,12 +5,21 @@ const path = require("path");
 const router = express.Router();
 const usersRouter = require("./users");
 const authRouter = require("./authenticate");
+const withAuth = require("./withAuth");
+const logout = require("./logout");
 
 const root = path.join(__dirname, "../../../client/build");
 
 // API routes
 router.use("/api/users", usersRouter);
 router.use("/api/authenticate", authRouter);
+router.use("/api/logout", logout);
+router.use("/api/test", withAuth, (req: Request, res: Response) => {
+  console.log("Тестовый роут");
+}); // тестовый роут
+router.use("/api/checkToken", withAuth, (req: Request, res: Response) => {
+  res.sendStatus(200);
+});
 
 // Если нет совпадений по запросу, отправлять React app
 router.use("*", (req: Request, res: Response) => {

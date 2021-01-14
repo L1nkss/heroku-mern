@@ -9,13 +9,15 @@ $white-color: #ffffff;
 $black-color: #000000;
 $grey-color: #42474b;
 $orange-color: #f06249;
+$orange-color-2: #e69e18;
 $light-orange: #ffad60;
 $content-background: $dark-grey; // цвет фона у контента
+$red-color: red;
+$green-color: #3bb33b;
 
 
 // Размер
 $max-content-width: 1400px;
-
 
 
 // Переменные для Loader'a
@@ -25,3 +27,32 @@ $duration: 1.4s;
 // Прозрачность
 $menu-opacity: .125;
 $button-opacity: .9;
+
+$transition-time: .6s; // время переходов
+
+
+/* Переменные для компонентов */
+
+// меню
+$menu-background-color: $light-grey;
+$menu-text-color: $light-orange;
+
+// хедер
+$header-background-color: $main-bg-color;
+
+// форма авторизации
+$input-background-color: $light-orange;
+
+// Ошибки
+$error-background-color: $red-color;
+
+// Карточка с фильмом
+$film-card-mheight: 320px;
+$film-card-background: #1b1e2d;
+$film-card-hover-shadow: 0 4px 8px rgba(38, 38, 38, 0.2);
+
+// Контейнер с фильмами
+$films-container-max-width: 320px;
+$films-container-min-width: 280px;
+$films-container-column-gap: 36px;
+$films-container-row-gap: 24px;

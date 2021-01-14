@@ -1,0 +1,40 @@
+/* Форма авторизации */
+
+.login-form {
+  padding: 18px;
+
+  &__input-wrapper {
+    position: relative;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__input {
+    padding: 10px 10px 10px 32px;
+    margin: 0;
+    border: 1px solid $input-background-color;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__icon-wrapper {
+    position: absolute;
+    width: 25px;
+    height: 39px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    background-color: $input-background-color;
+    color: $white-color;
+    border: 1px solid $input-background-color;
+  }
+
+  &__error {
+    margin-top: 8px;
+  }
+}

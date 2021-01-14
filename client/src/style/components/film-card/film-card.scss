@@ -1,0 +1,34 @@
+/* Карточка с краткой информацией о фильме */
+
+.film-card {
+  position: relative;
+  min-height: $film-card-mheight;
+  background-color: $film-card-background;
+  transition: all 0.5s ease-out;
+
+  &__wrapper {
+    padding: 12px;
+    color: $light-orange;
+  }
+
+  &__rating {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    padding: 10px;
+    border-radius: 50%;
+    color: $white-color;
+
+    &--medium {
+      background-color: $orange-color-2;
+    }
+
+    &--low {
+      background-color: $red-color;
+    }
+
+    &--high {
+      background-color: $green-color;
+    }
+  }
+}

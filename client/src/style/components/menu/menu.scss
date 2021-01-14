@@ -2,13 +2,13 @@
 
 .menu {
   text-align: left;
-  color: $light-orange;
+  color: $menu-text-color;
   padding: 12px 0;
 
   &__list {
     display: flex;
     flex-direction: column;
-    background-color: $light-grey;
+    background-color: $menu-background-color;
 
     &--row {
       flex-direction: row;

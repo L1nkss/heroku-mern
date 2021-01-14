@@ -1,0 +1,8 @@
+/* Контейнер с фильмами */
+
+.films {
+  display: grid;
+  grid-column-gap: $films-container-column-gap;
+  grid-row-gap: $films-container-row-gap;
+  grid-template-columns: repeat(auto-fit,minmax($films-container-min-width,$films-container-max-width));
+}

@@ -1,4 +1,6 @@
-import React, { memo, useCallback } from "react";
+import React, {
+  memo, useCallback, useEffect, useState,
+} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Menu from "../menu/menu";
 import { CONSTANT_GENRES } from "../../constants/constants";
@@ -6,16 +8,42 @@ import Search from "../search/search";
 import { IRootState } from "../../redux/reducers/types/types";
 import { isStringsEqual } from "../../utils/helpers";
 import { changeCategory } from "../../redux/reducers/genre/reducer";
-import { TCategory, TCategoryListItem } from "../../redux/reducers/genre/types/types";
+import { TCategoryListItem } from "../../redux/reducers/genre/types/types";
+import Films from "../films/films";
+import Loader from "../loader/loader";
+import { IClientFilmData } from "../../redux/reducers/films/types/types";
 
 const Content: React.FC = () => {
+  const [filmsToShow, setFilmsToShow] = useState<Array<IClientFilmData>>([]);
   const dispatch = useDispatch();
   const filmCategory = useSelector((state: IRootState) => state.genres.category);
   const activeGenre = useSelector((state: IRootState) => state.genres.active);
+  const isFilmLoading = useSelector((state: IRootState) => state.films.loading);
+  const films = useSelector((state: IRootState) => state.films.films);
+
   const handleCategoryClick = useCallback((category: TCategoryListItem) => {
     if (isStringsEqual(category.name, filmCategory)) return;
     dispatch(changeCategory(category.id));
   }, [filmCategory]);
+
+  useEffect(() => {
+    setFilmsToShow(films);
+  }, [films]);
+
+  const handleSearchInput = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+    if (evt.target.value === "") {
+      setFilmsToShow(films);
+      return;
+    }
+
+    const filterFilms = films.filter((film) => {
+      const filmTitle = film.title.toLowerCase();
+
+      return filmTitle.indexOf(evt.target.value.toLowerCase()) !== -1;
+    });
+
+    setFilmsToShow(filterFilms);
+  }, [films]);
   return (
     <div className="content">
       <div className="content__header">
@@ -34,7 +62,10 @@ const Content: React.FC = () => {
           />
           )
         }
-        <Search className="content__search" />
+        <Search className="content__search" callback={handleSearchInput} />
+      </div>
+      <div className="content__films">
+        { isFilmLoading ? <Loader /> : <Films films={filmsToShow} />}
       </div>
     </div>
   );

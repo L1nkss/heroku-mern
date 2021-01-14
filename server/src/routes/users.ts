@@ -11,7 +11,7 @@ router
       await UserSchema.findOneAndUpdate({ login: "testUser" }, { password: "1234sd11wwsss222zzzz" });
       res.status(200);
     } catch (e) {
-      console.log("Ошибка при получении данных:", e);
+
     }
   });
 

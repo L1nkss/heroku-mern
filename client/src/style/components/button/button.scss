@@ -23,6 +23,7 @@
     background-color: $main-color;
     color: $white-color;
 
+    &:focus,
     &:hover {
       background-color: rgba($main-color, $button-opacity);
     }
@@ -30,5 +31,10 @@
 
   + .button {
     margin-left: 12px;
+  }
+
+  // loader у кнопки
+  &--loading {
+
   }
 }
