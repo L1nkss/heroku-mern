@@ -1,6 +1,6 @@
 /* Форма авторизации */
 
-.login-form {
+.form {
   padding: 18px;
 
   &__input-wrapper {
@@ -12,7 +12,7 @@
   }
 
   &__input {
-    padding: 10px 10px 10px 32px;
+    padding: 10px 32px 10px 10px;
     margin: 0;
     border: 1px solid $input-background-color;
 
@@ -29,8 +29,9 @@
     justify-content: center;
     align-items: center;
     top: 0;
+    right: 0;
     background-color: $input-background-color;
-    color: $white-color;
+    color: $cl-white;
     border: 1px solid $input-background-color;
   }
 

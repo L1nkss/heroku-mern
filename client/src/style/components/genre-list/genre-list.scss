@@ -6,11 +6,12 @@
   align-self: baseline;
   position: sticky;
   top: 0;
+  padding: 12px;
 
 
   .menu__item {
     &:hover:not(.menu__item--active) {
-      border-left-color: rgba($orange-color, .5);
+      border-left-color: rgba($cl-orange-3, .5);
     }
   }
 }

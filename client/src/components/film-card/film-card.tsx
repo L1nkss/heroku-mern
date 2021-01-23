@@ -1,20 +1,24 @@
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
-import { IMAGE_URL } from "../../constants/constants";
+import { IMAGE_SIZE_URL, REGULARS } from "../../constants/constants";
 import { IRootState } from "../../redux/reducers/types/types";
 import { getRatingClass } from "../../utils/helpers";
 
+import noImage from "./images/no-image.png";
+import { IClientFilmData } from "../../redux/reducers/films/types/types";
+
 interface IFilmCardProps {
-  genreIds: Array<number>,
-  title: string,
-  rating: number,
-  poster: string,
+  data: Omit<IClientFilmData, "id">
 }
 
 const FilmCard = (props: IFilmCardProps) => {
   const {
-    genreIds, title, rating, poster,
-  } = props;
+    genreIds, title, voteAverage, backdropPath, releaseDate,
+  } = props.data;
+  const image = backdropPath ? `${IMAGE_SIZE_URL.SMALL}${backdropPath}` : noImage;
+
+  const date = releaseDate.match(REGULARS.SEARCH_YEAR);
+
   const allGenres = useSelector((state: IRootState) => state.genres.list);
 
   const getGenreNameById = () => {
@@ -29,15 +33,26 @@ const FilmCard = (props: IFilmCardProps) => {
   return (
     <div className="film-card">
       <div className="film-card__poster">
-        <img src={`${IMAGE_URL}${poster}`} alt={`Постер фильма ${title}`} width="100%" height="auto" />
+        <img className="film-card__image" src={image} alt={`Постер фильма ${title}`} width="100%" height="auto" />
       </div>
       <div className="film-card__wrapper">
-        <h3 className="film-card__title">{ title }</h3>
+        <h3 className="film-card__title">
+          { title }
+          {" "}
+          (
+          {date}
+          )
+        </h3>
         <p className="film-card__information">{getGenreNameById().join(" / ")}</p>
       </div>
-      <div className={`film-card__rating film-card__rating--${getRatingClass(rating)}`}>
-        {rating}
-      </div>
+      {
+        !!voteAverage
+        && (
+        <div className={`film-card__rating film-card__rating--${getRatingClass(voteAverage)}`}>
+          {voteAverage}
+        </div>
+        )
+      }
     </div>
   );
 };

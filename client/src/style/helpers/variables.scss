@@ -1,20 +1,28 @@
 /* Переменные */
 
 // цвета
-$main-bg-color: #1b1e2d; // Главный фоновый цвет
-$main-color: #ffad60; // Главный цвет текста
-$dark-grey: #343a40;
-$light-grey: #42474b;
-$white-color: #ffffff;
-$black-color: #000000;
-$grey-color: #42474b;
-$orange-color: #f06249;
-$orange-color-2: #e69e18;
-$light-orange: #ffad60;
-$content-background: $dark-grey; // цвет фона у контента
-$red-color: red;
-$green-color: #3bb33b;
 
+// Красный
+$cl-red-1: red;
+// Синий
+$cl-blue-1: #1b1e2d;
+// Оранженвый
+$cl-orange-1: #ffad60;
+$cl-orange-2: #f06249;
+$cl-orange-3: #e69e18;
+
+// Серый
+$cl-grey-1: #343a40;
+$cl-grey-2: #42474b;
+
+// Стандартные цвета
+$cl-white: #ffffff;
+$cl-black: #000000;
+$cl-green: #3bb33b;
+
+$main-bg-color: $cl-blue-1; // Главный фоновый цвет
+$main-color: $cl-orange-1; // Главный цвет текста
+$content-background: $cl-grey-1; // цвет фона у контента
 
 // Размер
 $max-content-width: 1400px;
@@ -34,17 +42,17 @@ $transition-time: .6s; // время переходов
 /* Переменные для компонентов */
 
 // меню
-$menu-background-color: $light-grey;
-$menu-text-color: $light-orange;
+$menu-background-color: $cl-grey-2;
+$menu-text-color: $cl-orange-1;
 
 // хедер
 $header-background-color: $main-bg-color;
 
 // форма авторизации
-$input-background-color: $light-orange;
+$input-background-color: $cl-orange-1;
 
 // Ошибки
-$error-background-color: $red-color;
+$error-background-color: $cl-red-1;
 
 // Карточка с фильмом
 $film-card-mheight: 320px;

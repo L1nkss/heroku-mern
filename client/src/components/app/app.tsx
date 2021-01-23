@@ -1,44 +1,53 @@
-import React, { memo, useEffect, useMemo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Header from "../header/header";
 import Main from "../main/main";
 import Loader from "../loader/loader";
 import { getGenresRequest } from "../../redux/reducers/genre/reducer";
-import { IRootState } from "../../redux/reducers/types/types";
-import { setLoginStatus } from "../../redux/reducers/user/reducer";
+import {
+  getUserDataRequest, getUserDataSuccess,
+} from "../../redux/reducers/user/reducer";
 import { getFilmsRequest } from "../../redux/reducers/films/reducer";
+import { ENDPOINTS } from "../../constants/constants";
+import { isFetchingDone } from "./selectors/selectors";
+import { ContentRoutes } from "../../routes/content";
 
 const App: React.FC = () => {
-  const isGenreLoading = useSelector((state: IRootState) => state.genres.loading);
-  const isFilmsLoading = useSelector((state: IRootState) => state.films.loading);
-  const isContentLoaded = useMemo(() => {
-    return !isGenreLoading && !isFilmsLoading; // проверяем, что жанры и фильмы загрузились
-  }, []);
+  const [isUserAuthChecked, setUserAuthStatus] = useState(false);
   const dispatch = useDispatch();
+  const isDataLoaded = useSelector(isFetchingDone);
+
   useEffect(() => {
     const checkAuthStatus = async () => {
+      dispatch(getUserDataRequest()); // загружаем информацию о пользователе
       try {
-        const response = await axios.get("/api/checkToken");
+        const response = await axios.get(ENDPOINTS.checkToken);
         if (response.status === 200) {
-          dispatch(setLoginStatus(true));
+          const { username, email, id } = response.data;
+          dispatch(getUserDataSuccess({ username, email, id }));
         }
       } catch (e) {
-        dispatch(setLoginStatus(false));
+        console.log("Ошибка при загрузке", e);
+      } finally {
+        setUserAuthStatus(true);
       }
     };
     dispatch(getGenresRequest()); // загружаем жанры
     dispatch(getFilmsRequest()); // Загружаем фильмы
     checkAuthStatus(); // проверяем статус авторизацияя
   }, []);
+
   return (
     <div className="app">
       {
-        isContentLoaded
+        // Проверяем, что данные загрузились с сервера и информация о пользователе получена
+        isDataLoaded && isUserAuthChecked
           ? (
             <>
               <Header />
-              <Main />
+              <ContentRoutes />
             </>
           )
           : <Loader />

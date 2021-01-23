@@ -4,3 +4,5 @@ export type TConstantGenres = {
   id: number,
   name: GenreName;
 };
+
+export type TRouteParams = { id: string };

@@ -1,7 +1,7 @@
 /* Кнопки */
 
 .button {
-  background-color: $white-color;
+  background-color: $cl-white;
   border: none;
   color: $main-color;
   font-weight: 700;
@@ -16,12 +16,12 @@
   &:focus,
   &:hover {
     outline: none;
-    background-color: rgba($white-color, $button-opacity);
+    background-color: rgba($cl-white, $button-opacity);
   }
 
   &--orange {
     background-color: $main-color;
-    color: $white-color;
+    color: $cl-white;
 
     &:focus,
     &:hover {

@@ -1,7 +1,8 @@
 import React, {
-  memo, useCallback, useEffect, useState,
+  memo, useCallback, useEffect, useState, useRef,
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import debounce from "lodash.debounce";
 import Menu from "../menu/menu";
 import { CONSTANT_GENRES } from "../../constants/constants";
 import Search from "../search/search";
@@ -12,13 +13,17 @@ import { TCategoryListItem } from "../../redux/reducers/genre/types/types";
 import Films from "../films/films";
 import Loader from "../loader/loader";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
+import { changeSearchStatus } from "../../redux/reducers/films/reducer";
 
 const Content: React.FC = () => {
   const [filmsToShow, setFilmsToShow] = useState<Array<IClientFilmData>>([]);
   const dispatch = useDispatch();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const filmCategory = useSelector((state: IRootState) => state.genres.category);
   const activeGenre = useSelector((state: IRootState) => state.genres.active);
+  const genreCategory = useSelector((state: IRootState) => state.genres.category);
   const isFilmLoading = useSelector((state: IRootState) => state.films.loading);
+  const isSearching = useSelector((state: IRootState) => state.films.isSearching);
   const films = useSelector((state: IRootState) => state.films.films);
 
   const handleCategoryClick = useCallback((category: TCategoryListItem) => {
@@ -28,11 +33,21 @@ const Content: React.FC = () => {
 
   useEffect(() => {
     setFilmsToShow(films);
+    // Если обновились фильмы, чистим строку поиска
+    if (searchInputRef?.current) {
+      dispatch(changeSearchStatus(false));
+    }
   }, [films]);
 
-  const handleSearchInput = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeGenre, genreCategory]);
+
+  // Используем debounce, чтобы не вызывать каждый поиск фильмов при вводе текста в строку поиска
+  const handleSearchInput = useCallback(debounce((evt: React.ChangeEvent<HTMLInputElement>) => {
     if (evt.target.value === "") {
       setFilmsToShow(films);
+      dispatch(changeSearchStatus(false));
       return;
     }
 
@@ -43,7 +58,11 @@ const Content: React.FC = () => {
     });
 
     setFilmsToShow(filterFilms);
-  }, [films]);
+
+    // Если находимся в поиске, то выходим из функции, либо диспатчим значение true
+    if (isSearching) return;
+    dispatch(changeSearchStatus(true));
+  }, 500), [films, isSearching]);
   return (
     <div className="content">
       <div className="content__header">
@@ -62,7 +81,7 @@ const Content: React.FC = () => {
           />
           )
         }
-        <Search className="content__search" callback={handleSearchInput} />
+        <Search className="content__search" callback={handleSearchInput} ref={searchInputRef} />
       </div>
       <div className="content__films">
         { isFilmLoading ? <Loader /> : <Films films={filmsToShow} />}

@@ -39,11 +39,21 @@ class Api {
     return this.init().get("/genre/movie/list");
   };
 
-  getFilms = (type: string) => {
-    return this.init().get(`/movie/${type}`);
+  getFilms = (type: string, params = {}) => {
+    return this.init().get(`/movie/${type}`, {
+      params,
+    });
   };
 
-  discoverFilms = (params: object) => {
+  getDetails = (id: string) => {
+    return this.init().get(`/movie/${id}`);
+  };
+
+  getReviews = (id:string) => {
+    return this.init().get(`/movie/${id}/reviews`);
+  };
+
+  discoverFilms = (params = {}) => {
     return this.init().get("/discover/movie", {
       params,
     });

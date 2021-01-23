@@ -7,11 +7,12 @@ import history from "./utils/history";
 
 import store from "./redux/store";
 import "./style/style.scss";
+import { AppRoutes } from "./routes/routes";
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <AppRoutes />
     </Router>
   </Provider>,
   document.getElementById("root"),

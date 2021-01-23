@@ -1,4 +1,6 @@
-// Сервеные данные по фильмам
+// Серверные данные по фильмам
+import {TGenre} from "../../genre/types/types";
+
 export interface IServerFilmData {
   adult: boolean,
   backdrop_path: string,
@@ -16,6 +18,7 @@ export interface IServerFilmData {
   vote_count: number
 }
 
+// Интерфейс информации о фильме
 export interface IClientFilmData {
   adult: boolean,
   backdropPath: string,
@@ -31,4 +34,20 @@ export interface IClientFilmData {
   video: boolean
   voteAverage: number
   voteCount: number
+}
+
+// Интерфейс для данных с сервера о подробной информации о фильме
+// Наследуемся от IServerFilmData, убираем поле genre_ids
+export interface IServerFilmDetails extends Omit<IServerFilmData, "genre_ids"> {
+  genres: Array<TGenre>,
+  budget: number,
+  runtime: number,
+  tagline: string,
+}
+
+export interface IClientFilmDetails extends Omit<IClientFilmData, "genreIds"> {
+  genres: Array<TGenre>,
+  budget: number,
+  runtime: number,
+  tagline: string,
 }

@@ -4,12 +4,14 @@ const {
 const bcrypt = require("bcrypt");
 
 export interface IUser extends Document {
-    login: string;
-    password: string;
+  username: string;
+  email: string;
+  password: string;
 }
 
 const UserSchema = new Schema({
-  login: { type: String, require: true, unique: true },
+  username: { type: String, require: true, unique: true },
+  email: { type: String, require: true, unique: true },
   password: { type: String, required: true },
 });
 

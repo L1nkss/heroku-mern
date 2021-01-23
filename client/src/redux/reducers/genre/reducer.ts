@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
-import { IGenres, TCategoryListItem } from "./types/types";
+import { IGenres, TCategoryListItem, TGenre } from "./types/types";
 
 const categoryList: Array<TCategoryListItem> = [
   {
@@ -24,10 +24,7 @@ const categoryList: Array<TCategoryListItem> = [
 const initialState: IGenres = {
   loading: false,
   error: false,
-  list: [{
-    id: 63467,
-    name: "All",
-  }],
+  list: [],
   active: "All",
   category: "Now playing", // катерогии фильмов при выборе жанра All
   categoryList,
@@ -41,17 +38,12 @@ const genreSlice = createSlice({
       state.loading = true;
       state.error = false;
     },
-    getGenresSuccess(state: IGenres, action: PayloadAction<Array<IGenres>>): void {
-      const newGenres = [...current(state.list)]; // берем текущий массив жанров
-      action.payload.forEach((element: any) => { // добавляем жанры с api
-        newGenres.push(element);
-      });
+    getGenresSuccess(state: IGenres, action: PayloadAction<TGenre[]>): void {
       state.loading = false;
-      state.list = newGenres;
+      state.list = action.payload;
     },
-    getGenresError(state): void {
-      state.error = true;
-      state.loading = false;
+    getGenresError(state) {
+      return { ...state, error: true, loading: false };
     },
     changeActiveGenre(state, action: PayloadAction<number>): void {
       const idx = current(state.list).findIndex((element) => element.id === action.payload);
@@ -65,7 +57,7 @@ const genreSlice = createSlice({
 });
 
 export const {
-  getGenresRequest, getGenresSuccess, changeActiveGenre, changeCategory,
+  getGenresRequest, getGenresSuccess, changeActiveGenre, changeCategory, getGenresError,
 } = genreSlice.actions;
 
 export default genreSlice.reducer;

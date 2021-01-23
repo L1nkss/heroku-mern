@@ -10,8 +10,8 @@ dotenv.config();
 router
   .route("/")
   .post(async (req: Request, res: Response) => {
-    const { login, password } = req.body;
-    UserSchema.findOne({ login }, (err: any, user: any) => {
+    const { email, password } = req.body;
+    UserSchema.findOne({ email }, (err: any, user: any) => {
       if (err) {
         res.status(500)
           .json({
@@ -35,13 +35,14 @@ router
                 error: "Incorrect email or password",
               });
           } else {
-            const payload = { login };
+            const payload = { email };
+            const { username, _id: id } = user;
             const token = jwt.sign(payload, process.env.SECRET_KEY, {
               expiresIn: "1h",
             });
             res.cookie("token", token, { httpOnly: true })
               .status(200)
-              .json({ user });
+              .json({ username, id, email });
           }
         });
       }

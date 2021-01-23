@@ -1,6 +1,25 @@
 export const RoutePathes = {
   ROOT: "/",
-  MOVIES: "/movies",
+  ERROR: "/error",
+  FILM_DETAILS: "/film-details",
+  NOT_FOUND: "/not-found",
+};
+
+export const ENDPOINTS = {
+  registration: "api/auth/signup",
+  login: "api/auth/signin",
+  checkToken: "/api/checkToken",
+};
+
+export const GENRE_TYPE_ALL = [
+  {
+    id: 63467,
+    name: "All",
+  },
+];
+
+export const REGULARS = {
+  SEARCH_YEAR: "^\\d{4}",
 };
 
 export const CONSTANT_GENRES = [
@@ -32,6 +51,11 @@ export const GENRES_TYPES_TO_SERVER = {
 
 const CORS_URL = "https://cors-anywhere.herokuapp.com/";
 
-export const IMAGE_URL = "https://image.tmdb.org/t/p/w342/";
+// export const IMAGE_URL = "https://image.tmdb.org/t/p/w342/";
+
+export const IMAGE_SIZE_URL = {
+  SMALL: "https://image.tmdb.org/t/p/w342/",
+  BIG: "https://image.tmdb.org/t/p/w1280/",
+};
 
 export const BASE_URL = "https://api.themoviedb.org/3";

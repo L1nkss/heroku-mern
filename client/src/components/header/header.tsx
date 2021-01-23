@@ -6,7 +6,8 @@ import Menu from "../menu/menu";
 import Popup from "../popup/popup";
 import LoginForm from "../loginForm/loginForm";
 import { IRootState } from "../../redux/reducers/types/types";
-import { setLoginStatus } from "../../redux/reducers/user/reducer";
+import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
+import RegisterForm from "../registerForm/registerForm";
 
 /*
  todo
@@ -17,25 +18,15 @@ const Header: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [formToShow, setFormToShow] = useState("");
   const isLogin = useSelector((state: IRootState) => state.user.isLogin);
+  const userName = useSelector((state: IRootState) => state.user.data.username);
 
   const togglePopupStatus = () => {
     setShowPopup((prevState) => !prevState);
   };
 
-  const loginForm = () => {
-    return (
-      <form>
-        <div>
-          <input type="text" placeholder="Username" required />
-        </div>
-        <div>
-          <input type="password" placeholder="Password" required />
-        </div>
-      </form>
-    );
-  };
   const toggleButtonsClick = () => {
-    if (formToShow === "login") return <LoginForm />;
+    if (formToShow === "login") return <LoginForm successCb={togglePopupStatus} />;
+    if (formToShow === "registration") return <RegisterForm successCb={togglePopupStatus} />;
     return <></>;
   };
   const userMenuActions = [
@@ -54,7 +45,9 @@ const Header: React.FC = () => {
       callback: async () => {
         try {
           const response = await axios.post("/api/logout");
-          if (response.status === 200) dispatch(setLoginStatus(false));
+          if (response.status === 200) {
+            dispatch(setUserDataToDefault());
+          }
         } catch (e) {
           console.log("Ошибка", e);
         }
@@ -93,7 +86,7 @@ const Header: React.FC = () => {
     return (
       <div className="header__user-menu">
         <h3 className="header__user-name">
-          userTest
+          {userName}
           <Menu
             className="header__dropdown"
             render={(className: string) => {
@@ -115,12 +108,16 @@ const Header: React.FC = () => {
         </h3>
       </div>
     );
-  }, []);
+  }, [userName]);
   return (
     <header className="header">
       <div className="content-wrapper header__content">
         <h1 className="header__title">
           <Link to="/">The movie pet project</Link>
+          <p className="header__source-link">
+            provided by
+            <a href="https://www.themoviedb.org/?language=en" rel="noreferrer" target="_blank"> TMD</a>
+          </p>
         </h1>
         <>
           {isLogin ? userProfile : authButtons}

@@ -1,4 +1,11 @@
+export type TUserData = {
+  username: string,
+  email: string,
+  id: string,
+};
+
 export interface IInitialUserState {
   isLogin: boolean;
-  data: any; // исправить
+  loading: boolean;
+  data: TUserData;
 }

@@ -31,11 +31,11 @@
   position: absolute;
   right: 6px;
   top: 6px;
-  color: $black-color;
+  color: $cl-black;
   font-size: 16px;
   transition: $transition-time;
 
   &:hover {
-    color: $light-orange;
+    color: $cl-orange-1;
   }
 }

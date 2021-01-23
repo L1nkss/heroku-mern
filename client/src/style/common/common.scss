@@ -1,6 +1,7 @@
 /* Общие стили проекта */
 html {
     box-sizing: border-box;
+    scroll-behavior: smooth;
   }
 
 *,
@@ -19,6 +20,10 @@ body {
     margin: 0;
     padding: 0;
     background-color: $content-background;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 a {
@@ -46,5 +51,5 @@ h6 {
 .error {
   background-color: $error-background-color;
   padding: 12px;
-  color: $white-color;
+  color: $cl-white;
 }

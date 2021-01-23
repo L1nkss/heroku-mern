@@ -1,4 +1,4 @@
-export type IGenre = {
+export type TGenre = {
   id: number,
   name: string,
 };
@@ -11,7 +11,7 @@ export type TCategoryListItem = {
 };
 
 export interface IGenres {
-  list: Array<IGenre>,
+  list: TGenre[],
   loading: boolean,
   error: boolean,
   active: string,

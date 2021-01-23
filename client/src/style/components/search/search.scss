@@ -17,7 +17,7 @@
     padding: 1em 1.5em;
     cursor: pointer;
     vertical-align: baseline;
-    background-color: $light-orange;
+    background-color: $cl-orange-1;
 
     &:focus {
       width: 250px;
@@ -25,14 +25,15 @@
 
     &:hover,
     &:focus {
-      background-color: $white-color;
+      background-color: $cl-white;
     }
   }
 
   &__icon {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    pointer-events: none
+    top: 13px;
+    left: 13px;
+    pointer-events: none;
+    font-size: 24px;
   }
 }

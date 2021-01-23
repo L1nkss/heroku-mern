@@ -22,5 +22,6 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
     "react-hooks/exhaustive-deps": "warn", // Проверяем зависимости эффекта
     "no-param-reassign": ["error", { props: false }],
+    "react/require-default-props": "off",
   },
 };

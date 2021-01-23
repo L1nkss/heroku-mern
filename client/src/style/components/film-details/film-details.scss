@@ -1,0 +1,22 @@
+/* Подробная информация о фильме */
+
+
+.film-details {
+  display: flex;
+
+  &__content {
+    margin-left: 36px;
+    flex-grow: 1;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    font-size: 24px;
+    color: $cl-red-1;
+    margin-left: auto;
+  }
+}

@@ -3,7 +3,6 @@
 .menu {
   text-align: left;
   color: $menu-text-color;
-  padding: 12px 0;
 
   &__list {
     display: flex;
@@ -14,8 +13,8 @@
       flex-direction: row;
 
       .menu__item--active {
-        border-bottom-color: $orange-color;
-        border-left-color: rgba($black-color, $menu-opacity);
+        border-bottom-color: $cl-orange-2;
+        border-left-color: rgba($cl-black, $menu-opacity);
       }
     }
   }
@@ -23,11 +22,11 @@
   &__item {
     padding: 8px 16px;
     cursor: pointer;
-    border: 1px solid rgba($black-color, $menu-opacity);
+    border: 1px solid rgba($cl-black, $menu-opacity);
     margin-bottom: -1px;
 
     &--active {
-      border-left-color: $orange-color;
+      border-left-color: $cl-orange-2;
     }
   }
 }
