@@ -7,7 +7,7 @@ import Main from "../main/main";
 import Loader from "../loader/loader";
 import { getGenresRequest } from "../../redux/reducers/genre/reducer";
 import {
-  getUserDataRequest, getUserDataSuccess,
+  getUserDataRequest, getUserDataSuccess, getUserDataNoUser,
 } from "../../redux/reducers/user/reducer";
 import { getFilmsRequest } from "../../redux/reducers/films/reducer";
 import { ENDPOINTS } from "../../constants/constants";
@@ -25,11 +25,17 @@ const App: React.FC = () => {
       try {
         const response = await axios.get(ENDPOINTS.checkToken);
         if (response.status === 200) {
-          const { username, email, id } = response.data;
-          dispatch(getUserDataSuccess({ username, email, id }));
+          const {
+            username, email, id, favoriteFilms,
+          } = response.data;
+          dispatch(getUserDataSuccess({
+            username, email, id, favoriteFilms,
+          }));
         }
       } catch (e) {
-        console.log("Ошибка при загрузке", e);
+        if (e.response.status === 401) {
+          dispatch(getUserDataNoUser());
+        }
       } finally {
         setUserAuthStatus(true);
       }

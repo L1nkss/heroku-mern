@@ -22,7 +22,6 @@ const LoginForm: React.FC<ILoginFormProps> = ({ successCb }: ILoginFormProps) =>
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setFormStatus((prevState) => ({ ...prevState, loading: true, error: false }));
-    console.log(data);
     try {
       const response = await axios.post(
         ENDPOINTS.login,

@@ -1,5 +1,5 @@
 // Серверные данные по фильмам
-import {TGenre} from "../../genre/types/types";
+import { TGenre } from "../../genre/types/types";
 
 export interface IServerFilmData {
   adult: boolean,

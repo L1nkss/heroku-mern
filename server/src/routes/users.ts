@@ -3,15 +3,31 @@ import express, { Request, Response } from "express";
 const router = express.Router();
 const UserSchema = require("../models/user");
 
-// Route 'api/users'
+// Route 'api/users/addToFavorite'
 router
-  .route("/")
-  .get(async (req: Request, res: Response) => {
+  .route("/addToFavorite")
+  .put(async (req: Request, res: Response) => {
     try {
-      await UserSchema.findOneAndUpdate({ login: "testUser" }, { password: "1234sd11wwsss222zzzz" });
-      res.status(200);
-    } catch (e) {
+      const { userID, ...data } = req.body;
+      const user = await UserSchema.findOne({ _id: userID });
+      const filmIndex = user.favoriteFilms.findIndex((element) => element.id === data.id);
+      const updateOptions = filmIndex !== -1
+        ? { $pull: { favoriteFilms: { id: data.id } } }
+        : { $push: { favoriteFilms: data } };
 
+      await UserSchema.findOneAndUpdate(
+        { _id: userID }, updateOptions,
+        { new: true },
+        (err, doc) => {
+          if (err) {
+            throw new Error();
+          }
+
+          res.status(200).send(doc.favoriteFilms);
+        },
+      );
+    } catch (e) {
+      console.log("Ошибка при добавлении фильма в избранное", e);
     }
   });
 

@@ -3,16 +3,23 @@ const {
 } = require("mongoose");
 const bcrypt = require("bcrypt");
 
+export type TUserFavoriteFilms = {
+  id: string,
+  backdropPath: string,
+}
+
 export interface IUser extends Document {
   username: string;
   email: string;
   password: string;
+  favoriteFilms: TUserFavoriteFilms[]
 }
 
 const UserSchema = new Schema({
   username: { type: String, require: true, unique: true },
   email: { type: String, require: true, unique: true },
   password: { type: String, required: true },
+  favoriteFilms: [],
 });
 
 // Перед обновлением записи, хешируем пароль
