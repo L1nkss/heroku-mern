@@ -15,7 +15,7 @@ router
         ? { $pull: { favoriteFilms: { id: data.id } } }
         : { $push: { favoriteFilms: data } };
 
-      await UserSchema.findOneAndUpdate(
+      UserSchema.findOneAndUpdate(
         { _id: userID }, updateOptions,
         { new: true },
         (err, doc) => {
@@ -23,6 +23,7 @@ router
             throw new Error();
           }
 
+          // console.log("after", doc);
           res.status(200).send(doc.favoriteFilms);
         },
       );

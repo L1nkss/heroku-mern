@@ -67,8 +67,6 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
       : <FaRegHeart onClick={() => handleFavoriteIconFilmClick()} className="film-details__icon" />;
   }, [authStatus, id, details, favoriteFilms]);
 
-  console.log(isFilmFavorite);
-
   if (isLoading) return <Loader />;
 
   return (
