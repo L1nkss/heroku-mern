@@ -20,7 +20,7 @@ router
       } else if (!user) {
         res.status(401)
           .json({
-            error: "Incorrect email or password",
+            error: "Incorrect email",
           });
       } else {
         user.isCorrectPassword(password, (error: any, same: any) => {
@@ -32,7 +32,7 @@ router
           } else if (!same) {
             res.status(401)
               .json({
-                error: "Incorrect email or password",
+                error: "Incorrect password",
               });
           } else {
             const payload = { email };
