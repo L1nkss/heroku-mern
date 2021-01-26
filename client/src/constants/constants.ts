@@ -41,6 +41,8 @@ export const CONSTANT_GENRES = [
   },
 ];
 
+export const YOUTUBE_LINK = "https://www.youtube.com/embed/";
+
 // список жанров для получения данных с сервера
 export const GENRES_TYPES_TO_SERVER = {
   [CONSTANT_GENRES[0].name]: "now_playing",

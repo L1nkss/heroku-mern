@@ -17,8 +17,6 @@ const FilmCard = (props: IFilmCardProps) => {
   } = props.data;
   const image = backdropPath ? `${IMAGE_SIZE_URL.SMALL}${backdropPath}` : noImage;
 
-  const date = releaseDate.match(REGULARS.SEARCH_YEAR);
-
   const allGenres = useSelector((state: IRootState) => state.genres.list);
 
   const getGenreNameById = () => {
@@ -39,9 +37,7 @@ const FilmCard = (props: IFilmCardProps) => {
         <h3 className="film-card__title">
           { title }
           {" "}
-          (
-          {date}
-          )
+          {releaseDate && `(${releaseDate.match(REGULARS.SEARCH_YEAR)})`}
         </h3>
         <p className="film-card__information">{getGenreNameById().join(" / ")}</p>
       </div>
