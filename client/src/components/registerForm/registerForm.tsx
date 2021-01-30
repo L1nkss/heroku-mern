@@ -1,5 +1,8 @@
 import React, { memo, useState } from "react";
 import axios from "axios";
+import { AiOutlineMail } from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { FiUser } from "react-icons/fi";
 import { ENDPOINTS } from "../../constants/constants";
 
 interface IRegisterFormProps {
@@ -45,33 +48,34 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
     <form className="form" onSubmit={handleFormSubmit}>
       <p>Регистрация</p>
       <div className="form__input-wrapper">
-        <input onChange={handleInputChange} name="username" className="form__input" type="text" placeholder="Username" />
+        <input required onChange={handleInputChange} name="username" className="form__input" type="text" placeholder="Username" />
         <span className="form__icon-wrapper">
-          <i className="fa fa-user" />
+          <FiUser />
         </span>
       </div>
       <div className="form__input-wrapper">
-        <input onChange={handleInputChange} name="email" className="form__input" type="email" placeholder="Email" />
+        <input required onChange={handleInputChange} name="email" className="form__input" type="email" placeholder="Email" />
         <span className="form__icon-wrapper">
-          <i className="fa fa-user" />
+          <AiOutlineMail />
         </span>
       </div>
       <div className="form__input-wrapper">
-        <input onChange={handleInputChange} name="password" className="form__input" type="text" placeholder="Password" />
+        <input required onChange={handleInputChange} name="password" className="form__input" type="text" placeholder="Password" />
         <span className="form__icon-wrapper">
-          <i className="fa fa-key" />
+          <RiLockPasswordLine />
         </span>
       </div>
       <div className="form__input-wrapper">
-        <input onChange={handleInputChange} name="password-repeat" className="form__input" type="text" placeholder="Repeat password" />
+        <input required onChange={handleInputChange} name="confirm_password" className="form__input" type="text" placeholder="Repeat password" />
         <span className="form__icon-wrapper">
-          <i className="fa fa-key" />
+          <RiLockPasswordLine />
         </span>
       </div>
       <button className="button button--orange" type="submit">
         {!formStatus.loading && "Войти"}
         {formStatus.loading && "Загружается"}
       </button>
+      {formStatus.error && <div className="error form__error">{formStatus.message}</div>}
     </form>
   );
 };

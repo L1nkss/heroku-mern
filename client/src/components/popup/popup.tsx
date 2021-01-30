@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, {
+  useMemo, memo, useEffect,
+} from "react";
+import ReactDOM from "react-dom";
 import { FiX } from "react-icons/fi";
 
 interface IPopupProps {
-  children: JSX.Element | React.ReactNode; // может возвращать как разметку, так и React Component
-  closeClickCallback: () => void;
+  children: JSX.Element;
+  handleCloseClick: () => void
 }
 
-const Popup: React.FC<IPopupProps> = ({ closeClickCallback, children }: IPopupProps) => {
+const modalContainer = document.getElementById("modal");
+
+const Popup: React.FC<IPopupProps> = ({ children, handleCloseClick }) => {
   // Добавляем overflow: hidden для body, чтобы нельзя было скроллить вниз, пока popup открыт
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -15,16 +20,20 @@ const Popup: React.FC<IPopupProps> = ({ closeClickCallback, children }: IPopupPr
       document.body.style.overflow = "unset";
     };
   }, []);
-  return (
-    <div className="popup">
-      <div className="popup__content">
-        <span role="presentation" className="popup__close-icon" onClick={closeClickCallback}>
-          <FiX />
-        </span>
-        {children}
+  const basicContainer = useMemo(() => {
+    return (
+      <div className="popup">
+        <div className="popup__content">
+          <span role="presentation" className="popup__close-icon" onClick={handleCloseClick}>
+            <FiX />
+          </span>
+          {children}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }, [children, handleCloseClick]);
+
+  return modalContainer ? ReactDOM.createPortal(basicContainer, modalContainer) : null;
 };
 
-export default Popup;
+export default memo(Popup);

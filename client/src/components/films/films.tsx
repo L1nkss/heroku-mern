@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import debounce from "lodash.debounce";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
 import FilmCard from "../film-card/film-card";
 import { IRootState } from "../../redux/reducers/types/types";
@@ -10,19 +11,21 @@ import { RoutePathes } from "../../constants/constants";
 
 interface IFilmsProps {
   className?: string
-  films: Array<IClientFilmData>
+  films: Array<IClientFilmData>,
+  isSearching: boolean | null,
 }
 
-const Films = ({ className, films }: IFilmsProps) => {
+const Films = ({ className, films, isSearching = false }: IFilmsProps) => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state: IRootState) => state.films.loadingAdditionFilms);
-  const isSearching = useSelector((state: IRootState) => state.films.isSearching);
+  // const isSearching = useSelector((state: IRootState) => state.films.isSearching);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(debounce(() => {
     if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && !isSearching && !isLoading) {
       dispatch(loadAdditionFilmsRequest());
     }
-  };
+  }, 500), [isSearching, isLoading]);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 

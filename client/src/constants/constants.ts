@@ -3,6 +3,8 @@ export const RoutePathes = {
   ERROR: "/error",
   FILM_DETAILS: "/film-details",
   NOT_FOUND: "/not-found",
+  REDIRECT_LOGIN: "/redirect-login",
+  USER_FAVORITE_FILMS: "/user-favorite-films",
 };
 
 export const ENDPOINTS = {

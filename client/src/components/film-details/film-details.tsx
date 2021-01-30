@@ -84,7 +84,6 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   }, [authStatus, id, details, favoriteFilms]);
 
   const trailers = useMemo(() => {
-    console.log(details);
     // const trailersToShow = details?.videos.splice(0, 3);
     return details?.videos
       .slice(0, 3)
