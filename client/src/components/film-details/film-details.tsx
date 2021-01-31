@@ -9,18 +9,28 @@ import axios from "axios";
 import moment from "moment";
 import { TRouteParams } from "../../constants/types/types";
 import api from "../../services/api";
-import FilmAdapter from "../../redux/reducers/films/utils/filmAdapter";
+import FilmAdapter from "../../utils/adapters/film";
+import ReviewsAdapter, { IClientReview } from "../../utils/adapters/reviews";
 import { addFavoriteFilm } from "../../redux/reducers/user/reducer";
 import Loader from "../loader/loader";
 import { IMAGE_SIZE_URL, YOUTUBE_LINK } from "../../constants/constants";
 import { IClientFilmDetails } from "../../redux/reducers/films/types/types";
 import { IRootState } from "../../redux/reducers/types/types";
+import ReviewList from "../review-list/review-list";
 
 type MyProps = RouteComponentProps<TRouteParams>;
 
+type TVideo = {
+  id: string;
+  key: string;
+  name: string;
+  site: string;
+};
+
 interface IFilmDetailsState {
   data: IClientFilmDetails,
-  videos: any,
+  videos: TVideo[],
+  reviews: IClientReview[]
 }
 
 const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
@@ -37,8 +47,13 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
     try {
       const response = await api.getDetails(id);
       const responseVideo = await api.getVideo(id);
+      const reviews = await api.getReviews(id);
       setDetails(
-        { data: FilmAdapter.transformFilmDetailsData(response.data), videos: responseVideo.data.results },
+        {
+          data: FilmAdapter.transformFilmDetailsData(response.data),
+          videos: responseVideo.data.results,
+          reviews: ReviewsAdapter.transformData(reviews.data.results),
+        },
       );
     } catch (e) {
       console.log("Ошибка при получении информации о фильме", e);
@@ -82,9 +97,9 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
       </div>
     );
   }, [authStatus, id, details, favoriteFilms]);
+  console.log(details);
 
   const trailers = useMemo(() => {
-    // const trailersToShow = details?.videos.splice(0, 3);
     return details?.videos
       .slice(0, 3)
       .map((video: any) => {
@@ -144,7 +159,7 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
               <span>Overview: </span>
               <p>{details?.data.overview}</p>
             </div>
-            { details?.videos.length > 0
+            { details?.videos && details?.videos.length > 0
             && (
             <div>
               <span>Trailers: </span>
@@ -153,6 +168,10 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
               </div>
             </div>
             )}
+            <>
+              <div>User Reviews: </div>
+              <ReviewList reviews={details?.reviews} />
+            </>
           </div>
         </div>
       </div>

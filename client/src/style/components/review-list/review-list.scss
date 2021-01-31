@@ -1,0 +1,10 @@
+.review-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    width: 300px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+}

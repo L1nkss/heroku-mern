@@ -1,4 +1,5 @@
-import { IClientFilmDetails, IServerFilmData, IServerFilmDetails } from "../types/types";
+import { IClientFilmDetails } from "../../redux/reducers/films/types/types";
+import { IServerFilmData, IServerFilmDetails } from "../../services/types/types";
 
 export default class FilmAdapter {
   static transformElement(element: IServerFilmData) {
