@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
 import FilmCard from "../film-card/film-card";
@@ -8,6 +7,7 @@ import { IRootState } from "../../redux/reducers/types/types";
 import Loader from "../loader/loader";
 import { loadAdditionFilmsRequest } from "../../redux/reducers/films/reducer";
 import { RoutePathes } from "../../constants/constants";
+import withLink from "../../utils/HOC/withLink";
 
 interface IFilmsProps {
   className?: string
@@ -18,7 +18,6 @@ interface IFilmsProps {
 const Films = ({ className, films, isSearching = false }: IFilmsProps) => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state: IRootState) => state.films.loadingAdditionFilms);
-  // const isSearching = useSelector((state: IRootState) => state.films.isSearching);
 
   const handleScroll = useCallback(debounce(() => {
     if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && !isSearching && !isLoading) {
@@ -36,8 +35,8 @@ const Films = ({ className, films, isSearching = false }: IFilmsProps) => {
 
   const createFilmsCards = useCallback(() => {
     return films.map((film: IClientFilmData) => {
-      const { id, ...props } = film;
-      return <Link key={film.id} to={`${RoutePathes.FILM_DETAILS}/${id}`}><FilmCard data={props} /></Link>;
+      const WrapperComponent = withLink(`${RoutePathes.FILM_DETAILS}/${film.id}`, FilmCard);
+      return <WrapperComponent data={film} />;
     });
   }, [films]);
   return (

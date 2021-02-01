@@ -13,10 +13,12 @@ import FilmAdapter from "../../utils/adapters/film";
 import ReviewsAdapter, { IClientReview } from "../../utils/adapters/reviews";
 import { addFavoriteFilm } from "../../redux/reducers/user/reducer";
 import Loader from "../loader/loader";
-import { IMAGE_SIZE_URL, YOUTUBE_LINK } from "../../constants/constants";
-import { IClientFilmDetails } from "../../redux/reducers/films/types/types";
+import { IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK } from "../../constants/constants";
+import { IClientFilmData, IClientFilmDetails } from "../../redux/reducers/films/types/types";
 import { IRootState } from "../../redux/reducers/types/types";
 import ReviewList from "../review-list/review-list";
+import FilmCard from "../film-card/film-card";
+import withLink from "../../utils/HOC/withLink";
 
 type MyProps = RouteComponentProps<TRouteParams>;
 
@@ -30,7 +32,8 @@ type TVideo = {
 interface IFilmDetailsState {
   data: IClientFilmDetails,
   videos: TVideo[],
-  reviews: IClientReview[]
+  reviews: IClientReview[],
+  recommendations: IClientFilmData[]
 }
 
 const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
@@ -47,12 +50,14 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
     try {
       const response = await api.getDetails(id);
       const responseVideo = await api.getVideo(id);
+      const responseRecommendations = await api.getRecommendations(id);
       const reviews = await api.getReviews(id);
       setDetails(
         {
           data: FilmAdapter.transformFilmDetailsData(response.data),
           videos: responseVideo.data.results,
           reviews: ReviewsAdapter.transformData(reviews.data.results),
+          recommendations: FilmAdapter.transformData(responseRecommendations.data.results),
         },
       );
     } catch (e) {
@@ -65,6 +70,13 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   useEffect(() => {
     getFilmDetailsData();
   }, [id]);
+
+  const filmRecommendations = useMemo(() => {
+    return details?.recommendations.slice(0, 3).map((element) => {
+      const WrapperComponent = withLink(`${RoutePathes.FILM_DETAILS}/${element.id}`, FilmCard);
+      return <WrapperComponent data={element} key={element.id} />;
+    });
+  }, [details, id]);
 
   const handleFavoriteIconFilmClick = useCallback(async () => {
     try {
@@ -156,20 +168,26 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
           </header>
           <div>
             <div>
-              <span>Overview: </span>
+              <h3>Overview: </h3>
               <p>{details?.data.overview}</p>
+            </div>
+            <div>
+              <h3>More You Might Like</h3>
+              <div className="films films--small">
+                {filmRecommendations}
+              </div>
             </div>
             { details?.videos && details?.videos.length > 0
             && (
             <div>
-              <span>Trailers: </span>
+              <h3>Trailers: </h3>
               <div className="film-details__trailer-list">
                 { trailers }
               </div>
             </div>
             )}
             <>
-              <div>User Reviews: </div>
+              <h3>User Reviews: </h3>
               <ReviewList reviews={details?.reviews} />
             </>
           </div>
