@@ -3,6 +3,23 @@ export const RoutePathes = {
   ERROR: "/error",
   FILM_DETAILS: "/film-details",
   NOT_FOUND: "/not-found",
+  REDIRECT_LOGIN: "/redirect-login",
+  USER_FAVORITE_FILMS: "/user-favorite-films",
+  CREDITS: "/credits",
+  ACTOR: "/actor",
+};
+
+// Получить изображение трейлера с youtube для трейлера
+export const getVideoThumbnail = (videoId: string, quality: "low" | "medium" | "high" | "max"): string => {
+  const qualityImage = {
+    low: "sddefault",
+    medium: "mqdefault",
+    high: "hqdefault",
+    max: "maxresdefault",
+  };
+  const IMG_URL = "http://img.youtube.com/vi/";
+
+  return `${IMG_URL}${videoId}/${qualityImage[quality]}.jpg`;
 };
 
 export const ENDPOINTS = {
@@ -40,6 +57,8 @@ export const CONSTANT_GENRES = [
     name: "Upcoming",
   },
 ];
+
+export const YOUTUBE_LINK = "https://www.youtube.com/embed/";
 
 // список жанров для получения данных с сервера
 export const GENRES_TYPES_TO_SERVER = {

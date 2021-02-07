@@ -13,7 +13,7 @@ const checkToken = require("./check-token");
 const root = path.join(__dirname, "../../../client/build");
 
 // API routes
-router.use("/api/users", usersRouter);
+router.use("/api/users", withAuth, usersRouter);
 router.use("/api/auth/signin", authRouter);
 router.use("/api/logout", logout);
 router.use("/api/auth/signup", registration);

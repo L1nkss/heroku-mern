@@ -20,7 +20,7 @@ router
       } else if (!user) {
         res.status(401)
           .json({
-            error: "Incorrect email or password",
+            error: "Incorrect email",
           });
       } else {
         user.isCorrectPassword(password, (error: any, same: any) => {
@@ -32,17 +32,19 @@ router
           } else if (!same) {
             res.status(401)
               .json({
-                error: "Incorrect email or password",
+                error: "Incorrect password",
               });
           } else {
             const payload = { email };
-            const { username, _id: id } = user;
+            const { username, favoriteFilms, _id: id } = user;
             const token = jwt.sign(payload, process.env.SECRET_KEY, {
               expiresIn: "1h",
             });
             res.cookie("token", token, { httpOnly: true })
               .status(200)
-              .json({ username, id, email });
+              .json({
+                username, id, email, favoriteFilms,
+              });
           }
         });
       }

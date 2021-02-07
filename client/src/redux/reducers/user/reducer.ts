@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 import { IInitialUserState, TUserData } from "./types/types";
+import { TUserFavoriteFilms } from "../../../../../server/src/models/user";
 
 const defaultUserData = {
   username: "",
   email: "",
   id: "",
+  favoriteFilms: [],
 };
 
 const initialState: IInitialUserState = {
@@ -37,11 +39,17 @@ const userSlice = createSlice({
     setLoginStatus(state: IInitialUserState, action: PayloadAction<boolean>) {
       return { ...state, isLogin: action.payload };
     },
+    getUserDataNoUser(state: IInitialUserState) {
+      return { ...state, loading: false };
+    },
+    addFavoriteFilm(state: IInitialUserState, action: PayloadAction<any>) {
+      return { ...state, data: { ...state.data, favoriteFilms: action.payload } };
+    },
   },
 });
 
 export const {
-  setUserData, setUserDataToDefault, setLoginStatus, getUserDataRequest, getUserDataSuccess,
+  setUserData, setUserDataToDefault, setLoginStatus, getUserDataRequest, getUserDataSuccess, getUserDataNoUser, addFavoriteFilm,
 } = userSlice.actions;
 
 export default userSlice.reducer;

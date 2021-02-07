@@ -10,13 +10,146 @@
   }
 
   &__header {
+    color: $cl-white;
+  }
+
+  &__image-container {
+    align-self: flex-start;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+    min-width: 320px;
+  }
+
+  &__image {
+    border: 1px solid $cl-white;
+    display: block;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  &__trailer-preview {
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__trailer-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+
+  &__title  {
+    font-size: 46px;
+  }
+
+  &__sub-header {
     display: flex;
-    align-items: center;
+    font-size: 12px;
+  }
+
+  &__info {
+    padding: 18px 0;
+  }
+
+  &__info-header {
+    margin-bottom: 12px;
+    color: $cl-white;
+  }
+
+  &__sub-header-item {
+    &:not(:first-child) {
+      list-style: disc;
+    }
+    &:not(:last-child) {
+      margin-right: 24px;
+    }
   }
 
   &__icon {
-    font-size: 24px;
-    color: $cl-red-1;
-    margin-left: auto;
+    font-size: 16px;
+    color: $cl-white;
+  }
+
+  &__trailer-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__trailer {
+    width: 650px;
+    height: 400px;
+    margin-bottom: 16px;
+
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+
+  &__iframe-trailer {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__genre-list {
+    display: flex;
+  }
+
+  &__genre {
+    background-color: $cl-blue-2;
+    color: $cl-white;
+    padding: 8px;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      background-color: rgba($cl-blue-2, .9);
+    }
+
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+  }
+
+  &__icon-container {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    border: 1px solid $cl-white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 15px;
+    border-top: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-color: hsla(0,0%,89.8%,.4);
+    transition: background-color .5s;
+
+    &:hover {
+      background-color: $cl-white;
+
+      .film-details__icon {
+        color: $cl-red-1;
+      }
+    }
+
+    &--favorite {
+      background-color: $cl-white;
+
+      .film-details__icon {
+        color: $cl-red-1;
+      }
+
+      &:hover {
+        background-color: hsla(0,0%,89.8%,.4);
+
+        .film-details__icon {
+          color: $cl-white;
+        }
+      }
+    }
   }
 }

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Menu from "../menu/menu";
-import Popup from "../popup/popup";
 import LoginForm from "../loginForm/loginForm";
 import { IRootState } from "../../redux/reducers/types/types";
 import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
 import RegisterForm from "../registerForm/registerForm";
+import Popup from "../popup/popup";
 
 /*
  todo
@@ -34,11 +34,6 @@ const Header: React.FC = () => {
       label: "Избранные фильмы",
       callback: () => console.log("Колбэк с фильмами"),
       key: 3,
-    },
-    {
-      label: "Настройки",
-      callback: () => console.log("Колбэк с настройкой"),
-      key: 1,
     },
     {
       label: "Выйти",
@@ -123,7 +118,7 @@ const Header: React.FC = () => {
           {isLogin ? userProfile : authButtons}
         </>
       </div>
-      { showPopup && <Popup closeClickCallback={togglePopupStatus}>{toggleButtonsClick()}</Popup>}
+      { showPopup && <Popup handleCloseClick={togglePopupStatus}>{toggleButtonsClick()}</Popup>}
     </header>
   );
 };

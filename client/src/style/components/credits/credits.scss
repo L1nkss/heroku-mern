@@ -1,0 +1,22 @@
+.credits {
+  position: relative;
+  display: grid;
+  grid-column-gap: 24px;
+  grid-row-gap: 24px;
+  grid-template-columns: repeat(auto-fit, 150px);
+
+  &__back-button {
+    position: absolute;
+    right: -75px;
+  }
+}
+
+.cast {
+  @include box-shadow-hover-card;
+
+  min-height: 300px;
+
+  &__image {
+    width: 100%;
+  }
+}

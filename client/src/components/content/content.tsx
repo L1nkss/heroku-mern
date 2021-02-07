@@ -13,7 +13,6 @@ import { TCategoryListItem } from "../../redux/reducers/genre/types/types";
 import Films from "../films/films";
 import Loader from "../loader/loader";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
-import { changeSearchStatus } from "../../redux/reducers/films/reducer";
 
 const Content: React.FC = () => {
   const [filmsToShow, setFilmsToShow] = useState<Array<IClientFilmData>>([]);
@@ -23,7 +22,6 @@ const Content: React.FC = () => {
   const activeGenre = useSelector((state: IRootState) => state.genres.active);
   const genreCategory = useSelector((state: IRootState) => state.genres.category);
   const isFilmLoading = useSelector((state: IRootState) => state.films.loading);
-  const isSearching = useSelector((state: IRootState) => state.films.isSearching);
   const films = useSelector((state: IRootState) => state.films.films);
 
   const handleCategoryClick = useCallback((category: TCategoryListItem) => {
@@ -33,10 +31,6 @@ const Content: React.FC = () => {
 
   useEffect(() => {
     setFilmsToShow(films);
-    // Если обновились фильмы, чистим строку поиска
-    if (searchInputRef?.current) {
-      dispatch(changeSearchStatus(false));
-    }
   }, [films]);
 
   useEffect(() => {
@@ -47,7 +41,6 @@ const Content: React.FC = () => {
   const handleSearchInput = useCallback(debounce((evt: React.ChangeEvent<HTMLInputElement>) => {
     if (evt.target.value === "") {
       setFilmsToShow(films);
-      dispatch(changeSearchStatus(false));
       return;
     }
 
@@ -58,11 +51,7 @@ const Content: React.FC = () => {
     });
 
     setFilmsToShow(filterFilms);
-
-    // Если находимся в поиске, то выходим из функции, либо диспатчим значение true
-    if (isSearching) return;
-    dispatch(changeSearchStatus(true));
-  }, 500), [films, isSearching]);
+  }, 500), [films]);
   return (
     <div className="content">
       <div className="content__header">
@@ -84,7 +73,9 @@ const Content: React.FC = () => {
         <Search className="content__search" callback={handleSearchInput} ref={searchInputRef} />
       </div>
       <div className="content__films">
-        { isFilmLoading ? <Loader /> : <Films films={filmsToShow} />}
+        { isFilmLoading
+          ? <Loader />
+          : <Films isSearching={searchInputRef.current && searchInputRef?.current.value !== ""} films={filmsToShow} />}
       </div>
     </div>
   );

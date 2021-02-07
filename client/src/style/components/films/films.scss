@@ -10,4 +10,8 @@
     position: relative;
     height: 120px;
   }
+
+  &--small {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 250px));
+  }
 }

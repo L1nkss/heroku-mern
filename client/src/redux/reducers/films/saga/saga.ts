@@ -8,7 +8,7 @@ import { changeCategory, changeActiveGenre } from "../../genre/reducer";
 import { IRootState } from "../../types/types";
 import { GENRES_TYPES_TO_SERVER } from "../../../../constants/constants";
 import api from "../../../../services/api";
-import FilmAdapter from "../utils/filmAdapter";
+import FilmAdapter from "../../../../utils/adapters/film";
 import { isStringsEqual } from "../../../../utils/helpers";
 
 const getActiveCategory = (state: IRootState) => state.genres.category;

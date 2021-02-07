@@ -1,0 +1,30 @@
+.review-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    width: 300px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+
+.review {
+  &__anchor {
+    color: $cl-white
+  }
+
+  &__date {
+    font-size: 12px;
+    margin: 0;
+  }
+
+  &__header {
+    margin-bottom: 12px;
+  }
+
+  &__author {
+    margin-bottom: 4px;
+  }
+}
