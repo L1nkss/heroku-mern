@@ -8,10 +8,16 @@ import noImage from "./images/no-image.png";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
 
 interface IFilmCardProps {
-  data: Omit<IClientFilmData, "id">
+  data: Omit<IClientFilmData, "id">,
+  size?: "small" | "default",
 }
 
-const FilmCard = (props: IFilmCardProps) => {
+const sizeClasses = {
+  small: "film-card--small",
+  default: "",
+};
+
+const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
   const {
     genreIds, title, voteAverage, backdropPath, releaseDate,
   } = props.data;
@@ -29,7 +35,7 @@ const FilmCard = (props: IFilmCardProps) => {
     return currentGenres;
   };
   return (
-    <div className="film-card">
+    <div className={`film-card ${sizeClasses[size]}`}>
       <div className="film-card__poster">
         <img className="film-card__image" src={image} alt={`Постер фильма ${title}`} width="100%" height="auto" />
       </div>

@@ -10,11 +10,11 @@ interface IReviewProps {
 const Review: React.FC<IReviewProps> = ({ review }: IReviewProps) => {
   return (
     <article className="review-list__item review" key={review.id}>
-      <header>
-        <h3>{review.author}</h3>
-        <p>{moment(review.create).format("MMMM D, YYYY")}</p>
+      <header className="review__header">
+        <h3 className="review__author">{review.author}</h3>
+        <p className="review__date">{moment(review.create).format("MMMM D, YYYY")}</p>
       </header>
-      <ShowMoreText lines={3} more="Show more" less="Show less">
+      <ShowMoreText anchorClass="review__anchor" lines={3} more="Show more" less="Show less">
         {review.content}
       </ShowMoreText>
     </article>

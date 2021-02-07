@@ -5,6 +5,21 @@ export const RoutePathes = {
   NOT_FOUND: "/not-found",
   REDIRECT_LOGIN: "/redirect-login",
   USER_FAVORITE_FILMS: "/user-favorite-films",
+  CREDITS: "/credits",
+  ACTOR: "/actor",
+};
+
+// Получить изображение трейлера с youtube для трейлера
+export const getVideoThumbnail = (videoId: string, quality: "low" | "medium" | "high" | "max"): string => {
+  const qualityImage = {
+    low: "sddefault",
+    medium: "mqdefault",
+    high: "hqdefault",
+    max: "maxresdefault",
+  };
+  const IMG_URL = "http://img.youtube.com/vi/";
+
+  return `${IMG_URL}${videoId}/${qualityImage[quality]}.jpg`;
 };
 
 export const ENDPOINTS = {

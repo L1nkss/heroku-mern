@@ -2,25 +2,33 @@ import React, {
   useCallback, useEffect, useMemo, useState,
 } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { FaRegHeart } from "react-icons/fa";
 import { AiFillHeart } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import moment from "moment";
+import { FaYoutube } from "react-icons/fa";
 import { TRouteParams } from "../../constants/types/types";
 import api from "../../services/api";
 import FilmAdapter from "../../utils/adapters/film";
 import ReviewsAdapter, { IClientReview } from "../../utils/adapters/reviews";
 import { addFavoriteFilm } from "../../redux/reducers/user/reducer";
 import Loader from "../loader/loader";
-import { IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK } from "../../constants/constants";
+import {
+  IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK, getVideoThumbnail,
+} from "../../constants/constants";
 import { IClientFilmData, IClientFilmDetails } from "../../redux/reducers/films/types/types";
 import { IRootState } from "../../redux/reducers/types/types";
 import ReviewList from "../review-list/review-list";
 import FilmCard from "../film-card/film-card";
 import withLink from "../../utils/HOC/withLink";
+import CreditsAdapter, { IClientCredits } from "../../utils/adapters/credits";
+import Credits from "../credits/credits";
+import history from "../../utils/history";
+import Popup from "../popup/popup";
+import { TGenre } from "../../redux/reducers/genre/types/types";
+import { changeActiveGenre } from "../../redux/reducers/genre/reducer";
 
-type MyProps = RouteComponentProps<TRouteParams>;
+export type MyProps = RouteComponentProps<TRouteParams>;
 
 type TVideo = {
   id: string;
@@ -33,11 +41,13 @@ interface IFilmDetailsState {
   data: IClientFilmDetails,
   videos: TVideo[],
   reviews: IClientReview[],
-  recommendations: IClientFilmData[]
+  recommendations: IClientFilmData[],
+  credits: IClientCredits[]
 }
 
 const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   const [details, setDetails] = useState<IFilmDetailsState>();
+  const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const userID = useSelector((state: IRootState) => state.user.data.id);
@@ -45,19 +55,26 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   const favoriteFilms = useSelector((state: IRootState) => state.user.data.favoriteFilms);
   const { id } = match.params;
 
+  const handlePopupClick = useCallback(() => {
+    setShowPopup((prevState) => !prevState);
+  }, [id]);
+
   const getFilmDetailsData = useCallback(async () => {
     setIsLoading(true);
     try {
+      // Получаем все нужные данные о фильме и записываем в state
       const response = await api.getDetails(id);
       const responseVideo = await api.getVideo(id);
       const responseRecommendations = await api.getRecommendations(id);
       const reviews = await api.getReviews(id);
+      const credits = await api.getCredits(id);
       setDetails(
         {
           data: FilmAdapter.transformFilmDetailsData(response.data),
           videos: responseVideo.data.results,
           reviews: ReviewsAdapter.transformData(reviews.data.results),
           recommendations: FilmAdapter.transformData(responseRecommendations.data.results),
+          credits: CreditsAdapter.transformData(credits.data.cast),
         },
       );
     } catch (e) {
@@ -74,7 +91,7 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   const filmRecommendations = useMemo(() => {
     return details?.recommendations.slice(0, 3).map((element) => {
       const WrapperComponent = withLink(`${RoutePathes.FILM_DETAILS}/${element.id}`, FilmCard);
-      return <WrapperComponent data={element} key={element.id} />;
+      return <WrapperComponent data={element} key={element.id} size="small" />;
     });
   }, [details, id]);
 
@@ -109,46 +126,155 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
       </div>
     );
   }, [authStatus, id, details, favoriteFilms]);
-  console.log(details);
 
-  const trailers = useMemo(() => {
-    return details?.videos
-      .slice(0, 3)
-      .map((video: any) => {
-        return (
-          <div className="film-details__trailer" key={video.id}>
-            <iframe className="film-details__iframe-trailer" allowFullScreen title="video" src={`${YOUTUBE_LINK}${video.key}`} frameBorder="0" />
-          </div>
-        );
-      });
-  }, [details, id]);
+  const handleGenreClick = useCallback((genre: TGenre) => {
+    dispatch(changeActiveGenre(genre.id));
+    history.push(RoutePathes.ROOT);
+  }, [id]);
 
-  const subHeader = useMemo(() => {
+  // Блоки с информацией о фильме
+
+  // Заголовок
+  const header = useMemo(() => {
     const data = [
       {
         id: 1,
         result: moment(details?.data.releaseDate).format("MMMM DD, YYYY"),
       },
       {
-        id: 2,
-        result: details?.data.genres.map((genre) => genre.name).join(", "),
-      },
-      {
         id: 3,
-        result: details?.data.runtime,
+        result: `${details?.data.runtime} min`,
       },
     ];
-
     return (
-      <ul className="film-details__sub-header">
-        {data.map((element) => {
-          return <li className="film-details__sub-header-item" key={element.id}>{element.result}</li>;
+      <header className="film-details__header">
+        <span className="film-details__title">{details?.data.title}</span>
+        <ul className="film-details__sub-header">
+          { data.map((element) => {
+            return <li className="film-details__sub-header-item" key={element.id}>{element.result}</li>;
+          })}
+        </ul>
+      </header>
+    );
+  }, [details]);
+
+  // Жанры фильма
+  const genres = useMemo(() => {
+    if (details?.data.genres.length === 0) return null;
+    return (
+      <ul className="film-details__genre-list">
+        { details?.data.genres.map((genre) => {
+          return <li className="film-details__genre" role="presentation" onClick={() => handleGenreClick(genre)}>{genre.name}</li>;
         })}
       </ul>
     );
   }, [details]);
 
+  // Описание фильма
+  const overview = useMemo(() => {
+    if (details?.data.overview.length === 0) return null;
+    return (
+      <>
+        <p>{details?.data.overview}</p>
+      </>
+    );
+  }, [details]);
+
+  // Актеры
+  const credits = useMemo(() => {
+    if (details?.credits.length === 0) return null;
+    return (
+      <div className="film-details__credits">
+        <Credits data={details?.credits.slice(0, 5)} />
+        <button
+          onClick={() => history.push(`${RoutePathes.CREDITS}/${id}`)}
+          className="button"
+          type="button"
+        >
+          Show more
+        </button>
+      </div>
+    );
+  }, [details]);
+
+  // Фильмы, которые возможно понравятся
+  const moreFilms = useMemo(() => {
+    if (filmRecommendations?.length === 0) return null;
+    /* todo Сделать как компонент Films с пропсом размер */
+    return (
+      <div className="films films--small">
+        {filmRecommendations}
+      </div>
+    );
+  }, [details]);
+
+  // Превьюшка трейлера под постером
+  const trailerPreview = useMemo(() => {
+    const imageSrc = details && getVideoThumbnail(details.videos[0].key, "max");
+    return (
+      <div role="presentation" className="film-details__trailer-preview" onClick={handlePopupClick}>
+        <img src={imageSrc} alt="Превью фильма" />
+        <button
+          type="button"
+          className="button button--icons film-details__trailer-button"
+        >
+          <FaYoutube className="button__icon" />
+          Show trailer
+        </button>
+      </div>
+    );
+  }, [details]);
+
+  // Данные по информации о фильме
+  const detailsInformation = useMemo(() => {
+    const data = [
+      {
+        id: 1,
+        result: genres,
+        header: "Genres",
+      },
+      {
+        id: 2,
+        result: overview,
+        header: "Overview",
+      },
+      {
+        id: 3,
+        result: credits,
+        header: "Credits",
+      },
+      {
+        id: 4,
+        result: moreFilms,
+        header: "More You Might Like",
+      },
+      {
+        id: 5,
+        result: <ReviewList reviews={details?.reviews} />,
+        header: "User Reviews",
+      },
+    ];
+
+    return data.map((element) => {
+      if (!element.result) return null;
+      return (
+        <div className="film-details__info" key={element.id}>
+          <h3 className="film-details__info-header">
+            {element.header}
+            {" "}
+            :
+          </h3>
+          { element.result }
+        </div>
+      );
+    });
+  }, [details]);
+
   if (isLoading) return <Loader />;
+
+  if (details) {
+    console.log(getVideoThumbnail(details?.videos[0].key, "max"));
+  }
 
   return (
     <section>
@@ -160,39 +286,29 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
             alt={`Постер фильма ${details?.data.title}`}
           />
           { isFilmFavorite }
+          { trailerPreview }
         </div>
         <div className="film-details__content">
-          <header className="film-details__header">
-            <h2>{details?.data.title}</h2>
-            { subHeader }
-          </header>
+          { header }
           <div>
-            <div>
-              <h3>Overview: </h3>
-              <p>{details?.data.overview}</p>
-            </div>
-            <div>
-              <h3>More You Might Like</h3>
-              <div className="films films--small">
-                {filmRecommendations}
-              </div>
-            </div>
-            { details?.videos && details?.videos.length > 0
-            && (
-            <div>
-              <h3>Trailers: </h3>
-              <div className="film-details__trailer-list">
-                { trailers }
-              </div>
-            </div>
-            )}
-            <>
-              <h3>User Reviews: </h3>
-              <ReviewList reviews={details?.reviews} />
-            </>
+            {detailsInformation}
           </div>
         </div>
       </div>
+      {/* Модальное окно с трейлером */}
+      {(showPopup && details?.videos.length) && (
+      <Popup handleCloseClick={handlePopupClick}>
+        <div className="film-details__trailer" key={details?.videos[0].id}>
+          <iframe
+            className="film-details__iframe-trailer"
+            allowFullScreen
+            title="video"
+            src={`${YOUTUBE_LINK}${details?.videos[0].key}`}
+            frameBorder="0"
+          />
+        </div>
+      </Popup>
+      )}
     </section>
   );
 };

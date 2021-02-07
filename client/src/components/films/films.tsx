@@ -36,7 +36,7 @@ const Films = ({ className, films, isSearching = false }: IFilmsProps) => {
   const createFilmsCards = useCallback(() => {
     return films.map((film: IClientFilmData) => {
       const WrapperComponent = withLink(`${RoutePathes.FILM_DETAILS}/${film.id}`, FilmCard);
-      return <WrapperComponent data={film} />;
+      return <WrapperComponent key={film.id} data={film} />;
     });
   }, [films]);
   return (

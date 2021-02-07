@@ -57,8 +57,12 @@ class Api {
     return this.init().get(`/movie/${id}/videos`);
   };
 
-  getRecommendations = (id:string) => {
+  getRecommendations = (id: string) => {
     return this.init().get(`movie/${id}/recommendations`);
+  };
+
+  getCredits = (id: string) => {
+    return this.init().get(`movie/${id}/credits`);
   };
 
   discoverFilms = (params = {}) => {

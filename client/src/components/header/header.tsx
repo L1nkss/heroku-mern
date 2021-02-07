@@ -36,11 +36,6 @@ const Header: React.FC = () => {
       key: 3,
     },
     {
-      label: "Настройки",
-      callback: () => console.log("Колбэк с настройкой"),
-      key: 1,
-    },
-    {
       label: "Выйти",
       callback: async () => {
         try {

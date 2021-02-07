@@ -34,3 +34,11 @@ export interface IServerReview {
   id: string;
   created_at: string;
 }
+
+// Актерский состав
+export interface IServerCredits {
+  id: string;
+  name: string;
+  profile_path: string;
+  character: string
+}
