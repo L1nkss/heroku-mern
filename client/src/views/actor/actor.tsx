@@ -4,7 +4,7 @@ import { TRouteParams } from "../../constants/types/types";
 
 export type MyProps = RouteComponentProps<TRouteParams>;
 
-const ActorPage = ({ match }: MyProps) => {
+const Actor = ({ match }: MyProps) => {
   return (
     <section>
       <div className="content-wrapper actor">
@@ -14,4 +14,4 @@ const ActorPage = ({ match }: MyProps) => {
   );
 };
 
-export default memo(ActorPage);
+export default memo(Actor);

@@ -1,13 +1,13 @@
 import React, {
   memo, useCallback, useEffect, useState,
 } from "react";
-import Credits from "../credits/credits";
+import Credits from "../../components/credits/credits";
 import { MyProps } from "../film-details/film-details";
 import api from "../../services/api";
-import Loader from "../loader/loader";
+import Loader from "../../components/loader/loader";
 import CreditsAdapter, { IClientCredits } from "../../utils/adapters/credits";
 
-const CreditPage: React.FC<MyProps> = ({ match }: MyProps) => {
+const CreditList: React.FC<MyProps> = ({ match }: MyProps) => {
   const [credits, setCredits] = useState<IClientCredits[]>();
   const [loading, setLoading] = useState(false);
   const { id } = match.params;
@@ -38,4 +38,4 @@ const CreditPage: React.FC<MyProps> = ({ match }: MyProps) => {
   );
 };
 
-export default memo(CreditPage);
+export default memo(CreditList);

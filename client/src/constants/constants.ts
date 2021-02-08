@@ -5,7 +5,7 @@ export const RoutePathes = {
   NOT_FOUND: "/not-found",
   REDIRECT_LOGIN: "/redirect-login",
   USER_FAVORITE_FILMS: "/user-favorite-films",
-  CREDITS: "/credits",
+  CREDITS: "/credit-list",
   ACTOR: "/actor",
 };
 

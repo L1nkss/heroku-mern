@@ -2,9 +2,9 @@ import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import Header from "../header/header";
-import Main from "../main/main";
-import Loader from "../loader/loader";
+import Header from "../../components/header/header";
+import Main from "../../components/main/main";
+import Loader from "../../components/loader/loader";
 import { getGenresRequest } from "../../redux/reducers/genre/reducer";
 import {
   getUserDataRequest, getUserDataSuccess, getUserDataNoUser,

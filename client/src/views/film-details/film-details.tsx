@@ -12,19 +12,19 @@ import api from "../../services/api";
 import FilmAdapter from "../../utils/adapters/film";
 import ReviewsAdapter, { IClientReview } from "../../utils/adapters/reviews";
 import { addFavoriteFilm } from "../../redux/reducers/user/reducer";
-import Loader from "../loader/loader";
+import Loader from "../../components/loader/loader";
 import {
   IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK, getVideoThumbnail,
 } from "../../constants/constants";
 import { IClientFilmData, IClientFilmDetails } from "../../redux/reducers/films/types/types";
 import { IRootState } from "../../redux/reducers/types/types";
-import ReviewList from "../review-list/review-list";
-import FilmCard from "../film-card/film-card";
+import ReviewList from "../../components/review-list/review-list";
+import FilmCard from "../../components/film-card/film-card";
 import withLink from "../../utils/HOC/withLink";
 import CreditsAdapter, { IClientCredits } from "../../utils/adapters/credits";
-import Credits from "../credits/credits";
+import Credits from "../../components/credits/credits";
 import history from "../../utils/history";
-import Popup from "../popup/popup";
+import Popup from "../../components/popup/popup";
 import { TGenre } from "../../redux/reducers/genre/types/types";
 import { changeActiveGenre } from "../../redux/reducers/genre/reducer";
 
