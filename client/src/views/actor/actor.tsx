@@ -1,10 +1,7 @@
 import React, { memo } from "react";
-import { RouteComponentProps } from "react-router-dom";
-import { TRouteParams } from "../../constants/types/types";
+import { RouteMatchProps } from "../../constants/types/types";
 
-export type MyProps = RouteComponentProps<TRouteParams>;
-
-const Actor = ({ match }: MyProps) => {
+const Actor = ({ match }: RouteMatchProps) => {
   return (
     <section>
       <div className="content-wrapper actor">

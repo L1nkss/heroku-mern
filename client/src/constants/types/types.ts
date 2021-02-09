@@ -1,8 +1,8 @@
+import { RouteComponentProps } from "react-router-dom";
+
 type GenreName = "Popular" | "Now playing" | "Top Rated" | "Upcoming";
 
-export type TConstantGenres = {
-  id: number,
-  name: GenreName;
-};
+type TRouteParams = { id: string };
 
-export type TRouteParams = { id: string };
+// Тип для роутинга с match
+export type RouteMatchProps = RouteComponentProps<TRouteParams>;

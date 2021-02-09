@@ -1,13 +1,12 @@
 import React, {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useEffect, useMemo, useRef, useState,
 } from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 import { FaYoutube } from "react-icons/fa";
-import { TRouteParams } from "../../constants/types/types";
+import { RouteMatchProps } from "../../constants/types/types";
 import api from "../../services/api";
 import FilmAdapter from "../../utils/adapters/film";
 import ReviewsAdapter, { IClientReview } from "../../utils/adapters/reviews";
@@ -28,8 +27,6 @@ import Popup from "../../components/popup/popup";
 import { TGenre } from "../../redux/reducers/genre/types/types";
 import { changeActiveGenre } from "../../redux/reducers/genre/reducer";
 
-export type MyProps = RouteComponentProps<TRouteParams>;
-
 type TVideo = {
   id: string;
   key: string;
@@ -45,7 +42,7 @@ interface IFilmDetailsState {
   credits: IClientCredits[]
 }
 
-const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
+const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const [details, setDetails] = useState<IFilmDetailsState>();
   const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
@@ -54,6 +51,7 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   const authStatus = useSelector((state: IRootState) => state.user.isLogin);
   const favoriteFilms = useSelector((state: IRootState) => state.user.data.favoriteFilms);
   const { id } = match.params;
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePopupClick = useCallback(() => {
     setShowPopup((prevState) => !prevState);
@@ -211,18 +209,29 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   // Превьюшка трейлера под постером
   const trailerPreview = useMemo(() => {
     const imageSrc = details && getVideoThumbnail(details.videos[0].key, "max");
+
     return (
-      <div role="presentation" className="film-details__trailer-preview" onClick={handlePopupClick}>
-        <img src={imageSrc} alt="Превью фильма" />
+      <div
+        role="presentation"
+        className="film-details__trailer-preview"
+      >
+        <img src={imageSrc} alt="Трейлер фильма" />
         <button
           type="button"
           className="button button--icons film-details__trailer-button"
         >
           <FaYoutube className="button__icon" />
-          Show trailer
+          Trailer
         </button>
       </div>
     );
+  }, [details]);
+
+  // Отзывы о фильме
+  const reviews = useMemo(() => {
+    if (details?.reviews.length === 0) return null;
+
+    return <ReviewList reviews={details?.reviews} />;
   }, [details]);
 
   // Данные по информации о фильме
@@ -250,7 +259,7 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
       },
       {
         id: 5,
-        result: <ReviewList reviews={details?.reviews} />,
+        result: reviews,
         header: "User Reviews",
       },
     ];
@@ -271,10 +280,6 @@ const FilmDetails: React.FC<MyProps> = ({ match }: MyProps) => {
   }, [details]);
 
   if (isLoading) return <Loader />;
-
-  if (details) {
-    console.log(getVideoThumbnail(details?.videos[0].key, "max"));
-  }
 
   return (
     <section>

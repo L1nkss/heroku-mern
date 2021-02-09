@@ -2,12 +2,12 @@ import React, {
   memo, useCallback, useEffect, useState,
 } from "react";
 import Credits from "../../components/credits/credits";
-import { MyProps } from "../film-details/film-details";
+import { RouteMatchProps } from "../../constants/types/types";
 import api from "../../services/api";
 import Loader from "../../components/loader/loader";
 import CreditsAdapter, { IClientCredits } from "../../utils/adapters/credits";
 
-const CreditList: React.FC<MyProps> = ({ match }: MyProps) => {
+const CreditList: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const [credits, setCredits] = useState<IClientCredits[]>();
   const [loading, setLoading] = useState(false);
   const { id } = match.params;
