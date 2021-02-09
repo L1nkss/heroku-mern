@@ -17,13 +17,13 @@ interface ICreditCardProps {
 
 // todo перенести в компонент
 export const CreditCard: React.FC<ICreditCardProps> = ({ data }: ICreditCardProps) => {
-  const personImage = data.profilePath ? `${IMAGE_SIZE_URL.SMALL}/${data.profilePath}` : noImage;
+  const personImage = data.profilePath ? `${IMAGE_SIZE_URL.BIG}/${data.profilePath}` : noImage;
   return (
     <div key={data.id} className="cast">
       <div className="cast__image">
         <img src={personImage} alt={`${data.name}`} />
       </div>
-      <div>
+      <div className="cast__wrapper">
         <h3>{data.name}</h3>
         <p>{data.character}</p>
       </div>
