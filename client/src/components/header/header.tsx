@@ -8,6 +8,8 @@ import { IRootState } from "../../redux/reducers/types/types";
 import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
 import RegisterForm from "../registerForm/registerForm";
 import Popup from "../popup/popup";
+import history from "../../utils/history";
+import { RoutePathes } from "../../constants/constants";
 
 /*
  todo
@@ -32,7 +34,7 @@ const Header: React.FC = () => {
   const userMenuActions = [
     {
       label: "Избранные фильмы",
-      callback: () => console.log("Колбэк с фильмами"),
+      callback: () => history.push(RoutePathes.USER_FAVORITE_FILMS),
       key: 3,
     },
     {

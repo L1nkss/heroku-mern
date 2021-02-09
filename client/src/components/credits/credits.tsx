@@ -35,7 +35,7 @@ const Credits: React.FC<ICreditsProps> = ({ data, showBackButton = false }: ICre
   const createCreditCards = useMemo(() => {
     return data?.map((element) => {
       const WrapperComponent = withLink(`${RoutePathes.ACTOR}/${element.id}`, CreditCard);
-      return <WrapperComponent data={element} />;
+      return <WrapperComponent key={element.id} data={element} />;
     });
   }, [data]);
   return (

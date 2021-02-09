@@ -22,8 +22,6 @@ router
           if (err) {
             throw new Error();
           }
-
-          // console.log("after", doc);
           res.status(200).send(doc.favoriteFilms);
         },
       );

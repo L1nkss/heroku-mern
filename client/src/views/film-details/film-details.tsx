@@ -51,7 +51,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const authStatus = useSelector((state: IRootState) => state.user.isLogin);
   const favoriteFilms = useSelector((state: IRootState) => state.user.data.favoriteFilms);
   const { id } = match.params;
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePopupClick = useCallback(() => {
     setShowPopup((prevState) => !prevState);
@@ -77,6 +76,10 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       );
     } catch (e) {
       console.log("Ошибка при получении информации о фильме", e);
+      // Если получили статус 404 при получении информации
+      if (e.response.status === 404) {
+        history.push(RoutePathes.NOT_FOUND);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -98,6 +101,10 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       const data = {
         id,
         backdropPath: details?.data?.backdropPath,
+        voteAverage: details?.data.voteAverage,
+        genreIds: details?.data.genres.map((element) => element.id),
+        releaseDate: details?.data.releaseDate,
+        title: details?.data.title,
         userID,
       };
       const response = await axios.put("/api/users/addToFavorite", data);
@@ -162,7 +169,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     return (
       <ul className="film-details__genre-list">
         { details?.data.genres.map((genre) => {
-          return <li className="film-details__genre" role="presentation" onClick={() => handleGenreClick(genre)}>{genre.name}</li>;
+          return <li key={genre.id} className="film-details__genre" role="presentation" onClick={() => handleGenreClick(genre)}>{genre.name}</li>;
         })}
       </ul>
     );
@@ -208,14 +215,16 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Превьюшка трейлера под постером
   const trailerPreview = useMemo(() => {
+    if (details?.videos.length === 0) return null;
     const imageSrc = details && getVideoThumbnail(details.videos[0].key, "max");
 
     return (
       <div
         role="presentation"
         className="film-details__trailer-preview"
+        onClick={handlePopupClick}
       >
-        <img src={imageSrc} alt="Трейлер фильма" />
+        { imageSrc && <img src={imageSrc} alt="Трейлер фильма" className="film-details__trailer" />}
         <button
           type="button"
           className="button button--icons film-details__trailer-button"
