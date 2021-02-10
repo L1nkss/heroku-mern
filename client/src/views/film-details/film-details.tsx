@@ -312,7 +312,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       {/* Модальное окно с трейлером */}
       {(showPopup && details?.videos.length) && (
       <Popup handleCloseClick={handlePopupClick}>
-        <div className="film-details__trailer" key={details?.videos[0].id}>
+        <div className="film-details__iframe-wrapper" key={details?.videos[0].id}>
           <iframe
             className="film-details__iframe-trailer"
             allowFullScreen
