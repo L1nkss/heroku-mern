@@ -54,9 +54,9 @@ const Header: React.FC = () => {
   ];
   const authButtons = useMemo(() => {
     return (
-      <>
+      <div>
         <button
-          className="button"
+          className="button button--ghost"
           type="button"
           onClick={() => {
             setFormToShow("login");
@@ -66,7 +66,7 @@ const Header: React.FC = () => {
           Логин
         </button>
         <button
-          className="button button--orange"
+          className="button"
           type="button"
           onClick={() => {
             setFormToShow("registration");
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
         >
           Регистрация
         </button>
-      </>
+      </div>
     );
   }, []);
 
@@ -116,9 +116,7 @@ const Header: React.FC = () => {
             <a href="https://www.themoviedb.org/?language=en" rel="noreferrer" target="_blank"> TMD</a>
           </p>
         </h1>
-        <>
-          {isLogin ? userProfile : authButtons}
-        </>
+        {isLogin ? userProfile : authButtons}
       </div>
       { showPopup && <Popup handleCloseClick={togglePopupStatus}>{toggleButtonsClick()}</Popup>}
     </header>

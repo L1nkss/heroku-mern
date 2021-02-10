@@ -7,8 +7,9 @@
 // Красный
 $cl-red-1: red;
 // Синий
-$cl-blue-1: #1b1e2d;
+$cl-blue-1: #0f62fe;
 $cl-blue-2: #2196f3;
+$cl-blue-3: #115293;
 // Оранженвый
 $cl-orange-1: #ffad60;
 $cl-orange-2: #f06249;
@@ -17,15 +18,16 @@ $cl-orange-3: #e69e18;
 // Серый
 $cl-grey-1: #343a40;
 $cl-grey-2: #42474b;
+$cl-grey-3: #fafafa;
 
 // Стандартные цвета
 $cl-white: #ffffff;
 $cl-black: #000000;
 $cl-green: #3bb33b;
 
-$main-bg-color: $cl-blue-1; // Главный фоновый цвет
+$main-bg-color: $cl-white; // Главный фоновый цвет
 $main-color: $cl-orange-1; // Главный цвет текста
-$content-background: $cl-grey-1; // цвет фона у контента
+$content-background: $cl-grey-3; // цвет фона у контента
 
 // Размер
 $max-content-width: 1400px;
@@ -49,7 +51,7 @@ $transition-time: .6s; // время переходов
 /* Переменные для компонентов */
 
 // меню
-$menu-background-color: $cl-grey-2;
+$menu-background-color: $cl-white;
 $menu-text-color: $cl-orange-1;
 
 // хедер

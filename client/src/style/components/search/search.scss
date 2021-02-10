@@ -9,31 +9,34 @@
     text-indent: 1em;
     display: inline-block;
     border: 0 none;
-    width: 0;
-    height: 3em;
+    width: 35px;
+    height: 35px;
     border-radius: 3em;
     transition: 0.3s;
     outline: none;
-    padding: 1em 1.5em;
     cursor: pointer;
     vertical-align: baseline;
     background-color: $cl-orange-1;
+    color: $cl-white;
 
     &:focus {
       width: 250px;
+      padding-left: 35px;
+      padding-right: 20px;
     }
 
     &:hover,
     &:focus {
-      background-color: $cl-white;
+      background-color: $cl-blue-3;
     }
   }
 
   &__icon {
     position: absolute;
-    top: 13px;
-    left: 13px;
+    top: 9px;
+    left: 9px;
     pointer-events: none;
-    font-size: 24px;
+    font-size: 20px;
+    color: $cl-white;
   }
 }

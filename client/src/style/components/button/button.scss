@@ -1,32 +1,38 @@
 /* Кнопки */
 
 .button {
-  background-color: $cl-white;
+  background-color: $cl-blue-1;
   border: none;
-  color: $main-color;
-  font-weight: 700;
-  padding: 8px 28px;
+  color: $cl-white;
+  font-weight: 400;
+  padding: 13px 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
   transition: .3s;
   cursor: pointer;
   position: relative;
+  border: 2px solid transparent;
 
   &:focus,
   &:hover {
     outline: none;
-    background-color: rgba($cl-white, $button-opacity);
+    background-color: #054ada;
   }
 
-  &--orange {
-    background-color: $main-color;
-    color: $cl-white;
+  &--ghost {
+    background-color: transparent;
+    color: $cl-blue-1;
 
-    &:focus,
-    &:hover {
-      background-color: rgba($main-color, $button-opacity);
+    &:hover,
+    &:active, {
+      background-color: #ECF2FF;
+    }
+
+    &:focus {
+      background-color: $cl-white;
+      border: 2px solid $cl-blue-1;
     }
   }
 

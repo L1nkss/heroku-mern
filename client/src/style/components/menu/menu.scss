@@ -11,22 +11,25 @@
 
     &--row {
       flex-direction: row;
-
-      .menu__item--active {
-        border-bottom-color: $cl-orange-2;
-        border-left-color: rgba($cl-black, $menu-opacity);
-      }
     }
   }
 
   &__item {
     padding: 8px 16px;
     cursor: pointer;
-    border: 1px solid rgba($cl-black, $menu-opacity);
-    margin-bottom: -1px;
+    min-height: 35px;
+    display: flex;
+    color: rgba(0, 0, 0, 0.87);
+    align-items: center;
+    transition: background-color .6s;
 
     &--active {
-      border-left-color: $cl-orange-2;
+      background-color: $cl-blue-3;
+      color: $cl-white;
+    }
+
+    &:hover:not(.menu__item--active) {
+      background-color: rgba($cl-blue-3, .87);
     }
   }
 }

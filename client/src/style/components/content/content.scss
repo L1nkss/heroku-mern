@@ -10,9 +10,9 @@
     align-items: center;
     position: sticky;
     top: 0;
-    background-color: $content-background;
-    min-height: 59px;
+    background-color: $cl-white;
     z-index: 10;
+    margin-bottom: 26px;
   }
 
   &__search {
@@ -20,7 +20,6 @@
   }
 
   &__films {
-    padding-top: 26px;
     flex-grow: 1;
     position: relative;
   }

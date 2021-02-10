@@ -1,5 +1,5 @@
 import React, {
-  memo, useCallback, useEffect, useState, useRef,
+  memo, useCallback, useEffect, useState, useRef, useMemo,
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
@@ -29,6 +29,25 @@ const Content: React.FC = () => {
     dispatch(changeCategory(category.id));
   }, [filmCategory]);
 
+  const contentHeader = useMemo(() => {
+    return activeGenre === "All"
+      ? (
+        <div className="content__header">
+          <Menu
+            direction="row"
+            render={(className: string) => {
+              return CONSTANT_GENRES.map((movie: any) => {
+                const isActive = isStringsEqual(movie.name, filmCategory);
+                const elementClass = `${className} ${isActive ? "menu__item--active" : ""}`;
+                return <li role="presentation" className={elementClass} key={movie.id} onClick={() => handleCategoryClick(movie)}>{movie.name}</li>;
+              });
+            }}
+          />
+        </div>
+      )
+      : null;
+  }, [activeGenre, handleCategoryClick]);
+
   useEffect(() => {
     setFilmsToShow(films);
   }, [films]);
@@ -54,24 +73,26 @@ const Content: React.FC = () => {
   }, 500), [films]);
   return (
     <div className="content">
-      <div className="content__header">
-        {
-          activeGenre === "All"
-          && (
-          <Menu
-            direction="row"
-            render={(className: string) => {
-              return CONSTANT_GENRES.map((movie: any) => {
-                const isActive = isStringsEqual(movie.name, filmCategory);
-                const elementClass = `${className} ${isActive ? "menu__item--active" : ""}`;
-                return <li role="presentation" className={elementClass} key={movie.id} onClick={() => handleCategoryClick(movie)}>{movie.name}</li>;
-              });
-            }}
-          />
-          )
-        }
-        <Search className="content__search" callback={handleSearchInput} ref={searchInputRef} />
-      </div>
+      {contentHeader}
+      {/* <div className="content__header"> */}
+      {/*  { */}
+      {/*    activeGenre === "All" */}
+      {/*    && ( */}
+      {/*    <Menu */}
+      {/*      direction="row" */}
+      {/*      render={(className: string) => { */}
+      {/*        return CONSTANT_GENRES.map((movie: any) => { */}
+      {/*          const isActive = isStringsEqual(movie.name, filmCategory); */}
+      {/*          const elementClass = `${className} ${isActive ? "menu__item--active" : ""}`; */}
+      {/* eslint-disable-next-line max-len */}
+      {/*          return <li role="presentation" className={elementClass} key={movie.id} onClick={() => handleCategoryClick(movie)}>{movie.name}</li>; */}
+      {/*        }); */}
+      {/*      }} */}
+      {/*    /> */}
+      {/*    ) */}
+      {/*  } */}
+      {/*  <Search className="content__search" callback={handleSearchInput} ref={searchInputRef} /> */}
+      {/* </div> */}
       <div className="content__films">
         { isFilmLoading
           ? <Loader />
