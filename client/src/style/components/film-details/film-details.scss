@@ -66,6 +66,11 @@
     }
   }
 
+  &__wrapper {
+    background-size: cover;
+    background-position: center top;
+  }
+
   &__icon {
     font-size: 16px;
     color: $cl-white;

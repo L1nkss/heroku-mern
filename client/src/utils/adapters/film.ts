@@ -1,4 +1,4 @@
-import { IClientFilmDetails } from "../../redux/reducers/films/types/types";
+import { IClientFilmData, IClientFilmDetails } from "../../redux/reducers/films/types/types";
 import { IServerFilmData, IServerFilmDetails } from "../../services/types/types";
 
 export default class FilmAdapter {
@@ -21,7 +21,7 @@ export default class FilmAdapter {
     };
   }
 
-  static transformData(data: Array<IServerFilmData>) {
+  static transformData(data: Array<IServerFilmData>): Array<IClientFilmData> {
     return data.map(this.transformElement);
   }
 

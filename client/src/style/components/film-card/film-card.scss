@@ -4,7 +4,7 @@
   @include box-shadow-hover-card;
 
   position: relative;
-  min-height: $film-card-mheight;
+  height: 100%;
   //background-color: $film-card-background;
   //transition: all 0.5s ease-out;
   //box-shadow: 0 1px 3px rgba($cl-black, 0.12), 0 1px 2px rgba($cl-black, 0.24);
@@ -28,8 +28,12 @@
   }
 
   &__poster {
-    height: 180px;
+    height: 158px;
     display: flex;
+  }
+
+  &__information {
+    font-size: 12px;
   }
 
   &__image {

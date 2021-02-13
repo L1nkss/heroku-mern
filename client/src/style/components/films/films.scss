@@ -5,6 +5,7 @@
   grid-column-gap: $films-container-column-gap;
   grid-row-gap: $films-container-row-gap;
   grid-template-columns: repeat(auto-fit,minmax($films-container-min-width,$films-container-max-width));
+  grid-template-rows: repeat(auto-fit, minmax(280px, 300px));
 
   &__loader {
     position: relative;
@@ -13,5 +14,6 @@
 
   &--small {
     grid-template-columns: repeat(auto-fit, minmax(220px, 250px));
+    grid-column-gap: 25px;
   }
 }

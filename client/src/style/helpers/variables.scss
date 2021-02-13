@@ -64,12 +64,12 @@ $input-background-color: $cl-orange-1;
 $error-background-color: $cl-red-1;
 
 // Карточка с фильмом
-$film-card-mheight: 320px;
+$film-card-mheight: 265px;
 $film-card-background: #1b1e2d;
 $film-card-hover-shadow: 0 4px 8px rgba(38, 38, 38, 0.2);
 
 // Контейнер с фильмами
-$films-container-max-width: 320px;
+$films-container-max-width: 280px;
 $films-container-min-width: 280px;
-$films-container-column-gap: 36px;
+$films-container-column-gap: 30px;
 $films-container-row-gap: 24px;

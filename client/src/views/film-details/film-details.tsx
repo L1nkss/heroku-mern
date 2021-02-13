@@ -90,7 +90,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   }, [id]);
 
   const filmRecommendations = useMemo(() => {
-    return details?.recommendations.slice(0, 3).map((element) => {
+    return details?.recommendations.map((element) => {
       const WrapperComponent = withLink(`${RoutePathes.FILM_DETAILS}/${element.id}`, FilmCard);
       return <WrapperComponent data={element} key={element.id} size="small" />;
     });
@@ -187,6 +187,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Актеры
   const credits = useMemo(() => {
+    return null; // временно
     if (details?.credits.length === 0) return null;
     return (
       <div className="film-details__credits">
@@ -218,6 +219,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     if (details?.videos.length === 0) return null;
     const imageSrc = details && getVideoThumbnail(details.videos[0].key, "max");
 
+    return null; // временно
     return (
       <div
         role="presentation"
@@ -238,6 +240,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Отзывы о фильме
   const reviews = useMemo(() => {
+    return null; // временно
     if (details?.reviews.length === 0) return null;
 
     return <ReviewList reviews={details?.reviews} />;
@@ -262,11 +265,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         header: "Credits",
       },
       {
-        id: 4,
-        result: moreFilms,
-        header: "More You Might Like",
-      },
-      {
         id: 5,
         result: reviews,
         header: "User Reviews",
@@ -289,26 +287,60 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   }, [details]);
 
   if (isLoading) return <Loader />;
-
+  // linear-gradient(rgba(52, 41, 49, 0.8), rgba(0, 0, 0, 0.85))
   return (
     <section>
-      <div className="content-wrapper film-details">
-        <div className="film-details__image-container">
-          <img
-            className="film-details__image"
-            src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`}
-            alt={`Постер фильма ${details?.data.title}`}
-          />
-          { isFilmFavorite }
-          { trailerPreview }
-        </div>
-        <div className="film-details__content">
-          { header }
-          <div>
-            {detailsInformation}
+      <div
+        className="film-details__wrapper"
+        style={
+          {
+            backgroundImage: (
+              `linear-gradient(rgba(52, 41, 49, 0.8), rgba(0, 0, 0, 0.85)),
+                url(${IMAGE_SIZE_URL.BIG}/${details?.data.backdropPath})`),
+            height: "700px",
+            width: "100%",
+          }
+        }
+      >
+        <div className="content-wrapper film-details">
+          <div className="film-details__image-container">
+            <img
+              className="film-details__image"
+              src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`}
+              alt={`Постер фильма ${details?.data.title}`}
+            />
+            { isFilmFavorite }
+            { trailerPreview }
+          </div>
+          <div className="film-details__content">
+            { header }
+            <div>
+              {detailsInformation}
+            </div>
           </div>
         </div>
       </div>
+      <div className="content-wrapper">
+        <h3>More films</h3>
+        {moreFilms}
+      </div>
+      {/* <div className="content-wrapper film-details"> */}
+      {/* <div className="film-details__image-container"> */}
+      {/*   <img */}
+      {/*     className="film-details__image" */}
+      {/*     src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`} */}
+      {/*     alt={`Постер фильма ${details?.data.title}`} */}
+      {/*   /> */}
+      {/*   { isFilmFavorite } */}
+      {/*   { trailerPreview } */}
+      {/* </div> */}
+      {/* <div className="film-details__content"> */}
+      {/*   { header } */}
+      {/*   <div> */}
+      {/*     {detailsInformation} */}
+      {/*   </div> */}
+      {/* </div> */}
+      {/* </div> */}
       {/* Модальное окно с трейлером */}
       {(showPopup && details?.videos.length) && (
       <Popup handleCloseClick={handlePopupClick}>

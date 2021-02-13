@@ -22,7 +22,6 @@
   &__user-menu {
     color: $main-color;
     position: relative;
-    min-width: 180px;
     text-align: right;
   }
 
@@ -42,6 +41,39 @@
         display: block;
       }
     }
+  }
+
+  // Dropdown у поиска
+  &__search-dropdown-item {
+    display: flex;
+    height: 60px;
+    padding: 10px 16px;
+
+    &:hover {
+      background-color: $cl-grey-3;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $cl-grey-3;
+    }
+  }
+
+  &__search {
+    margin-right: 16px;
+  }
+
+  &__search-dropdown {
+    z-index: 1000;
+  }
+
+  &__search-dropdown-image {
+    height: 100%;
+  }
+
+  &__search-dropdown-title {
+    margin-left: 16px;
+    font-size: 14px;
+    align-self: center;
   }
 
   // Dropdown меню
