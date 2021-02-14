@@ -9,6 +9,7 @@ import noImage from "./images/no-person.jpg";
 interface ICreditsProps {
   data: IClientCredits[] | undefined
   showBackButton?: boolean;
+  className?: string;
 }
 
 interface ICreditCardProps {
@@ -25,13 +26,13 @@ export const CreditCard: React.FC<ICreditCardProps> = ({ data }: ICreditCardProp
       </div>
       <div className="cast__wrapper">
         <h3>{data.name}</h3>
-        <p>{data.character}</p>
+        <p className="cast__name">{data.character}</p>
       </div>
     </div>
   );
 };
 
-const Credits: React.FC<ICreditsProps> = ({ data, showBackButton = false }: ICreditsProps) => {
+const Credits: React.FC<ICreditsProps> = ({ data, showBackButton = false, className = "" }: ICreditsProps) => {
   const createCreditCards = useMemo(() => {
     return data?.map((element) => {
       const WrapperComponent = withLink(`${RoutePathes.ACTOR}/${element.id}`, CreditCard);
@@ -39,7 +40,7 @@ const Credits: React.FC<ICreditsProps> = ({ data, showBackButton = false }: ICre
     });
   }, [data]);
   return (
-    <div className="credits">
+    <div className={`credits ${className}`}>
       { createCreditCards }
       { showBackButton && <BackHistory className="credits__back-button" /> }
     </div>

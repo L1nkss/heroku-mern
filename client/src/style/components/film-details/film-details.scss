@@ -10,7 +10,21 @@
   }
 
   &__header {
+    position: relative;
     color: $cl-white;
+  }
+
+  &__trailer {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  &__trailer-icon {
+    font-size: 32px;
+    display: block;
   }
 
   &__image-container {
@@ -28,19 +42,9 @@
     margin-bottom: 16px;
   }
 
-  &__trailer-preview {
-    position: relative;
-    cursor: pointer;
-  }
-
-  &__trailer-button {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-  }
-
   &__title  {
     font-size: 46px;
+    margin-bottom: 8px;
   }
 
   &__sub-header {
@@ -52,9 +56,27 @@
     padding: 18px 0;
   }
 
+  &__overview {
+    color: $cl-white;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
   &__info-header {
     margin-bottom: 12px;
     color: $cl-white;
+  }
+
+  &__credit-wrapper {
+    display: flex;
+  }
+
+  &__credits {
+    flex-grow: 1;
+  }
+
+  &__credits-more {
+    align-self: center;
   }
 
   &__sub-header-item {
@@ -75,16 +97,7 @@
     font-size: 16px;
     color: $cl-white;
   }
-
-  &__trailer-list {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  &__trailer {
-    width: 100%;
-  }
-
+  
   &__iframe-wrapper {
     width: 650px;
     height: 400px;

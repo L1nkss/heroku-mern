@@ -1,11 +1,10 @@
 import React, {
-  useCallback, useEffect, useMemo, useRef, useState,
+  useCallback, useEffect, useMemo, useState,
 } from "react";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineYoutube } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import moment from "moment";
-import { FaYoutube } from "react-icons/fa";
 import { RouteMatchProps } from "../../constants/types/types";
 import api from "../../services/api";
 import FilmAdapter from "../../utils/adapters/film";
@@ -13,7 +12,7 @@ import ReviewsAdapter, { IClientReview } from "../../utils/adapters/reviews";
 import { addFavoriteFilm } from "../../redux/reducers/user/reducer";
 import Loader from "../../components/loader/loader";
 import {
-  IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK, getVideoThumbnail,
+  IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK,
 } from "../../constants/constants";
 import { IClientFilmData, IClientFilmDetails } from "../../redux/reducers/films/types/types";
 import { IRootState } from "../../redux/reducers/types/types";
@@ -139,6 +138,21 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Блоки с информацией о фильме
 
+  // Иконка для просмотра трейлера
+  const trailerPreview = useMemo(() => {
+    if (details?.videos.length === 0) return null;
+
+    return (
+      <div
+        role="presentation"
+        className="film-details__trailer"
+        onClick={handlePopupClick}
+      >
+        <AiOutlineYoutube className="film-details__trailer-icon" />
+      </div>
+    );
+  }, [details]);
+
   // Заголовок
   const header = useMemo(() => {
     const data = [
@@ -153,15 +167,16 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     ];
     return (
       <header className="film-details__header">
-        <span className="film-details__title">{details?.data.title}</span>
+        <h2 className="film-details__title">{details?.data.title}</h2>
         <ul className="film-details__sub-header">
           { data.map((element) => {
             return <li className="film-details__sub-header-item" key={element.id}>{element.result}</li>;
           })}
         </ul>
+        { trailerPreview }
       </header>
     );
-  }, [details]);
+  }, [details, trailerPreview]);
 
   // Жанры фильма
   const genres = useMemo(() => {
@@ -179,22 +194,20 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const overview = useMemo(() => {
     if (details?.data.overview.length === 0) return null;
     return (
-      <>
-        <p>{details?.data.overview}</p>
-      </>
+      <p className="film-details__overview">{details?.data.overview}</p>
     );
   }, [details]);
 
   // Актеры
   const credits = useMemo(() => {
-    return null; // временно
+    // return null; // временно
     if (details?.credits.length === 0) return null;
     return (
-      <div className="film-details__credits">
-        <Credits data={details?.credits.slice(0, 5)} />
+      <div className="film-details__credit-wrapper">
+        <Credits data={details?.credits.slice(0, 5)} className="film-details__credits" />
         <button
           onClick={() => history.push(`${RoutePathes.CREDITS}/${id}`)}
-          className="button"
+          className="button film-details__credits-more"
           type="button"
         >
           Show more
@@ -210,30 +223,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     return (
       <div className="films films--small">
         {filmRecommendations}
-      </div>
-    );
-  }, [details]);
-
-  // Превьюшка трейлера под постером
-  const trailerPreview = useMemo(() => {
-    if (details?.videos.length === 0) return null;
-    const imageSrc = details && getVideoThumbnail(details.videos[0].key, "max");
-
-    return null; // временно
-    return (
-      <div
-        role="presentation"
-        className="film-details__trailer-preview"
-        onClick={handlePopupClick}
-      >
-        { imageSrc && <img src={imageSrc} alt="Трейлер фильма" className="film-details__trailer" />}
-        <button
-          type="button"
-          className="button button--icons film-details__trailer-button"
-        >
-          <FaYoutube className="button__icon" />
-          Trailer
-        </button>
       </div>
     );
   }, [details]);
@@ -287,7 +276,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   }, [details]);
 
   if (isLoading) return <Loader />;
-  // linear-gradient(rgba(52, 41, 49, 0.8), rgba(0, 0, 0, 0.85))
+
   return (
     <section>
       <div
@@ -297,7 +286,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
             backgroundImage: (
               `linear-gradient(rgba(52, 41, 49, 0.8), rgba(0, 0, 0, 0.85)),
                 url(${IMAGE_SIZE_URL.BIG}/${details?.data.backdropPath})`),
-            height: "700px",
+            minHeight: "700px",
             width: "100%",
           }
         }
@@ -310,7 +299,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
               alt={`Постер фильма ${details?.data.title}`}
             />
             { isFilmFavorite }
-            { trailerPreview }
           </div>
           <div className="film-details__content">
             { header }
@@ -324,23 +312,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         <h3>More films</h3>
         {moreFilms}
       </div>
-      {/* <div className="content-wrapper film-details"> */}
-      {/* <div className="film-details__image-container"> */}
-      {/*   <img */}
-      {/*     className="film-details__image" */}
-      {/*     src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`} */}
-      {/*     alt={`Постер фильма ${details?.data.title}`} */}
-      {/*   /> */}
-      {/*   { isFilmFavorite } */}
-      {/*   { trailerPreview } */}
-      {/* </div> */}
-      {/* <div className="film-details__content"> */}
-      {/*   { header } */}
-      {/*   <div> */}
-      {/*     {detailsInformation} */}
-      {/*   </div> */}
-      {/* </div> */}
-      {/* </div> */}
       {/* Модальное окно с трейлером */}
       {(showPopup && details?.videos.length) && (
       <Popup handleCloseClick={handlePopupClick}>
