@@ -5,26 +5,32 @@ import { AiFillHeart, AiOutlineYoutube } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import moment from "moment";
-import { RouteMatchProps } from "../../constants/types/types";
-import api from "../../services/api";
-import FilmAdapter from "../../utils/adapters/film";
-import ReviewsAdapter, { IClientReview } from "../../utils/adapters/reviews";
-import { addFavoriteFilm } from "../../redux/reducers/user/reducer";
-import Loader from "../../components/loader/loader";
+import { RouteMatchProps } from "../../../constants/types/types";
+import api from "../../../services/api";
+import FilmAdapter from "../../../utils/adapters/film";
+import ReviewsAdapter, { IClientReview } from "../../../utils/adapters/reviews";
+import { addFavoriteFilm } from "../../../redux/reducers/user/reducer";
+import Loader from "../../../components/loader/loader";
 import {
   IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK,
-} from "../../constants/constants";
-import { IClientFilmData, IClientFilmDetails } from "../../redux/reducers/films/types/types";
-import { IRootState } from "../../redux/reducers/types/types";
-import ReviewList from "../../components/review-list/review-list";
-import FilmCard from "../../components/film-card/film-card";
-import withLink from "../../utils/HOC/withLink";
-import CreditsAdapter, { IClientCredits } from "../../utils/adapters/credits";
-import Credits from "../../components/credits/credits";
-import history from "../../utils/history";
-import Popup from "../../components/popup/popup";
-import { TGenre } from "../../redux/reducers/genre/types/types";
-import { changeActiveGenre } from "../../redux/reducers/genre/reducer";
+} from "../../../constants/constants";
+import { IClientFilmData, IClientFilmDetails } from "../../../redux/reducers/films/types/types";
+import { IRootState } from "../../../redux/reducers/types/types";
+import ReviewList from "../../../components/review-list/review-list";
+import FilmCard from "../../../components/film-card/film-card";
+import withLink from "../../../utils/HOC/withLink";
+import CreditsAdapter, { IClientCredits } from "../../../utils/adapters/credits";
+import Credits from "../../../components/credits/credits";
+import history from "../../../utils/history";
+import Popup from "../../../components/popup/popup";
+import { TGenre } from "../../../redux/reducers/genre/types/types";
+import { changeActiveGenre } from "../../../redux/reducers/genre/reducer";
+import {
+  IDetailInformation,
+  renderDetailsInformations,
+  checkResultToUndefined,
+  IDetailsInformationInit,
+} from "../helpers/helpers";
 
 type TVideo = {
   id: string;
@@ -180,7 +186,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Жанры фильма
   const genres = useMemo(() => {
-    if (details?.data.genres.length === 0) return null;
+    if (details?.data.genres.length === 0) return undefined;
     return (
       <ul className="film-details__genre-list">
         { details?.data.genres.map((genre) => {
@@ -192,16 +198,16 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Описание фильма
   const overview = useMemo(() => {
-    if (details?.data.overview.length === 0) return null;
+    if (details?.data.overview.length === 0) return undefined;
     return (
-      <p className="film-details__overview">{details?.data.overview}</p>
+      <p className="film-details__info-text">{details?.data.overview}</p>
     );
   }, [details]);
 
   // Актеры
   const credits = useMemo(() => {
     // return null; // временно
-    if (details?.credits.length === 0) return null;
+    if (details?.credits.length === 0) return undefined;
     return (
       <div className="film-details__credit-wrapper">
         <Credits data={details?.credits.slice(0, 5)} className="film-details__credits" />
@@ -218,7 +224,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Фильмы, которые возможно понравятся
   const moreFilms = useMemo(() => {
-    if (filmRecommendations?.length === 0) return null;
+    if (filmRecommendations?.length === 0) return undefined;
     /* todo Сделать как компонент Films с пропсом размер */
     return (
       <div className="films films--small">
@@ -229,15 +235,15 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Отзывы о фильме
   const reviews = useMemo(() => {
-    return null; // временно
-    if (details?.reviews.length === 0) return null;
+    return undefined;
+    if (details?.reviews.length === 0) return undefined;
 
     return <ReviewList reviews={details?.reviews} />;
   }, [details]);
 
   // Данные по информации о фильме
-  const detailsInformation = useMemo(() => {
-    const data = [
+  const detailsInformation: IDetailInformation[] = useMemo<IDetailInformation[]>(() => {
+    const data: IDetailsInformationInit[] = [
       {
         id: 1,
         result: genres,
@@ -254,25 +260,13 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         header: "Credits",
       },
       {
-        id: 5,
+        id: 4,
         result: reviews,
         header: "User Reviews",
       },
     ];
 
-    return data.map((element) => {
-      if (!element.result) return null;
-      return (
-        <div className="film-details__info" key={element.id}>
-          <h3 className="film-details__info-header">
-            {element.header}
-            {" "}
-            :
-          </h3>
-          { element.result }
-        </div>
-      );
-    });
+    return data.filter(checkResultToUndefined);
   }, [details]);
 
   if (isLoading) return <Loader />;
@@ -303,7 +297,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
           <div className="film-details__content">
             { header }
             <div>
-              {detailsInformation}
+              {renderDetailsInformations(detailsInformation, "film-details")}
             </div>
           </div>
         </div>

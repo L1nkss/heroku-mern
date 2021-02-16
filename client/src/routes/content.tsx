@@ -1,11 +1,11 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { RoutePathes } from "../constants/constants";
-import FilmDetails from "../views/film-details/film-details";
+import FilmDetails from "../views/details/film/film-details";
 import Main from "../components/main/main";
 import PrivateRoute from "../components/private-route/private-route";
 import RedirectLogin from "../views/redirect-login/redirect-login";
 import CreditList from "../views/credit-list/credit-list";
-import Actor from "../views/actor/actor";
+import Actor from "../views/details/actor/actor";
 import UserFavoriteFilms from "../views/user-favorite-films/user-favorite-films";
 
 // eslint-disable-next-line import/prefer-default-export

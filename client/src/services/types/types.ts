@@ -42,3 +42,14 @@ export interface IServerCredits {
   profile_path: string;
   character: string
 }
+
+// Детальная информация о фильме
+export interface IServerActorDetails {
+  biography: string
+  birthday: string
+  deathday: string
+  id: number
+  name: string
+  place_of_birth: string
+  profile_path: string
+}

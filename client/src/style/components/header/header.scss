@@ -22,7 +22,6 @@
   &__user-menu {
     color: $main-color;
     position: relative;
-    text-align: right;
   }
 
   // Ссылка на источник
@@ -84,6 +83,30 @@
     display: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 15;
+    top: 33px;
+
+    //&::after,
+    //&::before {
+    //  border: solid transparent;
+    //  content: "";
+    //  position: absolute;
+    //  top: -22px;
+    //  right: -1px;
+    //}
+    //
+    //&::after {
+    //  border-color: rgba(213, 213, 213, 0);
+    //  border-bottom-color: $cl-white;
+    //  border-width: 11px;
+    //  margin-left: -10px;
+    //}
+    //
+    //&::before {
+    //  border-color: rgba(245, 0, 0, 0);
+    //  border-bottom-color: red;
+    //  border-width: 11px;
+    //  margin-left: -11px;
+    //}
 
     .menu__item {
       &:hover {

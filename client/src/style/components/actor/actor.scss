@@ -1,0 +1,14 @@
+.actor {
+  @include details-view-classes;
+
+  &__info {
+    &--row {
+      display: flex;
+
+      .actor__info-header {
+        margin-bottom: 0;
+        margin-right: 12px;
+      }
+    }
+  }
+}

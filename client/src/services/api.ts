@@ -63,6 +63,10 @@ class Api {
     });
   };
 
+  getPersonDetails = (id: string) => {
+    return this.init().get(`/person/${id}`);
+  };
+
   getRecommendations = (id: string) => {
     return this.init().get(`movie/${id}/recommendations`);
   };

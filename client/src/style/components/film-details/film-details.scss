@@ -2,17 +2,19 @@
 
 
 .film-details {
-  display: flex;
+  //display: flex;
 
-  &__content {
-    margin-left: 36px;
-    flex-grow: 1;
-  }
+  @include details-view-classes;
 
-  &__header {
-    position: relative;
-    color: $cl-white;
-  }
+  //&__content {
+  //  margin-left: 36px;
+  //  flex-grow: 1;
+  //}
+  //
+  //&__header {
+  //  position: relative;
+  //  color: $cl-white;
+  //}
 
   &__trailer {
     position: absolute;
@@ -27,34 +29,33 @@
     display: block;
   }
 
-  &__image-container {
-    align-self: flex-start;
-    position: relative;
-    max-width: 400px;
-    width: 100%;
-    min-width: 320px;
-  }
+  //&__image-container {
+  //  align-self: flex-start;
+  //  position: relative;
+  //  max-width: 400px;
+  //  width: 100%;
+  //  min-width: 320px;
+  //}
 
   &__image {
     border: 1px solid $cl-white;
     display: block;
     width: 100%;
-    margin-bottom: 16px;
   }
 
-  &__title  {
-    font-size: 46px;
-    margin-bottom: 8px;
-  }
+  //&__title  {
+  //  font-size: 46px;
+  //  margin-bottom: 8px;
+  //}
 
   &__sub-header {
     display: flex;
     font-size: 12px;
   }
 
-  &__info {
-    padding: 18px 0;
-  }
+  //&__info {
+  //  padding: 18px 0;
+  //}
 
   &__overview {
     color: $cl-white;
@@ -62,10 +63,10 @@
     margin-bottom: 0;
   }
 
-  &__info-header {
-    margin-bottom: 12px;
-    color: $cl-white;
-  }
+  //&__info-header {
+  //  margin-bottom: 12px;
+  //  color: $cl-white;
+  //}
 
   &__credit-wrapper {
     display: flex;
@@ -97,7 +98,7 @@
     font-size: 16px;
     color: $cl-white;
   }
-  
+
   &__iframe-wrapper {
     width: 650px;
     height: 400px;
