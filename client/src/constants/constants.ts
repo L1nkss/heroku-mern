@@ -1,3 +1,5 @@
+import { TDiscoverItem } from "../redux/reducers/genre/types/types";
+
 export const RoutePathes = {
   ROOT: "/",
   ERROR: "/error",
@@ -39,21 +41,21 @@ export const REGULARS = {
   SEARCH_YEAR: "^\\d{4}",
 };
 
-export const CONSTANT_GENRES = [
+export const CONSTANT_GENRES: TDiscoverItem[] = [
   {
-    id: 6542,
+    id: 6542003,
     name: "Now playing",
   },
   {
-    id: 5655,
+    id: 5655003,
     name: "Popular",
   },
   {
-    id: 6571,
+    id: 6571003,
     name: "Top Rated",
   },
   {
-    id: 7823,
+    id: 7823003,
     name: "Upcoming",
   },
 ];

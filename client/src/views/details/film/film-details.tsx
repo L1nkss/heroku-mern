@@ -24,7 +24,7 @@ import Credits from "../../../components/credits/credits";
 import history from "../../../utils/history";
 import Popup from "../../../components/popup/popup";
 import { TGenre } from "../../../redux/reducers/genre/types/types";
-import { changeActiveGenre } from "../../../redux/reducers/genre/reducer";
+import { changeActive } from "../../../redux/reducers/genre/reducer";
 import {
   IDetailInformation,
   renderDetailsInformations,
@@ -138,7 +138,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   }, [authStatus, id, details, favoriteFilms]);
 
   const handleGenreClick = useCallback((genre: TGenre) => {
-    dispatch(changeActiveGenre(genre.id));
+    dispatch(changeActive(genre.id));
     history.push(RoutePathes.ROOT);
   }, [id]);
 

@@ -3,6 +3,11 @@
 .menu {
   text-align: left;
   color: $menu-text-color;
+  background-color: $cl-white;
+
+  + .menu {
+    margin-top: 12px;
+  }
 
   &__list {
     display: flex;
@@ -12,6 +17,10 @@
     &--row {
       flex-direction: row;
     }
+  }
+
+  &__header {
+    padding: 8px;
   }
 
   &__item {

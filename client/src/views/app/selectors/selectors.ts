@@ -8,6 +8,6 @@ export const isFetchingDone = createSelector(
     const { list } = allState.genres;
     const { films } = allState.films;
     // Проверям, в массивах жанров и фильмов есть данные
-    return list.length && films.length;
+    // return list.length && films.length;
   },
 );

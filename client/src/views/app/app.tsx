@@ -49,14 +49,15 @@ const App: React.FC = () => {
     <div className="app">
       {
         // Проверяем, что данные загрузились с сервера и информация о пользователе получена
-        isDataLoaded && isUserAuthChecked
-          ? (
-            <>
-              <Header />
-              <ContentRoutes />
-            </>
-          )
-          : <Loader />
+        // isDataLoaded && isUserAuthChecked
+          true
+            ? (
+              <>
+                <Header />
+                <ContentRoutes />
+              </>
+            )
+            : <Loader />
       }
     </div>
   );

@@ -10,9 +10,9 @@ interface IFilmListProps {
 }
 
 const FilmList = ({ size = "normal" }: IFilmListProps) => {
-  const activeGenre = useSelector((state: IRootState) => state.genres.active);
-  const genreCategory = useSelector((state: IRootState) => state.genres.category);
-  console.log(activeGenre);
+  // const activeGenre = useSelector((state: IRootState) => state.genres.active);
+  // const genreCategory = useSelector((state: IRootState) => state.genres.category);
+  // console.log(activeGenre);
   const containerSize = useMemo(() => {
     let className = "";
 

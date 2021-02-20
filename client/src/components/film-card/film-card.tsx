@@ -26,15 +26,15 @@ const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
 
   const allGenres = useSelector((state: IRootState) => state.genres.list);
 
-  const getGenreNameById = () => {
-    const currentGenres = genreIds.map((currentGenre) => {
-      const idx = allGenres.findIndex((stateGenre) => stateGenre.id === currentGenre);
-
-      return allGenres[idx].name;
-    });
-
-    return currentGenres;
-  };
+  // const getGenreNameById = () => {
+  //   const currentGenres = genreIds.map((currentGenre) => {
+  //     const idx = allGenres.findIndex((stateGenre) => stateGenre.id === currentGenre);
+  //
+  //     return allGenres[idx].name;
+  //   });
+  //
+  //   return currentGenres;
+  // };
   return (
     <div className={`film-card ${sizeClasses[size]}`}>
       <div className="film-card__poster">
@@ -46,7 +46,7 @@ const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
           {" "}
           {releaseDate && `(${releaseDate.match(REGULARS.SEARCH_YEAR)})`}
         </h3>
-        <p className="film-card__information">{getGenreNameById().join(" / ")}</p>
+        {/* <p className="film-card__information">{getGenreNameById().join(" / ")}</p> */}
       </div>
       {
         !!voteAverage
