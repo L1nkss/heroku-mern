@@ -33,16 +33,20 @@
     margin-bottom: 0;
   }
 
-  &__credit-wrapper {
-    display: flex;
-  }
+  &__section {
+    + .film-details__section {
+      margin-top: 16px;
+    }
 
-  &__credits {
-    flex-grow: 1;
-  }
+    &-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
 
-  &__credits-more {
-    align-self: center;
+    &-title {
+      margin-right: auto;
+    }
   }
 
   &__sub-header-item {

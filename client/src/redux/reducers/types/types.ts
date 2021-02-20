@@ -1,4 +1,4 @@
-import { IGenres, IMovieGenres } from "../genre/types/types";
+import { IMovieGenres } from "../genre/types/types";
 import { IInitialUserState } from "../user/types/types";
 import { IFilmState } from "../films/reducer";
 

@@ -26,6 +26,7 @@
   &__header {
     position: relative;
     color: $cl-white;
+    margin-bottom: 12px;
   }
 
   &__content {
@@ -36,7 +37,7 @@
   &__image-container {
     align-self: flex-start;
     position: relative;
-    max-width: 400px;
+    max-width: 320px;
     width: 100%;
     min-width: 320px;
   }
@@ -47,17 +48,30 @@
   }
 
   &__info {
-    padding: 18px 0;
-  }
+    $name: &; // Задаем переменной name имя класса
+    padding: 8px 0;
 
-  &__info-header {
-    margin-bottom: 12px;
-    color: $cl-grey-4;
-  }
+    &-header {
+      margin-bottom: 12px;
+      color: $cl-grey-4;
+    }
 
-  &__info-text {
-    color: #ffffff;
-    line-height: 1.5;
-    margin: 0;
+    &-text {
+      color: $cl-white;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    // Модификатор для текста в строчку
+    &--row {
+      display: flex;
+      align-items: center;
+
+      // Используем переменную, чтобы установить значение для header'a в модификаторе
+      #{$name}-header {
+        margin-bottom: 0;
+        margin-right: 12px;
+      }
+    }
   }
 }

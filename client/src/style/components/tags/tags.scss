@@ -1,0 +1,16 @@
+.tags {
+  display: flex;
+
+  &__item {
+    border: 1px solid $cl-white;
+    color: $cl-white;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}

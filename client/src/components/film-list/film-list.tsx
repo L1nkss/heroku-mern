@@ -1,18 +1,27 @@
 import React, {
   memo, useMemo,
 } from "react";
-import { useSelector } from "react-redux";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
-import { IRootState } from "../../redux/reducers/types/types";
+import FilmCard from "../film-card/film-card";
+import { RoutePathes } from "../../constants/constants";
+import withLink from "../../utils/HOC/withLink";
 
 interface IFilmListProps {
   size?: "normal" | "small"
+  films: IClientFilmData[]
+  hasLink?: boolean
 }
 
-const FilmList = ({ size = "normal" }: IFilmListProps) => {
-  // const activeGenre = useSelector((state: IRootState) => state.genres.active);
-  // const genreCategory = useSelector((state: IRootState) => state.genres.category);
-  // console.log(activeGenre);
+const FilmList = ({ size = "normal", films, hasLink = true }: IFilmListProps) => {
+  const filmCards = useMemo(() => {
+    return films.map((element) => {
+      const { id, ...data } = element;
+      const WrapperElement = withLink(`${RoutePathes.FILM_DETAILS}/${id}`, FilmCard);
+
+      return <WrapperElement key={id} data={data} />;
+    });
+  }, [films]);
+
   const containerSize = useMemo(() => {
     let className = "";
 
@@ -31,7 +40,7 @@ const FilmList = ({ size = "normal" }: IFilmListProps) => {
   }, [size]);
   return (
     <div className={`film-list ${containerSize}`}>
-      <div>h</div>
+      {filmCards}
     </div>
   );
 };

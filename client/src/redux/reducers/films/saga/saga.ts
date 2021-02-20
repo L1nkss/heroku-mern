@@ -11,14 +11,6 @@ import api from "../../../../services/api";
 import FilmAdapter from "../../../../utils/adapters/film";
 import { isStringsEqual } from "../../../../utils/helpers";
 
-// const getActiveCategory = (state: IRootState) => state.genres.category;
-// const getActiveGenre = (state: IRootState) => state.genres.active;
-// const getActiveGenre = (state: IRootState) => state.genres.list.active;
-// const isActiveGenreDiscover = (state: IRootState) => {
-// //   const activeGenre = state.genres.list.active;
-// //   const discoverItems = state.genres.list.discover;
-// //   return discoverItems.some((element) => isStringsEqual(element.name, activeGenre));
-// // };
 const getTypeOfActiveGenre = (state: IRootState): string | number => {
   // Получаем активный жанр
   const activeGenre = state.genres.list.active;
@@ -36,19 +28,12 @@ const getTypeOfActiveGenre = (state: IRootState): string | number => {
   // возвращаем ID жанра
   return allGenres[idx].id;
 };
-// const getActiveGenreId = (state: IRootState) => {
-//   const allGenres = state.genres.list;
-//   const activeGenre = state.genres.active;
-//   const idx = allGenres.findIndex((genre) => isStringsEqual(genre.name, activeGenre));
-//
-//   return allGenres[idx].id;
-// };
 
 const getTotalPages = (state: IRootState) => state.films.totalPages;
 const getCurrentPage = (state: IRootState) => state.films.page;
 
 // Сага для запуска обновления фильмов, если изменился жанр
-function* getFilmsWhenGenreUpdated() {
+function* updateFilmList() {
   try {
     yield put(getFilmsRequest());
   } catch (e) {
@@ -58,29 +43,24 @@ function* getFilmsWhenGenreUpdated() {
 
 // Сага для загрузки большего количество фильмов
 function* getAdditionFilms() {
-  // try {
-  //   let response;
-  //   const totalPages = yield select(getTotalPages);
-  //   const currentPage = yield select(getCurrentPage);
-  //   const activeGenre = yield select(getActiveGenre);
-  //
-  //   if (currentPage + 1 <= totalPages) {
-  //     if (isStringsEqual(activeGenre, "all")) {
-  //       const activeCategory = yield select(getActiveCategory);
-  //       response = yield call(api.getFilms, GENRES_TYPES_TO_SERVER[activeCategory], {
-  //         page: currentPage + 1,
-  //       });
-  //     } else {
-  //       const activeGenreId = yield select(getActiveGenreId);
-  //       response = yield call(api.discoverFilms, { with_genres: activeGenreId, page: currentPage + 1 });
-  //     }
-  //     yield put(loadAdditionFilmsSuccess({
-  //       films: FilmAdapter.transformData(response.data.results),
-  //     }));
-  //   }
-  // } catch (e) {
-  //   yield console.log("error", e);
-  // }
+  try {
+    const totalPages = yield select(getTotalPages);
+    const currentPage = yield select(getCurrentPage);
+    const activeGenre = yield select(getTypeOfActiveGenre);
+
+    if (currentPage + 1 <= totalPages) {
+      const param = { page: currentPage + 1 };
+      const response = (typeof activeGenre === "string")
+        ? yield call(api.getFilms, GENRES_TYPES_TO_SERVER[activeGenre], param)
+        : yield call(api.discoverFilms, { with_genres: activeGenre, ...param });
+
+      yield put(loadAdditionFilmsSuccess({
+        films: FilmAdapter.transformData(response.data.results),
+      }));
+    }
+  } catch (e) {
+    yield console.log("error", e);
+  }
 }
 
 function* getFilms() {
@@ -92,13 +72,7 @@ function* getFilms() {
     const response = (typeof activeGenre === "string")
       ? yield call(api.getFilms, GENRES_TYPES_TO_SERVER[activeGenre])
       : yield call(api.discoverFilms, { with_genres: activeGenre });
-    // if (isStringsEqual(activeGenre, "all")) {
-    //   const activeCategory = yield select(getActiveCategory);
-    //   response = yield call(api.getFilms, GENRES_TYPES_TO_SERVER[activeCategory]);
-    // } else {
-    //   const activeGenreId = yield select(getActiveGenreId);
-    //   response = yield call(api.discoverFilms, { with_genres: activeGenreId });
-    // }
+
     yield put(getFilmsSuccess({
       films: FilmAdapter.transformData(response.data.results),
       page: response.data.page,
@@ -111,7 +85,6 @@ function* getFilms() {
 
 export default function* watchFilmsSaga() {
   yield takeEvery(getFilmsRequest.type, getFilms);
-  // yield takeEvery(changeCategory.type, getFilmsWhenGenreUpdated);
-  // yield takeEvery(changeActiveGenre.type, getFilmsWhenGenreUpdated);
+  yield takeEvery(changeActive.type, updateFilmList);
   yield takeEvery(loadAdditionFilmsRequest.type, getAdditionFilms);
 }

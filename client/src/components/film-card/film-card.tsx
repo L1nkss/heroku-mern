@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { IMAGE_SIZE_URL, REGULARS } from "../../constants/constants";
 import { IRootState } from "../../redux/reducers/types/types";
 import { getRatingClass } from "../../utils/helpers";
-import withLink from "../../utils/HOC/withLink";
 
 import noImage from "./images/no-image.png";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
@@ -18,23 +17,23 @@ const sizeClasses = {
   default: "",
 };
 
-const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
+const FilmCard = ({ size = "default", data }: IFilmCardProps) => {
   const {
     genreIds, title, voteAverage, backdropPath, releaseDate,
-  } = props.data;
+  } = data;
   const image = backdropPath ? `${IMAGE_SIZE_URL.SMALL}${backdropPath}` : noImage;
 
-  const allGenres = useSelector((state: IRootState) => state.genres.list);
+  const allGenres = useSelector((state: IRootState) => state.genres.list.all.items);
 
-  // const getGenreNameById = () => {
-  //   const currentGenres = genreIds.map((currentGenre) => {
-  //     const idx = allGenres.findIndex((stateGenre) => stateGenre.id === currentGenre);
-  //
-  //     return allGenres[idx].name;
-  //   });
-  //
-  //   return currentGenres;
-  // };
+  const getGenreNameById = () => {
+    const currentGenres = genreIds.map((currentGenre) => {
+      const idx = allGenres.findIndex((stateGenre) => stateGenre.id === currentGenre);
+
+      return allGenres[idx].name;
+    });
+
+    return currentGenres;
+  };
   return (
     <div className={`film-card ${sizeClasses[size]}`}>
       <div className="film-card__poster">
@@ -46,7 +45,7 @@ const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
           {" "}
           {releaseDate && `(${releaseDate.match(REGULARS.SEARCH_YEAR)})`}
         </h3>
-        {/* <p className="film-card__information">{getGenreNameById().join(" / ")}</p> */}
+        <p className="film-card__information">{getGenreNameById().join(" / ")}</p>
       </div>
       {
         !!voteAverage
@@ -58,15 +57,6 @@ const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
       }
     </div>
   );
-};
-
-export const createFilmCard = (props: IFilmCardProps, hasLink = true, route = "") => {
-  if (!hasLink) {
-    return <FilmCard {...props} />;
-  }
-
-  const WrapperComponent = withLink(route, FilmCard);
-  return <WrapperComponent {...props} />;
 };
 
 export default memo(FilmCard);

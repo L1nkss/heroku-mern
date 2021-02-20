@@ -1,5 +1,5 @@
 import {
-  Switch, Route, Redirect,
+  Switch, Route,
 } from "react-router-dom";
 import { RoutePathes } from "../constants/constants";
 import App from "../views/app/app";

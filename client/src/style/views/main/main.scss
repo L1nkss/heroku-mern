@@ -3,4 +3,8 @@
 .main {
   padding-top: 28px;
   display: flex;
+
+  &__aside-menu {
+    margin-right: 16px;
+  }
 }

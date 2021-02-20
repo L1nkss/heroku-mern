@@ -15,12 +15,13 @@
     margin-bottom: 26px;
   }
 
-  &__search {
-    margin-left: auto;
-  }
-
   &__films {
     flex-grow: 1;
     position: relative;
+  }
+
+  &__films-loading {
+    position: relative;
+    height: 120px;
   }
 }

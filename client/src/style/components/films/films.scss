@@ -1,6 +1,7 @@
 /* Контейнер с фильмами */
 
-.films {
+.films,
+.film-list {
   display: grid;
   grid-column-gap: $films-container-column-gap;
   grid-row-gap: $films-container-row-gap;

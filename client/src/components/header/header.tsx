@@ -145,24 +145,24 @@ const Header: React.FC = () => {
       <div className="header__user-menu">
         <h3 className="header__user-name">
           {userName}
-          {/* <Menu */}
-          {/*  className="header__dropdown" */}
-          {/*  render={(className: string) => { */}
-          {/*    return userMenuActions.map((element) => { */}
-          {/*      return ( */}
-          {/*        <li */}
-          {/*          role="presentation" */}
-          {/*          key={element.key} */}
-          {/*          onKeyDown={element.callback} */}
-          {/*          onClick={element.callback} */}
-          {/*          className={className} */}
-          {/*        > */}
-          {/*          {element.label} */}
-          {/*        </li> */}
-          {/*      ); */}
-          {/*    }); */}
-          {/*  }} */}
-          {/* /> */}
+          <Menu
+            className="header__dropdown"
+            render={(className: string) => {
+              return userMenuActions.map((element) => {
+                return (
+                  <li
+                    role="presentation"
+                    key={element.key}
+                    onKeyDown={element.callback}
+                    onClick={element.callback}
+                    className={className}
+                  >
+                    {element.label}
+                  </li>
+                );
+              });
+            }}
+          />
         </h3>
       </div>
     );

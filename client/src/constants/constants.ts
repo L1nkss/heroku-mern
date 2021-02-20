@@ -11,19 +11,6 @@ export const RoutePathes = {
   ACTOR: "/actor",
 };
 
-// Получить изображение трейлера с youtube для трейлера
-export const getVideoThumbnail = (videoId: string, quality: "low" | "medium" | "high" | "max"): string => {
-  const qualityImage = {
-    low: "sddefault",
-    medium: "mqdefault",
-    high: "hqdefault",
-    max: "maxresdefault",
-  };
-  const IMG_URL = "http://img.youtube.com/vi/";
-
-  return `${IMG_URL}${videoId}/${qualityImage[quality]}.jpg`;
-};
-
 export const ENDPOINTS = {
   registration: "api/auth/signup",
   login: "api/auth/signin",
@@ -71,8 +58,6 @@ export const GENRES_TYPES_TO_SERVER = {
 };
 
 const CORS_URL = "https://cors-anywhere.herokuapp.com/";
-
-// export const IMAGE_URL = "https://image.tmdb.org/t/p/w342/";
 
 export const IMAGE_SIZE_URL = {
   SMALL: "https://image.tmdb.org/t/p/w342/",
