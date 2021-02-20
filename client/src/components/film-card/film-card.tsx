@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { IMAGE_SIZE_URL, REGULARS } from "../../constants/constants";
 import { IRootState } from "../../redux/reducers/types/types";
 import { getRatingClass } from "../../utils/helpers";
+import withLink from "../../utils/HOC/withLink";
 
 import noImage from "./images/no-image.png";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
@@ -57,6 +58,15 @@ const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
       }
     </div>
   );
+};
+
+export const createFilmCard = (props: IFilmCardProps, hasLink = true, route = "") => {
+  if (!hasLink) {
+    return <FilmCard {...props} />;
+  }
+
+  const WrapperComponent = withLink(route, FilmCard);
+  return <WrapperComponent {...props} />;
 };
 
 export default memo(FilmCard);

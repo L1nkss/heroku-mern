@@ -129,7 +129,7 @@ const Actor = ({ match }: RouteMatchProps) => {
           }
       >
         <div className="content-wrapper actor">
-          <div className="actor__image-wrapper">
+          <div className="actor__image-container">
             <img src={`${IMAGE_SIZE_URL.BIG}/${details?.information.profilePath}`} alt={details?.information.name} />
           </div>
           <div className="actor__content">

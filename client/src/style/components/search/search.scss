@@ -3,7 +3,7 @@
 .search {
   position: relative;
   cursor: pointer;
-  max-width: 300px;
+  //max-width: 300px;
   display: flex;
 
   &__input {
@@ -28,7 +28,8 @@
     }
 
     &:focus {
-      width: 250px;
+      //width: 250px;
+      width: 100%;
       padding-left: 20px;
 
       + .search__icon-wrapper {

@@ -1,5 +1,11 @@
 /* Спиннер для загрузки */
 
+$loader-color-1: $main-color;
+$loader-color-2: $cl-orange-2;
+$loader-color-3: $cl-grey-2;
+$offset: 187;
+$duration: 1.4s;
+
 .loader {
   position: absolute;
   top: 0;
@@ -22,11 +28,11 @@
 }
 
 @keyframes colors {
-  0% { stroke: $main-color; }
-  25% { stroke: $cl-orange-2; }
-  50% { stroke: $cl-grey-2; }
-  75% { stroke: #1B9A59; }
-  100% { stroke: #4285F4; }
+  0% { stroke: $loader-color-1; }
+  25% { stroke: $loader-color-2; }
+  50% { stroke: $loader-color-3; }
+  75% { stroke: $loader-color-1; }
+  100% { stroke: $loader-color-2; }
 }
 
 @keyframes dash {

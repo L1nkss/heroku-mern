@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Header from "../../components/header/header";
-import Main from "../../components/main/main";
+import Main from "../main/main";
 import Loader from "../../components/loader/loader";
 import { getGenresRequest } from "../../redux/reducers/genre/reducer";
 import {

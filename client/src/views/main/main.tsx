@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Menu from "../menu/menu";
+import Menu from "../../components/menu/menu";
 import Content from "../content/content";
 import { isStringsEqual } from "../../utils/helpers";
 import { TGenre } from "../../redux/reducers/genre/types/types";

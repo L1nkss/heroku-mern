@@ -6,7 +6,7 @@
 
   // Заголовок с названием
   &__title {
-    color: $main-color;
+    color: $cl-blue-3;
     margin-right: auto;
   }
 
@@ -16,6 +16,10 @@
     align-items: center;
     padding-top: 7px;
     padding-bottom: 7px;
+
+    // тест
+    //display: grid;
+    //grid-template-columns: 250px minmax(100px, 350px) 250px;
   }
 
   // Хедер пользователя

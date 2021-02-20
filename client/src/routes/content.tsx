@@ -1,7 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import { RoutePathes } from "../constants/constants";
 import FilmDetails from "../views/details/film/film-details";
-import Main from "../components/main/main";
+import Main from "../views/main/main";
 import PrivateRoute from "../components/private-route/private-route";
 import RedirectLogin from "../views/redirect-login/redirect-login";
 import CreditList from "../views/credit-list/credit-list";

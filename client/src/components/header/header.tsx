@@ -171,7 +171,7 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="content-wrapper header__content">
         <h1 className="header__title">
-          <Link to="/">The movie pet project</Link>
+          <Link to="/">Movie app</Link>
           <p className="header__source-link">
             provided by
             <a href="https://www.themoviedb.org/?language=en" rel="noreferrer" target="_blank"> TMD</a>
