@@ -1,0 +1,27 @@
+// Красный
+$cl-red-1: red;
+// Синий
+$cl-blue-1: #0f62fe;
+$cl-blue-2: #2196f3;
+$cl-blue-3: #115293;
+// Оранженвый
+$cl-orange-1: #ffad60;
+$cl-orange-2: #f06249;
+$cl-orange-3: #e69e18;
+
+// Серый
+$cl-grey-1: #343a40;
+$cl-grey-2: #42474b;
+$cl-grey-3: #fafafa;
+$cl-grey-4: #a2a2a2;
+$cl-grey-5: #1b1e2d;
+
+// Стандартные цвета
+$cl-white: #ffffff;
+$cl-black: #000000;
+$cl-green: #3bb33b;
+
+
+$content-background: $cl-grey-3; // цвет фона у контента
+$main-bg-color: $cl-white; // Главный фоновый цвет
+$error-background-color: $cl-red-1; // Фон у сообщений с ошибками

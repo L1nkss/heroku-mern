@@ -1,20 +1,7 @@
 /* Подробная информация о фильме */
 
-
 .film-details {
-  //display: flex;
-
   @include details-view-classes;
-
-  //&__content {
-  //  margin-left: 36px;
-  //  flex-grow: 1;
-  //}
-  //
-  //&__header {
-  //  position: relative;
-  //  color: $cl-white;
-  //}
 
   &__trailer {
     position: absolute;
@@ -29,33 +16,22 @@
     display: block;
   }
 
-  //&__image-container {
-  //  align-self: flex-start;
-  //  position: relative;
-  //  max-width: 400px;
-  //  width: 100%;
-  //  min-width: 320px;
-  //}
-
   &__image {
     border: 1px solid $cl-white;
     display: block;
     width: 100%;
   }
 
-  //&__title  {
-  //  font-size: 46px;
-  //  margin-bottom: 8px;
-  //}
+  &__credits {
+    @include adaptive($mobile-sm-name) {
+      justify-content: center;
+    }
+  }
 
   &__sub-header {
     display: flex;
     font-size: 12px;
   }
-
-  //&__info {
-  //  padding: 18px 0;
-  //}
 
   &__overview {
     color: $cl-white;
@@ -63,21 +39,20 @@
     margin-bottom: 0;
   }
 
-  //&__info-header {
-  //  margin-bottom: 12px;
-  //  color: $cl-white;
-  //}
+  &__section {
+    + .film-details__section {
+      margin-top: 16px;
+    }
 
-  &__credit-wrapper {
-    display: flex;
-  }
+    &-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
 
-  &__credits {
-    flex-grow: 1;
-  }
-
-  &__credits-more {
-    align-self: center;
+    &-title {
+      margin-right: auto;
+    }
   }
 
   &__sub-header-item {
@@ -118,7 +93,7 @@
     color: $cl-white;
     padding: 8px;
     cursor: pointer;
-    transition: .2s;
+    transition: $transition-time;
 
     &:hover {
       background-color: rgba($cl-blue-2, .9);
@@ -144,7 +119,7 @@
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     background-color: hsla(0,0%,89.8%,.4);
-    transition: background-color .5s;
+    transition: background-color $transition-time;
 
     &:hover {
       background-color: $cl-white;

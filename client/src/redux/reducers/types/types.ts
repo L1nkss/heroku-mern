@@ -1,9 +1,9 @@
-import { IGenres } from "../genre/types/types";
+import { IMovieGenres } from "../genre/types/types";
 import { IInitialUserState } from "../user/types/types";
 import { IFilmState } from "../films/reducer";
 
 export interface IRootState {
-  genres: IGenres;
+  genres: IMovieGenres;
   user: IInitialUserState;
   films: IFilmState;
 }

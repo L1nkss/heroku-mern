@@ -1,18 +1,17 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
+
+import { ENDPOINTS } from "../../constants/constants";
+import { isFetchingDone } from "./selectors/selectors";
+import { ContentRoutes } from "../../routes/content";
 import Header from "../../components/header/header";
-import Main from "../../components/main/main";
 import Loader from "../../components/loader/loader";
 import { getGenresRequest } from "../../redux/reducers/genre/reducer";
 import {
   getUserDataRequest, getUserDataSuccess, getUserDataNoUser,
 } from "../../redux/reducers/user/reducer";
 import { getFilmsRequest } from "../../redux/reducers/films/reducer";
-import { ENDPOINTS } from "../../constants/constants";
-import { isFetchingDone } from "./selectors/selectors";
-import { ContentRoutes } from "../../routes/content";
 
 const App: React.FC = () => {
   const [isUserAuthChecked, setUserAuthStatus] = useState(false);

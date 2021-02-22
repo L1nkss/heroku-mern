@@ -1,11 +1,11 @@
 /* Контейнер с фильмами */
 
-.films {
+.films,
+.film-list {
   display: grid;
-  grid-column-gap: $films-container-column-gap;
-  grid-row-gap: $films-container-row-gap;
-  grid-template-columns: repeat(auto-fit,minmax($films-container-min-width,$films-container-max-width));
-  grid-template-rows: repeat(auto-fit, minmax(280px, 300px));
+  grid-column-gap: 30px;
+  grid-row-gap: 24px;
+  grid-template-columns: repeat(auto-fit,minmax(280px, 1fr));
 
   &__loader {
     position: relative;

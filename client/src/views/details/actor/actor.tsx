@@ -1,16 +1,18 @@
 import React, {
   memo, useCallback, useEffect, useMemo, useState,
 } from "react";
+
+import { IMAGE_SIZE_URL, RoutePathes } from "../../../constants/constants";
 import { RouteMatchProps } from "../../../constants/types/types";
 import api from "../../../services/api";
-import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
-import FilmAdapter from "../../../utils/adapters/film";
-import { IClientFilmData } from "../../../redux/reducers/films/types/types";
 import Loader from "../../../components/loader/loader";
-import { IMAGE_SIZE_URL, RoutePathes } from "../../../constants/constants";
-import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformations } from "../helpers/helpers";
-import withLink from "../../../utils/HOC/withLink";
 import FilmCard from "../../../components/film-card/film-card";
+import { IClientFilmData } from "../../../redux/reducers/films/types/types";
+import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformations } from "../helpers/helpers";
+import FilmAdapter from "../../../utils/adapters/film";
+import withLink from "../../../utils/HOC/withLink";
+import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
+import FilmList from "../../../components/film-list/film-list";
 
 interface IActorState {
   information: IClientActorDetails,
@@ -43,21 +45,11 @@ const Actor = ({ match }: RouteMatchProps) => {
     loadActorDetails();
   }, [id]);
 
-  const films = useMemo(() => {
-    return details?.films.map((element) => {
-      const WrapperComponent = withLink(`${RoutePathes.FILM_DETAILS}/${element.id}`, FilmCard);
-      return <WrapperComponent data={element} key={element.id} size="small" />;
-    });
-  }, [details, id]);
-
   // Фильмы, которые возможно понравятся
   const moreFilms = useMemo(() => {
     if (details?.films?.length === 0) return undefined;
-    /* todo Сделать как компонент Films с пропсом размер */
     return (
-      <div className="films films--small">
-        {films}
-      </div>
+      details?.films && <FilmList films={details?.films} />
     );
   }, [details]);
 
@@ -129,7 +121,7 @@ const Actor = ({ match }: RouteMatchProps) => {
           }
       >
         <div className="content-wrapper actor">
-          <div className="actor__image-wrapper">
+          <div className="actor__image-container">
             <img src={`${IMAGE_SIZE_URL.BIG}/${details?.information.profilePath}`} alt={details?.information.name} />
           </div>
           <div className="actor__content">

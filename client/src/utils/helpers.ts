@@ -1,4 +1,4 @@
-export const isStringsEqual = (a: string, b: string): Boolean => a.toLowerCase() === b.toLowerCase();
+export const isStringsEqual = (a: string, b: string): boolean => a.toLowerCase() === b.toLowerCase();
 
 export const getRatingClass = (vote: number): string => {
   let result = "tbm";

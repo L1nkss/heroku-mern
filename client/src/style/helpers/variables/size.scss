@@ -1,0 +1,13 @@
+$max-content-width: 1400px; // Ограничение по ширине
+
+
+// breakpoints
+$mobile-xl: 600px;
+$mobile-sm: 400px;
+
+$tablet-sm: 700px;
+
+// название точек для mixin'a adaptive
+$mobile-xl-name: "mobile-xl";
+$mobile-sm-name: "mobile-sm";
+$tablet-sm-name: "tablet-sm";

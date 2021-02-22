@@ -3,18 +3,28 @@ export type TGenre = {
   name: string,
 };
 
-export type TCategory = "Now playing" | "Popular" | "Top Rated" | "Upcoming";
+// Новый стейт и значения
+export type TDiscoverNames = "Now playing" | "Popular" | "Top Rated" | "Upcoming";
 
-export type TCategoryListItem = {
+export type TDiscoverItem = {
   id: number,
-  name: TCategory
+  name: TDiscoverNames,
 };
 
-export interface IGenres {
-  list: TGenre[],
+type TMovieGenresList = {
+  discover: {
+    items: TDiscoverItem[],
+    label: "Discover"
+  }
+  all: {
+    items: TGenre[],
+    label: "Genres",
+  },
+  active: string,
+};
+
+export interface IMovieGenres {
   loading: boolean,
   error: boolean,
-  active: string,
-  category: TCategory,
-  categoryList: Array<TCategoryListItem>
+  list: TMovieGenresList,
 }

@@ -6,22 +6,42 @@
 
   // Заголовок с названием
   &__title {
-    color: $main-color;
-    margin-right: auto;
+    color: $cl-blue-3;
+    margin-right: 16px;
+    grid-area: title;
   }
 
   // Контент
   &__content {
-    display: flex;
     align-items: center;
     padding-top: 7px;
     padding-bottom: 7px;
+    display: grid;
+    grid-template-areas: "title search empty menu";
+    grid-template-columns: 180px minmax(100px, 350px) auto;
+    grid-template-rows: 1fr;
+
+    @include adaptive($mobile-xl-name) {
+      grid-template-columns: 180px auto;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas:
+              "title menu"
+              "search search"
+    }
   }
 
   // Хедер пользователя
   &__user-menu {
-    color: $main-color;
+    grid-area: menu;
+    color: $cl-blue-3;
     position: relative;
+    justify-self: end;
+
+    &:hover {
+      .header__dropdown {
+        display: block;
+      }
+    }
   }
 
   // Ссылка на источник
@@ -34,12 +54,6 @@
   &__user-name {
     cursor: pointer;
     display: inline-block;
-
-    &:hover {
-      .header__dropdown {
-        display: block;
-      }
-    }
   }
 
   // Dropdown у поиска
@@ -58,7 +72,8 @@
   }
 
   &__search {
-    margin-right: 16px;
+    margin-right: auto;
+    grid-area: search;
   }
 
   &__search-dropdown {
@@ -83,30 +98,7 @@
     display: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 15;
-    top: 33px;
-
-    //&::after,
-    //&::before {
-    //  border: solid transparent;
-    //  content: "";
-    //  position: absolute;
-    //  top: -22px;
-    //  right: -1px;
-    //}
-    //
-    //&::after {
-    //  border-color: rgba(213, 213, 213, 0);
-    //  border-bottom-color: $cl-white;
-    //  border-width: 11px;
-    //  margin-left: -10px;
-    //}
-    //
-    //&::before {
-    //  border-color: rgba(245, 0, 0, 0);
-    //  border-bottom-color: red;
-    //  border-width: 11px;
-    //  margin-left: -11px;
-    //}
+    top: 100%;
 
     .menu__item {
       &:hover {

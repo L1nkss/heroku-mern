@@ -1,8 +1,7 @@
-import React, {
-  memo, useCallback, useState,
-} from "react";
+import React, { memo, useCallback, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import debounce from "lodash.debounce";
+
 import Loader from "../loader/loader";
 
 export interface ISearchProps {

@@ -1,11 +1,12 @@
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
+
 import { IMAGE_SIZE_URL, REGULARS } from "../../constants/constants";
 import { IRootState } from "../../redux/reducers/types/types";
+import { IClientFilmData } from "../../redux/reducers/films/types/types";
 import { getRatingClass } from "../../utils/helpers";
 
 import noImage from "./images/no-image.png";
-import { IClientFilmData } from "../../redux/reducers/films/types/types";
 
 interface IFilmCardProps {
   data: Omit<IClientFilmData, "id">,
@@ -17,13 +18,13 @@ const sizeClasses = {
   default: "",
 };
 
-const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
+const FilmCard = ({ size = "default", data }: IFilmCardProps) => {
   const {
     genreIds, title, voteAverage, backdropPath, releaseDate,
-  } = props.data;
+  } = data;
   const image = backdropPath ? `${IMAGE_SIZE_URL.SMALL}${backdropPath}` : noImage;
 
-  const allGenres = useSelector((state: IRootState) => state.genres.list);
+  const allGenres = useSelector((state: IRootState) => state.genres.list.all.items);
 
   const getGenreNameById = () => {
     const currentGenres = genreIds.map((currentGenre) => {
@@ -36,7 +37,7 @@ const FilmCard = ({ size = "default", ...props }: IFilmCardProps) => {
   };
   return (
     <div className={`film-card ${sizeClasses[size]}`}>
-      <div className="film-card__poster">
+      <div className={`film-card__poster ${backdropPath ? "" : "film-card__poster--no-image"}`}>
         <img className="film-card__image" src={image} alt={`Постер фильма ${title}`} width="100%" height="auto" />
       </div>
       <div className="film-card__wrapper">

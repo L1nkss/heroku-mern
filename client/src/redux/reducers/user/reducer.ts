@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IInitialUserState, TUserData } from "./types/types";
-import { TUserFavoriteFilms } from "../../../../../server/src/models/user";
 
 const defaultUserData = {
   username: "",
@@ -49,7 +48,7 @@ const userSlice = createSlice({
 });
 
 export const {
-  setUserData, setUserDataToDefault, setLoginStatus, getUserDataRequest, getUserDataSuccess, getUserDataNoUser, addFavoriteFilm,
+  setUserData, setUserDataToDefault, getUserDataRequest, getUserDataSuccess, getUserDataNoUser, addFavoriteFilm,
 } = userSlice.actions;
 
 export default userSlice.reducer;

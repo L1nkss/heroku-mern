@@ -9,9 +9,9 @@
 // Тень для карточки + эффект у hover'a
 @mixin box-shadow-hover-card {
   box-shadow: 0 1px 3px rgba($cl-black, 0.12), 0 1px 2px rgba($cl-black, 0.24);
-  transition: all 0.5s ease-out;
-  background-color: $film-card-background;
-  color: $cl-orange-1;
+  transition: all $transition-time ease-out;
+  background-color: $cl-grey-5;
+  color: $cl-white;
 
   &:hover {
     box-shadow: 0 19px 38px rgba($cl-black, 0.3), 0 15px 12px rgba($cl-black, 0.22);
@@ -19,45 +19,101 @@
   }
 }
 
+// Адаптивность
+@mixin adaptive($point) {
+  // mobile breakpoint
+  @if $point == $mobile-xl-name {
+    @media screen and (max-width: $mobile-xl) {
+      @content
+    }
+  }
+
+  @if $point == $mobile-sm-name {
+    @media screen and (max-width: $mobile-sm) {
+      @content
+    }
+  }
+
+  // tablet breakpoint
+  @if $point == $tablet-sm-name {
+    @media screen and (max-width: $tablet-sm) {
+      @content
+    }
+  }
+}
+
 // Классы для детальной информации о фильме/актере
 @mixin details-view-classes {
   display: flex;
 
+  @include adaptive($tablet-sm-name) {
+    flex-direction: column;
+  }
+
   &__header {
     position: relative;
     color: $cl-white;
+    margin-bottom: 12px;
   }
 
   &__content {
     margin-left: 36px;
     flex-grow: 1;
+
+    @include adaptive($tablet-sm-name) {
+      margin-top: 12px;
+      margin-left: 0;
+    }
   }
 
   &__image-container {
     align-self: flex-start;
     position: relative;
-    max-width: 400px;
+    max-width: 320px;
     width: 100%;
     min-width: 320px;
+
+    @include adaptive($tablet-sm-name) {
+      margin: 0 auto;
+    }
+
+    @include adaptive($mobile-sm-name) {
+      min-width: 100%;
+    }
   }
 
   &__title  {
     font-size: 46px;
     margin-bottom: 8px;
+    font-family: $main-font;
   }
 
   &__info {
-    padding: 18px 0;
-  }
+    $name: &; // Задаем переменной name имя класса
+    padding: 8px 0;
 
-  &__info-header {
-    margin-bottom: 12px;
-    color: $cl-white;
-  }
+    &-header {
+      margin-bottom: 12px;
+      flex-shrink: 0;
+      color: $cl-grey-4;
+    }
 
-  &__info-text {
-    color: #ffffff;
-    line-height: 1.5;
-    margin: 0;
+    &-text {
+      color: $cl-white;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    // Модификатор для текста в строчку
+    &--row {
+      display: flex;
+      align-items: center;
+
+      // Используем переменную, чтобы установить значение для header'a в модификаторе
+      #{$name}-header {
+        margin-bottom: 0;
+        margin-right: 12px;
+      }
+    }
   }
 }

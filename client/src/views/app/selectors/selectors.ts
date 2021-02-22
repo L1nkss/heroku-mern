@@ -5,9 +5,9 @@ import { IRootState } from "../../../redux/reducers/types/types";
 export const isFetchingDone = createSelector(
   (state: IRootState) => state,
   (allState: IRootState) => {
-    const { list } = allState.genres;
+    const { items } = allState.genres.list.all;
     const { films } = allState.films;
     // Проверям, в массивах жанров и фильмов есть данные
-    return list.length && films.length;
+    return items.length && films.length;
   },
 );

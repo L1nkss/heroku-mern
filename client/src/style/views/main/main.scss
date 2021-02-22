@@ -1,0 +1,15 @@
+/* Главная страница */
+
+.main {
+  padding-top: 28px;
+  display: flex;
+  position: relative;
+
+  &__aside-menu {
+    margin-right: 16px;
+
+    @include adaptive($mobile-xl-name) {
+      display: none;
+    }
+  }
+}

@@ -1,23 +1,26 @@
 import React, {
-  memo, useCallback, useMemo, useRef, useState,
+  memo, useCallback, useEffect, useMemo, useRef, useState,
 } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import debounce from "lodash.debounce";
+
+import { IMAGE_SIZE_URL, RoutePathes, BREAKPOINTS } from "../../constants/constants";
+import api from "../../services/api";
 import Menu from "../menu/menu";
 import LoginForm from "../loginForm/loginForm";
-import { IRootState } from "../../redux/reducers/types/types";
-import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
 import RegisterForm from "../registerForm/registerForm";
 import Popup from "../popup/popup";
-import history from "../../utils/history";
-import { IMAGE_SIZE_URL, RoutePathes } from "../../constants/constants";
 import Search from "../search/search";
-import api from "../../services/api";
-import FilmAdapter from "../../utils/adapters/film";
-import { IClientFilmData } from "../../redux/reducers/films/types/types";
 import noImage from "../film-card/images/no-image.png";
+import GenreMenu from "../genre-menu/genre-menu";
+import { IRootState } from "../../redux/reducers/types/types";
+import { IClientFilmData } from "../../redux/reducers/films/types/types";
+import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
+import useViewport from "../../utils/hooks/useViewport";
+import history from "../../utils/history";
+import FilmAdapter from "../../utils/adapters/film";
 
 /*
  todo
@@ -25,12 +28,15 @@ import noImage from "../film-card/images/no-image.png";
  */
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const { width } = useViewport();
   const [showPopup, setShowPopup] = useState(false);
+  const [showResponsiveMenu, setShowResponsiveMenu] = useState<boolean>(false);
   const [formToShow, setFormToShow] = useState("");
   const isLogin = useSelector((state: IRootState) => state.user.isLogin);
   const userName = useSelector((state: IRootState) => state.user.data.username);
   const [dropDownOptions, setDropDownOptions] = useState<IClientFilmData[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
+  const isMobile = width <= BREAKPOINTS.MOBILE_XS;
 
   const options = useMemo(() => {
     return (
@@ -92,6 +98,12 @@ const Header: React.FC = () => {
     if (formToShow === "registration") return <RegisterForm successCb={togglePopupStatus} />;
     return <></>;
   };
+
+  useEffect(() => {
+    if (!isMobile) {
+      setShowResponsiveMenu(false);
+    }
+  }, [isMobile]);
   const userMenuActions = [
     {
       label: "Избранные фильмы",
@@ -113,9 +125,23 @@ const Header: React.FC = () => {
       key: 2,
     },
   ];
+
+  const burgerMenu = useMemo(() => {
+    const handleBurgerClick = () => setShowResponsiveMenu((prevState) => !prevState);
+    return (
+      <div
+        onClick={handleBurgerClick}
+        role="presentation"
+        className={`burger-menu header__user-menu ${showResponsiveMenu ? "burger-menu--open" : ""}`}
+      >
+        <div className="burger" />
+      </div>
+    );
+  }, [showResponsiveMenu]);
+
   const authButtons = useMemo(() => {
     return (
-      <div>
+      <div className="header__user-menu">
         <button
           className="button button--ghost"
           type="button"
@@ -138,47 +164,62 @@ const Header: React.FC = () => {
         </button>
       </div>
     );
-  }, []);
+  }, [width]);
 
   const userProfile = useMemo(() => {
     return (
       <div className="header__user-menu">
         <h3 className="header__user-name">
           {userName}
-          <Menu
-            className="header__dropdown"
-            render={(className: string) => {
-              return userMenuActions.map((element) => {
-                return (
-                  <li
-                    role="presentation"
-                    key={element.key}
-                    onKeyDown={element.callback}
-                    onClick={element.callback}
-                    className={className}
-                  >
-                    {element.label}
-                  </li>
-                );
-              });
-            }}
-          />
         </h3>
+        <Menu
+          className="header__dropdown"
+          render={(className: string) => {
+            return userMenuActions.map((element) => {
+              return (
+                <li
+                  role="presentation"
+                  key={element.key}
+                  onKeyDown={element.callback}
+                  onClick={element.callback}
+                  className={className}
+                >
+                  {element.label}
+                </li>
+              );
+            });
+          }}
+        />
       </div>
     );
   }, [userName]);
+
+  const responsiveAsideBar = useCallback((componentToShow) => {
+    return (
+      <div className={`aside-bar ${showResponsiveMenu ? "aside-bar--open" : ""}`}>
+        { componentToShow }
+        <GenreMenu className="aside-bar__menu" />
+      </div>
+    );
+  }, [showResponsiveMenu]);
+
+  const headerAuthComponent = useMemo(() => {
+    return isLogin ? userProfile : authButtons;
+  }, [isLogin]);
+
   return (
     <header className="header">
       <div className="content-wrapper header__content">
         <h1 className="header__title">
-          <Link to="/">The movie pet project</Link>
+          <Link to="/">Movie app</Link>
           <p className="header__source-link">
             provided by
             <a href="https://www.themoviedb.org/?language=en" rel="noreferrer" target="_blank"> TMD</a>
           </p>
         </h1>
         <Search ref={searchRef} callback={SearchFilm} options={dropDownOptions} optionsView={options} className="header__search" />
-        {isLogin ? userProfile : authButtons}
+        { isMobile ? burgerMenu : headerAuthComponent }
+        { responsiveAsideBar(headerAuthComponent) }
       </div>
       { showPopup && <Popup handleCloseClick={togglePopupStatus}>{toggleButtonsClick()}</Popup>}
     </header>
