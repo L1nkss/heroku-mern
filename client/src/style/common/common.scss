@@ -69,7 +69,7 @@ h6 {
   top: 0;
   background-color: $cl-white;
   padding: 16px 16px 0;
-  transition: left .6s;
+  transition: left $transition-time;
   pointer-events: none;
   height: 100%;
   overflow-y: scroll;

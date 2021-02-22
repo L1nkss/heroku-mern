@@ -15,7 +15,6 @@ interface ICreditCardProps {
   data: IClientCredits
 }
 
-// todo перенести в компонент
 export const CreditCard: React.FC<ICreditCardProps> = ({ data }: ICreditCardProps) => {
   const personImage = data.profilePath ? `${IMAGE_SIZE_URL.SMALL}/${data.profilePath}` : noImage;
   return (

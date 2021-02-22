@@ -93,7 +93,7 @@
     color: $cl-white;
     padding: 8px;
     cursor: pointer;
-    transition: .2s;
+    transition: $transition-time;
 
     &:hover {
       background-color: rgba($cl-blue-2, .9);
@@ -119,7 +119,7 @@
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     background-color: hsla(0,0%,89.8%,.4);
-    transition: background-color .5s;
+    transition: background-color $transition-time;
 
     &:hover {
       background-color: $cl-white;

@@ -2,7 +2,6 @@
 
 .menu {
   text-align: left;
-  color: $menu-text-color;
   background-color: $cl-white;
 
   + .menu {
@@ -12,7 +11,7 @@
   &__list {
     display: flex;
     flex-direction: column;
-    background-color: $menu-background-color;
+    background-color: $cl-white;
 
     &--row {
       flex-direction: row;
@@ -31,7 +30,7 @@
     display: flex;
     color: rgba(0, 0, 0, 0.87);
     align-items: center;
-    transition: background-color .6s;
+    transition: background-color $transition-time;
 
     &--active {
       background-color: $cl-blue-3;

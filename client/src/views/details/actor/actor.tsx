@@ -12,6 +12,7 @@ import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformati
 import FilmAdapter from "../../../utils/adapters/film";
 import withLink from "../../../utils/HOC/withLink";
 import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
+import FilmList from "../../../components/film-list/film-list";
 
 interface IActorState {
   information: IClientActorDetails,
@@ -44,21 +45,11 @@ const Actor = ({ match }: RouteMatchProps) => {
     loadActorDetails();
   }, [id]);
 
-  const films = useMemo(() => {
-    return details?.films.map((element) => {
-      const WrapperComponent = withLink(`${RoutePathes.FILM_DETAILS}/${element.id}`, FilmCard);
-      return <WrapperComponent data={element} key={element.id} size="small" />;
-    });
-  }, [details, id]);
-
   // Фильмы, которые возможно понравятся
   const moreFilms = useMemo(() => {
     if (details?.films?.length === 0) return undefined;
-    /* todo Сделать как компонент Films с пропсом размер */
     return (
-      <div className="films films--small">
-        {films}
-      </div>
+      details?.films && <FilmList films={details?.films} />
     );
   }, [details]);
 

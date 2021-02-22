@@ -31,7 +31,6 @@ const Content: React.FC = () => {
 
   return (
     <div className="content">
-      {/* {contentHeader} */}
       <div className="content__films">
         { isFilmLoading
           ? <Loader />

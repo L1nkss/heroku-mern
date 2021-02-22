@@ -38,17 +38,14 @@ $burget-position-line: 6px;
   display: block;
 }
 .burger::after, .burger::before, .burger {
-  transition: all .3s ease-in-out;
-  -webkit-transition: all .3s ease-in-out;
+  transition: all $transition-time ease-in-out;
 }
 .burger-menu.burger-menu--open .burger::after{
   transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
   bottom: 0;
 }
 .burger-menu.burger-menu--open .burger::before{
   transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
   top: 0;
 }
 .burger-menu.burger-menu--open .burger{
