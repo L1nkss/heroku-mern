@@ -214,7 +214,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   // Актеры
   const credits = useMemo(() => {
     if (details?.credits.length === 0) return undefined;
-    const limit = 8;
+    const limit = 6;
     const castToShow = showAllCast ? details?.credits : details?.credits.slice(0, limit);
     return (
       <section className="film-details__section">

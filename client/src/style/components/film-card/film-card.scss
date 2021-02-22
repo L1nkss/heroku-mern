@@ -21,6 +21,10 @@
 
   &__poster {
     display: flex;
+
+    &--no-image {
+      height: 210px;
+    }
   }
 
   &__information {

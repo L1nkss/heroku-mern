@@ -15,6 +15,9 @@ const FilmList = ({ size = "normal", films, hasLink = true }: IFilmListProps) =>
   const filmCards = useMemo(() => {
     return films.map((element) => {
       const { id, ...data } = element;
+      if (!hasLink) {
+        return <FilmCard key={id} data={data} />;
+      }
       const WrapperElement = withLink(`${RoutePathes.FILM_DETAILS}/${id}`, FilmCard);
 
       return <WrapperElement key={id} data={data} />;
