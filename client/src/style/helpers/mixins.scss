@@ -19,9 +19,36 @@
   }
 }
 
+// Адаптивность
+@mixin adaptive($point) {
+  // mobile breakpoint
+  @if $point == $mobile-xl-name {
+    @media screen and (max-width: $mobile-xl) {
+      @content
+    }
+  }
+
+  @if $point == $mobile-sm-name {
+    @media screen and (max-width: $mobile-sm) {
+      @content
+    }
+  }
+
+  // tablet breakpoint
+  @if $point == $tablet-sm-name {
+    @media screen and (max-width: $tablet-sm) {
+      @content
+    }
+  }
+}
+
 // Классы для детальной информации о фильме/актере
 @mixin details-view-classes {
   display: flex;
+
+  @include adaptive($tablet-sm-name) {
+    flex-direction: column;
+  }
 
   &__header {
     position: relative;
@@ -32,6 +59,11 @@
   &__content {
     margin-left: 36px;
     flex-grow: 1;
+
+    @include adaptive($tablet-sm-name) {
+      margin-top: 12px;
+      margin-left: 0;
+    }
   }
 
   &__image-container {
@@ -40,6 +72,14 @@
     max-width: 320px;
     width: 100%;
     min-width: 320px;
+
+    @include adaptive($tablet-sm-name) {
+      margin: 0 auto;
+    }
+
+    @include adaptive($mobile-sm-name) {
+      min-width: 100%;
+    }
   }
 
   &__title  {
@@ -53,6 +93,7 @@
 
     &-header {
       margin-bottom: 12px;
+      flex-shrink: 0;
       color: $cl-grey-4;
     }
 

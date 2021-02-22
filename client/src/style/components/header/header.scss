@@ -24,7 +24,7 @@
     grid-template-columns: 180px minmax(100px, 350px) auto;
     grid-template-rows: 1fr;
 
-    @media screen and (max-width: 600px) {
+    @include adaptive($mobile-xl-name) {
       grid-template-columns: 180px auto;
       grid-template-rows: 1fr 1fr;
       grid-template-areas:
@@ -36,7 +36,7 @@
   // Хедер пользователя
   &__user-menu {
     grid-area: menu;
-    color: $main-color;
+    color: $cl-blue-3;
     position: relative;
     justify-self: end;
 

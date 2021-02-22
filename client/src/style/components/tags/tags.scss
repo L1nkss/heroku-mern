@@ -1,5 +1,11 @@
+// Тэги
+
+$tag-margin-top: 12px;
+
 .tags {
   display: flex;
+  flex-wrap: wrap;
+  margin-top: -$tag-margin-top;
 
   &__item {
     border: 1px solid $cl-white;
@@ -8,6 +14,7 @@
     font-size: 12px;
     padding: 2px 6px;
     border-radius: 4px;
+    margin-top: $tag-margin-top;
 
     &:not(:last-child) {
       margin-right: 10px;
