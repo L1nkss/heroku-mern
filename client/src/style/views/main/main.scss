@@ -3,8 +3,13 @@
 .main {
   padding-top: 28px;
   display: flex;
+  position: relative;
 
   &__aside-menu {
     margin-right: 16px;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
   }
 }

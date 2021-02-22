@@ -60,6 +60,30 @@ h6 {
   color: $cl-white;
 }
 
+// Боковое меню
+.aside-bar {
+  position: fixed;
+  z-index: 10;
+  left: -250px;
+  top: 0;
+  background-color: $cl-white;
+  padding: 16px 16px 0;
+  transition: left .6s;
+  pointer-events: none;
+
+  &--open {
+    left: 0;
+    pointer-events: auto;
+
+    .header__dropdown {
+      left: 0;
+    }
+  }
+
+  &__menu {
+    margin-top: 16px;
+  }
+}
 
 // Атомарные классы
 

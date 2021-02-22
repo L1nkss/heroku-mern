@@ -11,6 +11,10 @@ export const RoutePathes = {
   ACTOR: "/actor",
 };
 
+export const BREAKPOINTS = {
+  MOBILE_XS: 590,
+};
+
 export const ENDPOINTS = {
   registration: "api/auth/signup",
   login: "api/auth/signin",
