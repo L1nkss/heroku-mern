@@ -1,6 +1,7 @@
 import React, { memo } from "react";
-import Content from "../content/content";
+
 import GenreMenu from "../../components/genre-menu/genre-menu";
+import Content from "../content/content";
 
 const Main: React.FC = () => {
   return (

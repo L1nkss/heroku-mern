@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+
 import history from "../../utils/history";
 
 interface IBackHistoryProps {

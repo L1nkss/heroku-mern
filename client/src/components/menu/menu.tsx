@@ -1,4 +1,5 @@
 import React, { memo, useMemo } from "react";
+
 import { TDiscoverItem, TGenre } from "../../redux/reducers/genre/types/types";
 import { isStringsEqual } from "../../utils/helpers";
 

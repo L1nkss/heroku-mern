@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { setUserData } from "../../redux/reducers/user/reducer";
+
 import { ENDPOINTS } from "../../constants/constants";
+import { setUserData } from "../../redux/reducers/user/reducer";
 
 interface ILoginFormProps {
   successCb?: (args?: any) => void

@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { IRootState } from "../../redux/reducers/types/types";
+
 import { RoutePathes } from "../../constants/constants";
+import { IRootState } from "../../redux/reducers/types/types";
 
 const RedirectLogin = () => {
   const isLogin = useSelector((state: IRootState) => state.user.isLogin);

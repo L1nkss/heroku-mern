@@ -4,30 +4,31 @@ import React, {
 import { AiFillHeart, AiOutlineYoutube } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+
 import moment from "moment";
-import { RouteMatchProps } from "../../../constants/types/types";
-import api from "../../../services/api";
-import FilmAdapter from "../../../utils/adapters/film";
-import { addFavoriteFilm } from "../../../redux/reducers/user/reducer";
-import Loader from "../../../components/loader/loader";
 import {
   IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK,
 } from "../../../constants/constants";
+import { RouteMatchProps } from "../../../constants/types/types";
+import api from "../../../services/api";
+import Loader from "../../../components/loader/loader";
+import FilmList from "../../../components/film-list/film-list";
+import Popup from "../../../components/popup/popup";
+import Credits from "../../../components/credits/credits";
+import { addFavoriteFilm } from "../../../redux/reducers/user/reducer";
 import { IClientFilmData, IClientFilmDetails } from "../../../redux/reducers/films/types/types";
 import { IRootState } from "../../../redux/reducers/types/types";
-import CreditsAdapter, { IClientCredits } from "../../../utils/adapters/credits";
-import Credits from "../../../components/credits/credits";
-import history from "../../../utils/history";
-import Popup from "../../../components/popup/popup";
 import { TGenre } from "../../../redux/reducers/genre/types/types";
 import { changeActive } from "../../../redux/reducers/genre/reducer";
-import FilmList from "../../../components/film-list/film-list";
 import {
   IDetailInformation,
   renderDetailsInformations,
   checkResultToUndefined,
   IDetailsInformationInit,
 } from "../helpers/helpers";
+import CreditsAdapter, { IClientCredits } from "../../../utils/adapters/credits";
+import FilmAdapter from "../../../utils/adapters/film";
+import history from "../../../utils/history";
 
 type TVideo = {
   id: string;

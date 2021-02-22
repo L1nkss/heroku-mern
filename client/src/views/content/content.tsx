@@ -3,9 +3,10 @@ import React, {
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
-import { IRootState } from "../../redux/reducers/types/types";
+
 import Loader from "../../components/loader/loader";
 import FilmList from "../../components/film-list/film-list";
+import { IRootState } from "../../redux/reducers/types/types";
 import { loadAdditionFilmsRequest } from "../../redux/reducers/films/reducer";
 
 const Content: React.FC = () => {

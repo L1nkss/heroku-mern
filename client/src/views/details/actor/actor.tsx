@@ -1,16 +1,17 @@
 import React, {
   memo, useCallback, useEffect, useMemo, useState,
 } from "react";
+
+import { IMAGE_SIZE_URL, RoutePathes } from "../../../constants/constants";
 import { RouteMatchProps } from "../../../constants/types/types";
 import api from "../../../services/api";
-import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
-import FilmAdapter from "../../../utils/adapters/film";
-import { IClientFilmData } from "../../../redux/reducers/films/types/types";
 import Loader from "../../../components/loader/loader";
-import { IMAGE_SIZE_URL, RoutePathes } from "../../../constants/constants";
-import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformations } from "../helpers/helpers";
-import withLink from "../../../utils/HOC/withLink";
 import FilmCard from "../../../components/film-card/film-card";
+import { IClientFilmData } from "../../../redux/reducers/films/types/types";
+import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformations } from "../helpers/helpers";
+import FilmAdapter from "../../../utils/adapters/film";
+import withLink from "../../../utils/HOC/withLink";
+import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
 
 interface IActorState {
   information: IClientActorDetails,

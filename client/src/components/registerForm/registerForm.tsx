@@ -3,6 +3,7 @@ import axios from "axios";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FiUser } from "react-icons/fi";
+
 import { ENDPOINTS } from "../../constants/constants";
 
 interface IRegisterFormProps {

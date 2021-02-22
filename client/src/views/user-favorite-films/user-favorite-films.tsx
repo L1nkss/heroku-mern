@@ -1,10 +1,11 @@
 import React, { memo, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { IRootState } from "../../redux/reducers/types/types";
-import withLink from "../../utils/HOC/withLink";
+
 import { RoutePathes } from "../../constants/constants";
 import FilmCard from "../../components/film-card/film-card";
 import Loader from "../../components/loader/loader";
+import { IRootState } from "../../redux/reducers/types/types";
+import withLink from "../../utils/HOC/withLink";
 
 const UserFavoriteFilms: React.FC = () => {
   const userFavoriteFilms = useSelector((state: IRootState) => state.user.data.favoriteFilms);

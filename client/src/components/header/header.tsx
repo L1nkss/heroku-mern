@@ -5,21 +5,22 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import debounce from "lodash.debounce";
+
+import { IMAGE_SIZE_URL, RoutePathes, BREAKPOINTS } from "../../constants/constants";
+import api from "../../services/api";
 import Menu from "../menu/menu";
 import LoginForm from "../loginForm/loginForm";
-import { IRootState } from "../../redux/reducers/types/types";
-import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
 import RegisterForm from "../registerForm/registerForm";
 import Popup from "../popup/popup";
-import history from "../../utils/history";
-import { IMAGE_SIZE_URL, RoutePathes, BREAKPOINTS } from "../../constants/constants";
 import Search from "../search/search";
-import api from "../../services/api";
-import FilmAdapter from "../../utils/adapters/film";
-import { IClientFilmData } from "../../redux/reducers/films/types/types";
 import noImage from "../film-card/images/no-image.png";
-import useViewport from "../../utils/hooks/useViewport";
 import GenreMenu from "../genre-menu/genre-menu";
+import { IRootState } from "../../redux/reducers/types/types";
+import { IClientFilmData } from "../../redux/reducers/films/types/types";
+import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
+import useViewport from "../../utils/hooks/useViewport";
+import history from "../../utils/history";
+import FilmAdapter from "../../utils/adapters/film";
 
 /*
  todo

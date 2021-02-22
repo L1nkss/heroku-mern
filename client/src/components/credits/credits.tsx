@@ -1,7 +1,8 @@
 import React, { memo, useMemo } from "react";
-import { IClientCredits } from "../../utils/adapters/credits";
+
 import { IMAGE_SIZE_URL, RoutePathes } from "../../constants/constants";
 import BackHistory from "../back-history/back-history";
+import { IClientCredits } from "../../utils/adapters/credits";
 import withLink from "../../utils/HOC/withLink";
 
 import noImage from "./images/no-person.jpg";

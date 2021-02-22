@@ -1,9 +1,8 @@
-import React, {
-  memo, useMemo,
-} from "react";
-import { IClientFilmData } from "../../redux/reducers/films/types/types";
-import FilmCard from "../film-card/film-card";
+import React, { memo, useMemo } from "react";
+
 import { RoutePathes } from "../../constants/constants";
+import FilmCard from "../film-card/film-card";
+import { IClientFilmData } from "../../redux/reducers/films/types/types";
 import withLink from "../../utils/HOC/withLink";
 
 interface IFilmListProps {
