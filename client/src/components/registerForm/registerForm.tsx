@@ -1,6 +1,6 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useMemo } from "react";
 import axios from "axios";
-import { AiOutlineMail } from "react-icons/ai";
+import { AiOutlineMail, AiOutlineCheckCircle } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FiUser } from "react-icons/fi";
 
@@ -12,6 +12,7 @@ interface IRegisterFormProps {
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterFormProps) => {
   const [data, setData] = useState({});
+  const [state, setStage] = useState<number>(1);
   const [formStatus, setFormStatus] = useState({
     loading: false,
     error: false,
@@ -21,6 +22,8 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
   const handleFormSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setFormStatus((prevState) => ({ ...prevState, loading: true, error: false }));
+
+    setStage((prevState) => prevState + 1);
     try {
       const response = await axios.post(
         ENDPOINTS.registration,
@@ -31,7 +34,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
         },
       );
       if (response.status === 200) {
-        if (successCb) successCb();
+        setStage((prevState) => prevState + 1);
       }
     } catch (e) {
       const { error } = e.response.data;
@@ -45,38 +48,57 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
       return { ...prevState, [name]: value };
     });
   };
+
+  const stageRegistration = useMemo(() => {
+    return (
+      <>
+        <p>Регистрация</p>
+        <div className="form__input-wrapper">
+          <input required onChange={handleInputChange} name="username" className="form__input" type="text" placeholder="Username" />
+          <span className="form__icon-wrapper">
+            <FiUser />
+          </span>
+        </div>
+        <div className="form__input-wrapper">
+          <input required onChange={handleInputChange} name="email" className="form__input" type="email" placeholder="Email" />
+          <span className="form__icon-wrapper">
+            <AiOutlineMail />
+          </span>
+        </div>
+        <div className="form__input-wrapper">
+          <input required onChange={handleInputChange} name="password" className="form__input" type="text" placeholder="Password" />
+          <span className="form__icon-wrapper">
+            <RiLockPasswordLine />
+          </span>
+        </div>
+        <div className="form__input-wrapper">
+          <input required onChange={handleInputChange} name="confirm_password" className="form__input" type="text" placeholder="Repeat password" />
+          <span className="form__icon-wrapper">
+            <RiLockPasswordLine />
+          </span>
+        </div>
+        <button className="button button--orange" type="submit">
+          {!formStatus.loading && "Войти"}
+          {formStatus.loading && "Загружается"}
+        </button>
+        {formStatus.error && <div className="error form__error">{formStatus.message}</div>}
+      </>
+    );
+  }, []);
+
+  const successfulRegistration = useMemo(() => {
+    return (
+      <div className="form__success">
+        <AiOutlineCheckCircle className="form__success-icon" />
+        <p className="form__success-text">Congratulations, your account has been successfully created.</p>
+        <button type="button" onClick={successCb} className="button">Continue</button>
+      </div>
+    );
+  }, []);
   return (
-    <form className="form" onSubmit={handleFormSubmit}>
-      <p>Регистрация</p>
-      <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="username" className="form__input" type="text" placeholder="Username" />
-        <span className="form__icon-wrapper">
-          <FiUser />
-        </span>
-      </div>
-      <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="email" className="form__input" type="email" placeholder="Email" />
-        <span className="form__icon-wrapper">
-          <AiOutlineMail />
-        </span>
-      </div>
-      <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="password" className="form__input" type="text" placeholder="Password" />
-        <span className="form__icon-wrapper">
-          <RiLockPasswordLine />
-        </span>
-      </div>
-      <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="confirm_password" className="form__input" type="text" placeholder="Repeat password" />
-        <span className="form__icon-wrapper">
-          <RiLockPasswordLine />
-        </span>
-      </div>
-      <button className="button button--orange" type="submit">
-        {!formStatus.loading && "Войти"}
-        {formStatus.loading && "Загружается"}
-      </button>
-      {formStatus.error && <div className="error form__error">{formStatus.message}</div>}
+    <form className="form" onSubmit={handleFormSubmit} style={{ transition: "all .6s" }}>
+      {state === 1 && stageRegistration}
+      {state === 2 && successfulRegistration}
     </form>
   );
 };

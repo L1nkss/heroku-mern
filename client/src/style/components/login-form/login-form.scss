@@ -25,6 +25,20 @@ $main-login-color: $cl-blue-3;
     }
   }
 
+  &__success {
+    width: 320px;
+    text-align: center;
+
+    &-text {
+      line-height: 1.5;
+    }
+
+    &-icon {
+      font-size: 64px;
+      color: $cl-green;
+    }
+  }
+
   &__icon-wrapper {
     position: absolute;
     width: 32px;
