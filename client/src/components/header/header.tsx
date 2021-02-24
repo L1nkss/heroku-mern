@@ -9,8 +9,6 @@ import debounce from "lodash.debounce";
 import { IMAGE_SIZE_URL, RoutePathes, BREAKPOINTS } from "../../constants/constants";
 import api from "../../services/api";
 import Menu from "../menu/menu";
-import LoginForm from "../loginForm/loginForm";
-import RegisterForm from "../registerForm/registerForm";
 import Popup from "../popup/popup";
 import Form from "../form/form";
 import Search from "../search/search";
@@ -95,8 +93,7 @@ const Header: React.FC = () => {
   };
 
   const toggleButtonsClick = () => {
-    if (formToShow === "login") return <LoginForm successCb={togglePopupStatus} />;
-    // if (formToShow === "registration") return <RegisterForm successCb={togglePopupStatus} />;
+    if (formToShow === "login") return <Form type="login" successCallback={togglePopupStatus} />;
     if (formToShow === "registration") return <Form type="registration" successCallback={togglePopupStatus} />;
     return <></>;
   };
