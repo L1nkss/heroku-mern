@@ -1,16 +1,16 @@
-import React, { memo, useState, useMemo } from "react";
-import axios from "axios";
-import { AiOutlineMail, AiOutlineCheckCircle } from "react-icons/ai";
-import { RiLockPasswordLine } from "react-icons/ri";
+import React, {
+  useMemo, useState, memo,
+} from "react";
+import { AiOutlineCheckCircle, AiOutlineMail } from "react-icons/ai";
 import { FiUser } from "react-icons/fi";
+import { RiLockPasswordLine } from "react-icons/ri";
+import axios from "axios";
 
-import { ENDPOINTS } from "../../constants/constants";
+import { IFormComponentProps } from "../types/types";
 
-interface IRegisterFormProps {
-  successCb?: (args?: any) => void
-}
+import { ENDPOINTS } from "../../../constants/constants";
 
-const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterFormProps) => {
+const Registration: React.FC<IFormComponentProps> = ({ successCallback, className = "" }: IFormComponentProps) => {
   const [data, setData] = useState({});
   const [state, setStage] = useState<number>(1);
   const [formStatus, setFormStatus] = useState({
@@ -91,17 +91,17 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
       <div className="form__success">
         <AiOutlineCheckCircle className="form__success-icon" />
         <p className="form__success-text">Congratulations, your account has been successfully created.</p>
-        <button type="button" onClick={successCb} className="button">Continue</button>
+        <button type="button" onClick={successCallback} className="button">Continue</button>
       </div>
     );
   }, []);
 
   return (
-    <form className="form" onSubmit={handleFormSubmit} style={{ transition: "all .6s" }}>
+    <form className={`form ${className}`} onSubmit={handleFormSubmit}>
       {state === 1 && stageRegistration}
       {state === 2 && successfulRegistration}
     </form>
   );
 };
 
-export default memo(RegisterForm);
+export default memo(Registration);

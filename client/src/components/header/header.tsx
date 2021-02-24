@@ -12,6 +12,7 @@ import Menu from "../menu/menu";
 import LoginForm from "../loginForm/loginForm";
 import RegisterForm from "../registerForm/registerForm";
 import Popup from "../popup/popup";
+import Form from "../form/form";
 import Search from "../search/search";
 import noImage from "../film-card/images/no-image.png";
 import GenreMenu from "../genre-menu/genre-menu";
@@ -95,7 +96,8 @@ const Header: React.FC = () => {
 
   const toggleButtonsClick = () => {
     if (formToShow === "login") return <LoginForm successCb={togglePopupStatus} />;
-    if (formToShow === "registration") return <RegisterForm successCb={togglePopupStatus} />;
+    // if (formToShow === "registration") return <RegisterForm successCb={togglePopupStatus} />;
+    if (formToShow === "registration") return <Form type="registration" successCallback={togglePopupStatus} />;
     return <></>;
   };
 
