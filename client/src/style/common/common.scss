@@ -1,8 +1,8 @@
 /* Общие стили проекта */
 html {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-  }
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 
 *,
 *::before,
@@ -11,16 +11,16 @@ html {
 }
 
 ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background-color: $content-background;
-    font-family: $main-font;
+  background-color: $content-background;
+  font-family: $main-font;
+  margin: 0;
+  padding: 0;
 
   &::-webkit-scrollbar {
     display: none;
@@ -28,14 +28,14 @@ body {
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
   display: block;
+  height: auto;
+  max-width: 100%;
 }
 
 h1,
@@ -57,40 +57,49 @@ h6 {
 // сообщение с ошибкой
 .error {
   background-color: $error-background-color;
-  padding: 12px;
   color: $cl-white;
+  padding: 12px;
 }
 
 // Боковое меню
 .aside-bar {
-  position: fixed;
-  z-index: 10;
-  left: -250px;
-  top: 0;
   background-color: $cl-white;
-  padding: 16px 16px 0;
-  transition: left $transition-time;
-  pointer-events: none;
+  box-shadow: 0 2px 14px rgba($cl-black, 0.6);
   height: 100%;
-  overflow-y: scroll;
-  box-shadow: 0 2px 14px rgba($cl-black, .6);
+  left: -250px;
   min-width: 220px;
+  overflow-y: scroll;
+  padding: 16px 16px 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: left $transition-time;
+  z-index: 10;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
-  &--open {
-    left: 0;
-    pointer-events: auto;
-
-    .header__dropdown {
-      left: 0;
-    }
-  }
+  //&--open {
+  //  left: 0;
+  //  pointer-events: auto;
+  //
+  //  .header__dropdown {
+  //    left: 0;
+  //  }
+  //}
 
   &__menu {
     margin-top: 16px;
+  }
+}
+
+.aside-bar--open {
+  left: 0;
+  pointer-events: auto;
+
+  .header__dropdown {
+    left: 0;
   }
 }
 

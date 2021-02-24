@@ -1,11 +1,11 @@
 /* Страница со списком актеров */
 
 .credits {
-  position: relative;
   display: grid;
   grid-column-gap: 24px;
   grid-row-gap: 24px;
   grid-template-columns: repeat(auto-fit, minmax(150px, 180px));
+  position: relative;
 
   &__back-button {
     position: absolute;
@@ -24,9 +24,9 @@
   }
 
   &__wrapper {
-    padding: 8px 16px;
     display: flex;
     flex-direction: column;
+    padding: 8px 16px;
   }
 
   &__name {

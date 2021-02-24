@@ -2,9 +2,9 @@
 
 .film-card {
   @include box-shadow-hover-card;
+  height: 100%;
 
   position: relative;
-  height: 100%;
 
   &--small {
     min-height: 290px;
@@ -35,25 +35,25 @@
   }
 
   &__rating {
-    position: absolute;
-    top: -7px;
-    right: -7px;
+    align-items: center;
     border-radius: 50%;
     color: $cl-white;
-
-    padding: 0 6px;
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 34px;
     min-width: 34px;
 
+    padding: 0 6px;
+    position: absolute;
+    right: -7px;
+    top: -7px;
+
     // хак, чтобы всегда был круг, если значение будет большое
-    &:before {
-      content:'';
+    &::before {
+      content: '';
       float: left;
-      width: auto;
       padding-bottom: 100%;
+      width: auto;
     }
 
     &--medium {

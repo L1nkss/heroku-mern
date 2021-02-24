@@ -14,53 +14,53 @@ $main-login-color: $cl-blue-3;
   }
 
   &__input {
-    padding: 10px 10px 10px 50px;
-    margin: 0;
     border: 1px solid $main-login-color;
     border-radius: 5px;
+    margin: 0;
+    padding: 10px 10px 10px 50px;
 
     &:focus {
+      box-shadow: inset 0 1px 2px rgba($main-login-color, 0.2),0 0 4px rgba($main-login-color, 0.3);
       outline: none;
-      box-shadow: inset 0 1px 2px rgba($main-login-color,0.2),0 0 4px rgba($main-login-color,0.3);
     }
   }
 
   &__success {
-    width: 320px;
     text-align: center;
+    width: 320px;
 
     &-text {
       line-height: 1.5;
     }
 
     &-icon {
-      font-size: 64px;
       color: $cl-green;
+      font-size: 64px;
     }
   }
 
   &__icon-wrapper {
-    position: absolute;
-    width: 32px;
-    height: 39px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    top: 0;
-    left: 0;
     color: $main-login-color;
+    display: flex;
+    height: 39px;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 32px;
 
     &::before {
+      background-color: rgba($cl-blue-3, 0);
+      background-image: linear-gradient(to top, rgba($cl-blue-3, 0) 0, $cl-blue-3 30%, $cl-blue-3 70%, rgba($cl-blue-3, 0) 100%);
       content: '';
+      height: 80%;
+      opacity: 0.5;
       position: absolute;
       right: -5px;
       top: 50%;
-      height: 80%;
-      width: 1px;
       transform: translateY(-50%);
-      opacity: .5;
-      background-color: rgba($cl-blue-3,0);
-      background-image: linear-gradient(to top,rgba($cl-blue-3, 0) 0,$cl-blue-3 30%,$cl-blue-3 70%,rgba($cl-blue-3,0) 100%);
+      width: 1px;
     }
   }
 

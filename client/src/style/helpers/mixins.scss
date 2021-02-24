@@ -2,16 +2,16 @@
 
 // Центирования контента с максимальной шириной
 @mixin max-center-content {
-  max-width: $max-content-width;
   margin: 0 auto;
+  max-width: $max-content-width;
 }
 
 // Тень для карточки + эффект у hover'a
 @mixin box-shadow-hover-card {
-  box-shadow: 0 1px 3px rgba($cl-black, 0.12), 0 1px 2px rgba($cl-black, 0.24);
-  transition: all $transition-time ease-out;
   background-color: $cl-grey-5;
+  box-shadow: 0 1px 3px rgba($cl-black, 0.12), 0 1px 2px rgba($cl-black, 0.24);
   color: $cl-white;
+  transition: all $transition-time ease-out;
 
   &:hover {
     box-shadow: 0 19px 38px rgba($cl-black, 0.3), 0 15px 12px rgba($cl-black, 0.22);
@@ -24,21 +24,18 @@
   // mobile breakpoint
   @if $point == $mobile-xl-name {
     @media screen and (max-width: $mobile-xl) {
-      @content
-    }
+      @content; }
   }
 
   @if $point == $mobile-sm-name {
     @media screen and (max-width: $mobile-sm) {
-      @content
-    }
+      @content; }
   }
 
   // tablet breakpoint
   @if $point == $tablet-sm-name {
     @media screen and (max-width: $tablet-sm) {
-      @content
-    }
+      @content; }
   }
 }
 
@@ -51,27 +48,27 @@
   }
 
   &__header {
-    position: relative;
     color: $cl-white;
     margin-bottom: 12px;
+    position: relative;
   }
 
   &__content {
-    margin-left: 36px;
     flex-grow: 1;
+    margin-left: 36px;
 
     @include adaptive($tablet-sm-name) {
-      margin-top: 12px;
       margin-left: 0;
+      margin-top: 12px;
     }
   }
 
   &__image-container {
     align-self: flex-start;
-    position: relative;
     max-width: 320px;
-    width: 100%;
     min-width: 320px;
+    position: relative;
+    width: 100%;
 
     @include adaptive($tablet-sm-name) {
       margin: 0 auto;
@@ -82,10 +79,10 @@
     }
   }
 
-  &__title  {
+  &__title {
+    font-family: $main-font;
     font-size: 46px;
     margin-bottom: 8px;
-    font-family: $main-font;
   }
 
   &__info {
@@ -93,9 +90,9 @@
     padding: 8px 0;
 
     &-header {
-      margin-bottom: 12px;
-      flex-shrink: 0;
       color: $cl-grey-4;
+      flex-shrink: 0;
+      margin-bottom: 12px;
     }
 
     &-text {
@@ -106,8 +103,8 @@
 
     // Модификатор для текста в строчку
     &--row {
-      display: flex;
       align-items: center;
+      display: flex;
 
       // Используем переменную, чтобы установить значение для header'a в модификаторе
       #{$name}-header {

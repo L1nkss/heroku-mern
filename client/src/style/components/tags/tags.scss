@@ -9,12 +9,12 @@ $tag-margin-top: 12px;
 
   &__item {
     border: 1px solid $cl-white;
+    border-radius: 4px;
     color: $cl-white;
     cursor: pointer;
     font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 4px;
     margin-top: $tag-margin-top;
+    padding: 2px 6px;
 
     &:not(:last-child) {
       margin-right: 10px;

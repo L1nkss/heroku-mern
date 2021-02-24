@@ -2,22 +2,22 @@
 
 .button {
   background-color: $cl-blue-1;
+  border: 2px solid transparent;
   color: $cl-white;
-  font-weight: 400;
-  padding: 13px 16px;
-  text-align: center;
-  text-decoration: none;
+  cursor: pointer;
   display: inline-block;
   font-size: 14px;
-  transition: $transition-time;
-  cursor: pointer;
+  font-weight: 400;
+  padding: 13px 16px;
   position: relative;
-  border: 2px solid transparent;
+  text-align: center;
+  text-decoration: none;
+  transition: $transition-time;
 
   &:focus,
   &:hover {
-    outline: none;
     background-color: #054ada;
+    outline: none;
   }
 
   &--ghost {
@@ -26,7 +26,7 @@
 
     &:hover,
     &:active, {
-      background-color: #ECF2FF;
+      background-color: #ecf2ff;
     }
 
     &:focus {
@@ -40,9 +40,9 @@
   }
 
   &__icon {
+    left: 5px;
     position: absolute;
     top: 50%;
-    left: 5px;
     transform: translateY(-50%);
   }
 }

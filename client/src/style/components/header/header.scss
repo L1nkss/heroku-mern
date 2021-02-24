@@ -7,47 +7,47 @@
   // Заголовок с названием
   &__title {
     color: $cl-blue-3;
-    margin-right: 16px;
     grid-area: title;
+    margin-right: 16px;
   }
 
   // Контент
   &__content {
     align-items: center;
-    padding-top: 7px;
-    padding-bottom: 7px;
     display: grid;
-    grid-template-areas: "title search empty menu";
+    grid-template-areas: 'title search empty menu';
     grid-template-columns: 180px minmax(100px, 350px) auto;
     grid-template-rows: 1fr;
+    padding-bottom: 7px;
+    padding-top: 7px;
 
     @include adaptive($mobile-xl-name) {
+      grid-template-areas:
+        'title menu'
+        'search search';
       grid-template-columns: 180px auto;
       grid-template-rows: 1fr 1fr;
-      grid-template-areas:
-              "title menu"
-              "search search"
     }
   }
 
   // Хедер пользователя
-  &__user-menu {
-    grid-area: menu;
-    color: $cl-blue-3;
-    position: relative;
-    justify-self: end;
-
-    &:hover {
-      .header__dropdown {
-        display: block;
-      }
-    }
-  }
+  //&__user-menu {
+  //  color: $cl-blue-3;
+  //  grid-area: menu;
+  //  justify-self: end;
+  //  position: relative;
+  //
+  //  &:hover {
+  //    .header__dropdown {
+  //      display: block;
+  //    }
+  //  }
+  //}
 
   // Ссылка на источник
   &__source-link {
-    margin: 0;
     font-size: 14px;
+    margin: 0;
   }
 
   // Имя пользователя
@@ -72,8 +72,8 @@
   }
 
   &__search {
-    margin-right: auto;
     grid-area: search;
+    margin-right: auto;
   }
 
   &__search-dropdown {
@@ -85,25 +85,54 @@
   }
 
   &__search-dropdown-title {
-    margin-left: 16px;
-    font-size: 14px;
     align-self: center;
+    font-size: 14px;
+    margin-left: 16px;
   }
 
   // Dropdown меню
-  &__dropdown {
-    min-width: 220px;
-    position: absolute;
-    right: 0;
-    display: none;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 15;
-    top: 100%;
+  //&__dropdown {
+  //  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  //  display: none;
+  //  min-width: 220px;
+  //  position: absolute;
+  //  right: 0;
+  //  top: 100%;
+  //  z-index: 15;
+  //
+  //  .menu__item {
+  //    &:hover {
+  //      opacity: 0.7;
+  //    }
+  //  }
+  //}
+}
 
-    .menu__item {
-      &:hover {
-        opacity: .7;
-      }
+.header__user-menu {
+  color: $cl-blue-3;
+  grid-area: menu;
+  justify-self: end;
+  position: relative;
+
+  &:hover {
+    .header__dropdown {
+      display: block;
+    }
+  }
+}
+
+.header__dropdown {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  display: none;
+  min-width: 220px;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 15;
+
+  .menu__item {
+    &:hover {
+      opacity: 0.7;
     }
   }
 }

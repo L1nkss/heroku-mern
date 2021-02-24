@@ -1,14 +1,14 @@
 // Normalize
-@import "common/normalize";
+@import 'common/normalize';
 
 // Различные хелперы
-@import "helpers/index";
+@import 'helpers/index';
 
 // Общие стили
-@import './common/common.scss';
+@import './common/common';
 
 // Компоненты
-@import "./components/index";
+@import './components/index';
 
 // Views
-@import "./views/index";
+@import './views/index';
