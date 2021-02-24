@@ -30,20 +30,6 @@
     }
   }
 
-  // Хедер пользователя
-  //&__user-menu {
-  //  color: $cl-blue-3;
-  //  grid-area: menu;
-  //  justify-self: end;
-  //  position: relative;
-  //
-  //  &:hover {
-  //    .header__dropdown {
-  //      display: block;
-  //    }
-  //  }
-  //}
-
   // Ссылка на источник
   &__source-link {
     font-size: 14px;
@@ -89,23 +75,6 @@
     font-size: 14px;
     margin-left: 16px;
   }
-
-  // Dropdown меню
-  //&__dropdown {
-  //  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  //  display: none;
-  //  min-width: 220px;
-  //  position: absolute;
-  //  right: 0;
-  //  top: 100%;
-  //  z-index: 15;
-  //
-  //  .menu__item {
-  //    &:hover {
-  //      opacity: 0.7;
-  //    }
-  //  }
-  //}
 }
 
 .header__user-menu {

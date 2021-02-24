@@ -6,6 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 
+import { IClientFilmData, IClientFilmDetails } from "../../../redux/reducers/films/types/types";
+import { IRootState } from "../../../redux/reducers/types/types";
+import { TGenre } from "../../../redux/reducers/genre/types/types";
+
 import {
   IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK,
 } from "../../../constants/constants";
@@ -16,9 +20,6 @@ import FilmList from "../../../components/film-list/film-list";
 import Popup from "../../../components/popup/popup";
 import Credits from "../../../components/credits/credits";
 import { addFavoriteFilm } from "../../../redux/reducers/user/reducer";
-import { IClientFilmData, IClientFilmDetails } from "../../../redux/reducers/films/types/types";
-import { IRootState } from "../../../redux/reducers/types/types";
-import { TGenre } from "../../../redux/reducers/genre/types/types";
 import { changeActive } from "../../../redux/reducers/genre/reducer";
 import {
   IDetailInformation,
@@ -182,13 +183,15 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     ];
     return (
       <header className="film-details__header">
-        <h2 className="film-details__title">{details?.data.title}</h2>
+        <div className="film-details__header-wrapper">
+          <h2 className="film-details__title">{details?.data.title}</h2>
+          { trailerPreview }
+        </div>
         <ul className="film-details__sub-header">
           { data.map((element) => {
             return <li className="film-details__sub-header-item" key={element.id}>{element.result}</li>;
           })}
         </ul>
-        { trailerPreview }
       </header>
     );
   }, [details, trailerPreview]);

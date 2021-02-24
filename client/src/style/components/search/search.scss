@@ -5,42 +5,6 @@
   display: flex;
   position: relative;
 
-  //&__input {
-  //  background-color: transparent;
-  //  border: 0;
-  //  color: $cl-black;
-  //  cursor: pointer;
-  //  display: inline-block;
-  //  height: 35px;
-  //  outline: none;
-  //  padding: 0;
-  //  transition: $transition-time;
-  //  vertical-align: baseline;
-  //  width: 0;
-  //
-  //  // Убирае крестик у инпута
-  //  &::-webkit-search-decoration,
-  //  &::-webkit-search-cancel-button,
-  //  &::-webkit-search-results-button,
-  //  ::-webkit-search-results-decoration {
-  //    display: none;
-  //  }
-  //
-  //  &:focus {
-  //    padding-left: 20px;
-  //    width: 100%;
-  //
-  //    + .search__icon-wrapper {
-  //      background-color: rgba(0, 0, 0, 0.05);
-  //    }
-  //  }
-  //
-  //  &:hover,
-  //  &:focus {
-  //    background-color: rgba(0, 0, 0, 0.05);
-  //  }
-  //}
-
   &__icon-wrapper {
     align-items: center;
     display: flex;
