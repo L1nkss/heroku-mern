@@ -1,7 +1,8 @@
 import { put, call, takeEvery } from "redux-saga/effects";
-import { getGenresRequest, getGenresSuccess, getGenresError } from "../reducer";
-import api from "../../../../services/api";
+
 import { RoutePathes } from "../../../../constants/constants";
+import api from "../../../../services/api";
+import { getGenresRequest, getGenresSuccess, getGenresError } from "../reducer";
 import history from "../../../../utils/history";
 
 function* getGenres() {

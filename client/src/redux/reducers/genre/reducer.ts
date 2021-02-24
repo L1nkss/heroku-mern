@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   IMovieGenres, TGenre,
 } from "./types/types";
+
 import { CONSTANT_GENRES } from "../../../constants/constants";
 
 const initialState: IMovieGenres = {

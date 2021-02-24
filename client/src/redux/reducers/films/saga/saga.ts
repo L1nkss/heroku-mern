@@ -1,13 +1,15 @@
 import {
   put, call, takeEvery, select,
 } from "redux-saga/effects";
+
+import { IRootState } from "../../types/types";
+
+import { GENRES_TYPES_TO_SERVER } from "../../../../constants/constants";
+import api from "../../../../services/api";
 import {
   getFilmsRequest, getFilmsSuccess, loadAdditionFilmsSuccess, loadAdditionFilmsRequest,
 } from "../reducer";
 import { changeActive } from "../../genre/reducer";
-import { IRootState } from "../../types/types";
-import { GENRES_TYPES_TO_SERVER } from "../../../../constants/constants";
-import api from "../../../../services/api";
 import FilmAdapter from "../../../../utils/adapters/film";
 import { isStringsEqual } from "../../../../utils/helpers";
 

@@ -11,6 +11,7 @@ import { loadAdditionFilmsRequest } from "../../redux/reducers/films/reducer";
 
 const Content: React.FC = () => {
   const dispatch = useDispatch();
+
   const isFilmLoading = useSelector((state: IRootState) => state.films.loading);
   const isAdditionLoading = useSelector((state: IRootState) => state.films.loadingAdditionFilms);
   const films = useSelector((state: IRootState) => state.films.films);

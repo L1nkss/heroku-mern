@@ -2,15 +2,13 @@ import React, {
   memo, useCallback, useEffect, useMemo, useState,
 } from "react";
 
-import { IMAGE_SIZE_URL, RoutePathes } from "../../../constants/constants";
+import { IMAGE_SIZE_URL } from "../../../constants/constants";
 import { RouteMatchProps } from "../../../constants/types/types";
 import api from "../../../services/api";
 import Loader from "../../../components/loader/loader";
-import FilmCard from "../../../components/film-card/film-card";
 import { IClientFilmData } from "../../../redux/reducers/films/types/types";
 import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformations } from "../helpers/helpers";
 import FilmAdapter from "../../../utils/adapters/film";
-import withLink from "../../../utils/HOC/withLink";
 import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
 import FilmList from "../../../components/film-list/film-list";
 
@@ -20,9 +18,10 @@ interface IActorState {
 }
 
 const Actor = ({ match }: RouteMatchProps) => {
-  const { id } = match.params;
-  const [details, setDetails] = useState<IActorState>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [details, setDetails] = useState<IActorState>();
+
+  const { id } = match.params;
 
   const loadActorDetails = useCallback(async () => {
     setLoading(true);

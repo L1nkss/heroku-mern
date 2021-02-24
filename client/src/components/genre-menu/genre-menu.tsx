@@ -1,10 +1,11 @@
 import React, { useCallback, useMemo, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { TGenre } from "../../redux/reducers/genre/types/types";
+import { IRootState } from "../../redux/reducers/types/types";
+
 import { RoutePathes } from "../../constants/constants";
 import Menu from "../menu/menu";
-import { IRootState } from "../../redux/reducers/types/types";
-import { TGenre } from "../../redux/reducers/genre/types/types";
 import { changeActive } from "../../redux/reducers/genre/reducer";
 import history from "../../utils/history";
 

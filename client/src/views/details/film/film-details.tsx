@@ -4,8 +4,8 @@ import React, {
 import { AiFillHeart, AiOutlineYoutube } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-
 import moment from "moment";
+
 import {
   IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK,
 } from "../../../constants/constants";
@@ -47,13 +47,15 @@ interface IFilmDetailsState {
 const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const [details, setDetails] = useState<IFilmDetailsState>();
   const [showPopup, setShowPopup] = useState(false);
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [showAllCast, setShowAllCast] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   const userID = useSelector((state: IRootState) => state.user.data.id);
   const authStatus = useSelector((state: IRootState) => state.user.isLogin);
   const favoriteFilms = useSelector((state: IRootState) => state.user.data.favoriteFilms);
+
   const { id } = match.params;
-  const [showAllCast, setShowAllCast] = useState<boolean>(false);
 
   const handlePopupClick = useCallback(() => {
     setShowPopup((prevState) => !prevState);
