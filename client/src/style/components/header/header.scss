@@ -1,4 +1,4 @@
-/* Хедер страниц */
+/* ==[ ХЕДЕР ]== */
 
 .header {
   background-color: $main-bg-color;
@@ -21,7 +21,7 @@
     padding-bottom: 7px;
     padding-top: 7px;
 
-    @include adaptive($mobile-xl-name) {
+    @include adaptive(sm) {
       grid-template-areas:
         'title menu'
         'search search';

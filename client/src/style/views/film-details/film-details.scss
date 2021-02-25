@@ -1,4 +1,4 @@
-/* Подробная информация о фильме */
+/* ==[ ДЕТАЛЬНАЯ ИНФОРМАЦИЯ О ФИЛЬМЕ ]== */
 
 .film-details {
   @include details-view-classes;
@@ -20,14 +20,9 @@
   }
 
   &__credits {
-    @include adaptive($mobile-sm-name) {
-      justify-content: center;
-    }
-  }
-
-  &__sub-header {
-    display: flex;
-    font-size: 12px;
+    //@include adaptive($mobile-sm-name) {
+    //  justify-content: center;
+    //}
   }
 
   &__overview {
@@ -49,16 +44,6 @@
 
     &-title {
       margin-right: auto;
-    }
-  }
-
-  &__sub-header-item {
-    &:not(:first-child) {
-      list-style: disc;
-    }
-
-    &:not(:last-child) {
-      margin-right: 24px;
     }
   }
 

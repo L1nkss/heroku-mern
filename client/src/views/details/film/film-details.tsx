@@ -30,6 +30,7 @@ import {
 import CreditsAdapter, { IClientCredits } from "../../../utils/adapters/credits";
 import FilmAdapter from "../../../utils/adapters/film";
 import history from "../../../utils/history";
+import { timeConvert } from "../../../utils/helpers";
 
 type TVideo = {
   id: string;
@@ -171,27 +172,12 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Заголовок
   const header = useMemo(() => {
-    const data = [
-      {
-        id: 1,
-        result: moment(details?.data.releaseDate).format("MMMM DD, YYYY"),
-      },
-      {
-        id: 3,
-        result: `${details?.data.runtime} min`,
-      },
-    ];
     return (
       <header className="film-details__header">
         <div className="film-details__header-wrapper">
           <h2 className="film-details__title">{details?.data.title}</h2>
           { trailerPreview }
         </div>
-        <ul className="film-details__sub-header">
-          { data.map((element) => {
-            return <li className="film-details__sub-header-item" key={element.id}>{element.result}</li>;
-          })}
-        </ul>
       </header>
     );
   }, [details, trailerPreview]);
@@ -247,6 +233,26 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     );
   }, [details]);
 
+  // Дата выхода фильма
+  const dateRelease = useMemo(() => {
+    if (!details?.data.releaseDate) return undefined;
+
+    return (
+      <p className="film-details__info-text">{moment(details?.data.releaseDate).format("D MMMM YYYY")}</p>
+    );
+  }, [details]);
+
+  // Длительность фильма
+  const duration = useMemo(() => {
+    if (!details?.data.runtime) return undefined;
+
+    const time = timeConvert(59);
+
+    return (
+      <p className="film-details__info-text">{time}</p>
+    );
+  }, [details]);
+
   // Данные по информации о фильме
   const detailsInformation: IDetailInformation[] = useMemo<IDetailInformation[]>(() => {
     const data: IDetailsInformationInit[] = [
@@ -254,18 +260,26 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         id: 3,
         result: rating,
         header: "Rating",
-        extraClass: "film-details__info--row",
       },
       {
         id: 1,
         result: genres,
         header: "Genres",
-        extraClass: "film-details__info--row",
       },
       {
         id: 2,
         result: overview,
         header: "Overview",
+      },
+      {
+        id: 4,
+        result: dateRelease,
+        header: "Date release",
+      },
+      {
+        id: 5,
+        result: duration,
+        header: "Duration",
       },
     ];
 
@@ -298,9 +312,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
           </div>
           <div className="film-details__content">
             { header }
-            <div>
-              {renderDetailsInformations(detailsInformation, "film-details")}
-            </div>
+            { renderDetailsInformations(detailsInformation, "film-details") }
           </div>
         </div>
       </div>

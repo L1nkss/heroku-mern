@@ -1,4 +1,4 @@
-/* Главная страница */
+/* ==[ ГЛАВНАЯ СТРАНИЦА ]== */
 
 .main {
   display: flex;
@@ -8,7 +8,7 @@
   &__aside-menu {
     margin-right: 16px;
 
-    @include adaptive($mobile-xl-name) {
+    @include adaptive(sm) {
       display: none;
     }
   }

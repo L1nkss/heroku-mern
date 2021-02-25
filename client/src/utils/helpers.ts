@@ -17,3 +17,13 @@ export const getRatingClass = (vote: number): string => {
 
   return result;
 };
+
+export const timeConvert = (n: number) => {
+  const hours = (n / 60);
+  const rhours = Math.floor(hours);
+  const minutes = (hours - rhours) * 60;
+  const rminutes = Math.round(minutes);
+
+  // Если фильм идем меньше часа, не возвращаем часы-
+  return `${rhours ? `${rhours}h` : ""} ${rminutes} min`;
+};
