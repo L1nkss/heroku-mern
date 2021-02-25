@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 export interface IDetailsInformationInit {
   id: number,
-  result: JSX.Element | undefined,
+  result: undefined | JSX.Element | number | string,
   header: string,
   extraClass?: string,
 }
 
 export interface IDetailInformation {
   id: number,
-  result: JSX.Element,
+  result: undefined | JSX.Element | number | string,
   header: string,
   extraClass?: string,
 }
@@ -24,14 +24,20 @@ export const renderDetailsInformations = (data: IDetailInformation[], detailClas
     if (element.extraClass) {
       containerClass = element.extraClass;
     }
+    // Возвращаемое значение для текстовой информации о фильме
+    // Если тип object, значит значение компонент, возвращаем этот компонент внутри фрагмента
+    // Если тип string | number, значит пришло обычное значение, возвращаем информацию внутри тега p
+    const textInformation = typeof element.result === "object"
+      ? <>{element.result}</>
+      : <p className={`${detailClass}__info-text`}>{element.result}</p>;
     return (
       <div className={`${detailClass}__info ${containerClass}`} key={element.id}>
-        <h3 className={`${detailClass}__info-header`}>
+        <div className={`${detailClass}__info-header`}>
           {element.header}
           {" "}
           :
-        </h3>
-        { element.result }
+        </div>
+        { textInformation }
       </div>
     );
   });

@@ -18,7 +18,7 @@ import api from "../../../services/api";
 import Loader from "../../../components/loader/loader";
 import FilmList from "../../../components/film-list/film-list";
 import Popup from "../../../components/popup/popup";
-import Credits from "../../../components/credits/credits";
+import FilmDetailsCredits from "./components/credits";
 import { addFavoriteFilm } from "../../../redux/reducers/user/reducer";
 import { changeActive } from "../../../redux/reducers/genre/reducer";
 import {
@@ -50,7 +50,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const [details, setDetails] = useState<IFilmDetailsState>();
   const [showPopup, setShowPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [showAllCast, setShowAllCast] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const userID = useSelector((state: IRootState) => state.user.data.id);
@@ -62,10 +61,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const handlePopupClick = useCallback(() => {
     setShowPopup((prevState) => !prevState);
   }, [id]);
-
-  const handleActorButtonClick = useCallback(() => {
-    setShowAllCast((prevState) => !prevState);
-  }, []);
 
   const getFilmDetailsData = useCallback(async () => {
     setIsLoading(true);
@@ -202,24 +197,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     );
   }, [details]);
 
-  // Актеры
-  const credits = useMemo(() => {
-    if (details?.credits.length === 0) return undefined;
-    const limit = 6;
-    const castToShow = showAllCast ? details?.credits : details?.credits.slice(0, limit);
-    return (
-      <section className="film-details__section">
-        <header className="film-details__section-header">
-          <h3 className="film-details__section-title">Actors</h3>
-          <button onClick={handleActorButtonClick} type="button" className="button button--ghost">
-            {showAllCast ? "Show less" : "Show more"}
-          </button>
-        </header>
-        <Credits data={castToShow} className="film-details__credits" />
-      </section>
-    );
-  }, [details, showAllCast]);
-
   // Фильмы, которые возможно понравятся
   const moreFilms = useMemo(() => {
     if (details?.recommendations?.length === 0) return undefined;
@@ -246,7 +223,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const duration = useMemo(() => {
     if (!details?.data.runtime) return undefined;
 
-    const time = timeConvert(59);
+    const time = timeConvert(details?.data.runtime);
 
     return (
       <p className="film-details__info-text">{time}</p>
@@ -273,7 +250,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       },
       {
         id: 4,
-        result: dateRelease,
+        result: moment(details?.data.releaseDate).format("D MMMM YYYY"),
         header: "Date release",
       },
       {
@@ -317,7 +294,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         </div>
       </div>
       <div className="content-wrapper">
-        { credits }
+        { details?.credits && <FilmDetailsCredits data={details?.credits} showLimit={6} />}
         { moreFilms }
       </div>
       {/* Модальное окно с трейлером */}

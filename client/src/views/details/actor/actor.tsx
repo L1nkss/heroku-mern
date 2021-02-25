@@ -83,19 +83,16 @@ const Actor = ({ match }: RouteMatchProps) => {
         id: 1,
         header: "Place of Birth",
         result: placeOfBirth,
-        extraClass: "actor__info--row",
       },
       {
         id: 2,
         header: "Birthday",
         result: dateOfBirhday,
-        extraClass: "actor__info--row",
       },
       {
         id: 3,
         header: "Deathday",
         result: dateOfDeathday,
-        extraClass: "actor__info--row",
       },
       {
         id: 4,
