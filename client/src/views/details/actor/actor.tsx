@@ -1,8 +1,9 @@
 import React, {
   memo, useCallback, useEffect, useMemo, useState,
 } from "react";
+import { Redirect } from "react-router-dom";
 
-import { IMAGE_SIZE_URL } from "../../../constants/constants";
+import { IMAGE_SIZE_URL, RoutePathes } from "../../../constants/constants";
 import { RouteMatchProps } from "../../../constants/types/types";
 import api from "../../../services/api";
 import Loader from "../../../components/loader/loader";
@@ -11,6 +12,7 @@ import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformati
 import FilmAdapter from "../../../utils/adapters/film";
 import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
 import FilmList from "../../../components/film-list/film-list";
+import history from "../../../utils/history";
 
 interface IActorState {
   information: IClientActorDetails,
@@ -35,6 +37,7 @@ const Actor = ({ match }: RouteMatchProps) => {
       });
     } catch (e) {
       console.log("Ошибка при загрузке информации о фильме", e);
+      history.push(RoutePathes.ERROR);
     } finally {
       setLoading(false);
     }
