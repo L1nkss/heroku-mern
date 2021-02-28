@@ -17,12 +17,18 @@ interface ICreditCardProps {
 }
 
 export const CreditCard: React.FC<ICreditCardProps> = ({ data }: ICreditCardProps) => {
-  const personImage = data.profilePath ? `${IMAGE_SIZE_URL.SMALL}/${data.profilePath}` : noImage;
+  const personImage = useMemo(() => {
+    const image = data.profilePath ? `${IMAGE_SIZE_URL.SMALL}/${data.profilePath}` : noImage;
+
+    return (
+      <div className="cast__image">
+        <img src={image} alt={`${data.name}`} />
+      </div>
+    );
+  }, [data]);
   return (
     <div key={data.id} className="cast">
-      <div className="cast__image">
-        <img src={personImage} alt={`${data.name}`} />
-      </div>
+      { personImage }
       <div className="cast__wrapper">
         <h3>{data.name}</h3>
         <p className="cast__name">{data.character}</p>

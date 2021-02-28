@@ -80,10 +80,8 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       );
     } catch (e) {
       console.log("Ошибка при получении информации о фильме", e);
-      // Если получили статус 404 при получении информации
-      if (e.response.status === 404) {
-        history.push(RoutePathes.NOT_FOUND);
-      }
+      // Если получили ошибку
+      history.push(RoutePathes.ERROR);
     } finally {
       setIsLoading(false);
     }
