@@ -3,6 +3,7 @@
 .film-card {
   @include box-shadow-hover-card;
   height: 100%;
+  max-width: 430px;
 
   position: relative;
 
@@ -28,10 +29,6 @@
 
   &__information {
     font-size: 12px;
-  }
-
-  &__image {
-    object-fit: contain;
   }
 
   &__rating {

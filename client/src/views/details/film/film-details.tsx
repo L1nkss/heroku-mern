@@ -24,7 +24,7 @@ import { changeActive } from "../../../redux/reducers/genre/reducer";
 import {
   IDetailInformation,
   renderDetailsInformations,
-  checkResultToUndefined,
+  isResultExist,
   IDetailsInformationInit,
 } from "../helpers/helpers";
 import CreditsAdapter, { IClientCredits } from "../../../utils/adapters/credits";
@@ -187,14 +187,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     );
   }, [details]);
 
-  // Описание фильма
-  const overview = useMemo(() => {
-    if (details?.data.overview.length === 0) return undefined;
-    return (
-      <p className="film-details__info-text">{details?.data.overview}</p>
-    );
-  }, [details]);
-
   // Фильмы, которые возможно понравятся
   const moreFilms = useMemo(() => {
     if (details?.recommendations?.length === 0) return undefined;
@@ -205,26 +197,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         </header>
         <FilmList films={details?.recommendations || []} />
       </section>
-    );
-  }, [details]);
-
-  // Дата выхода фильма
-  const dateRelease = useMemo(() => {
-    if (!details?.data.releaseDate) return undefined;
-
-    return (
-      <p className="film-details__info-text">{moment(details?.data.releaseDate).format("D MMMM YYYY")}</p>
-    );
-  }, [details]);
-
-  // Длительность фильма
-  const duration = useMemo(() => {
-    if (!details?.data.runtime) return undefined;
-
-    const time = timeConvert(details?.data.runtime);
-
-    return (
-      <p className="film-details__info-text">{time}</p>
     );
   }, [details]);
 
@@ -243,22 +215,22 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       },
       {
         id: 2,
-        result: overview,
+        result: details?.data.overview,
         header: "Overview",
       },
       {
         id: 4,
-        result: moment(details?.data.releaseDate).format("D MMMM YYYY"),
+        result: details?.data.releaseDate && moment(details?.data.releaseDate).format("D MMMM YYYY"),
         header: "Date release",
       },
       {
         id: 5,
-        result: duration,
+        result: details?.data.runtime && timeConvert(details?.data.runtime),
         header: "Duration",
       },
     ];
 
-    return data.filter(checkResultToUndefined);
+    return data.filter(isResultExist);
   }, [details]);
 
   if (isLoading) return <Loader />;

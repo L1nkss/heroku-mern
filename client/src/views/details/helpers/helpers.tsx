@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 export interface IDetailsInformationInit {
   id: number,
@@ -14,8 +14,8 @@ export interface IDetailInformation {
   extraClass?: string,
 }
 
-export const checkResultToUndefined = (element: IDetailsInformationInit): element is IDetailInformation => {
-  return typeof element.result !== typeof undefined;
+export const isResultExist = (element: IDetailsInformationInit): element is IDetailInformation => {
+  return ((typeof element.result !== typeof undefined) && (element.result !== null));
 };
 
 export const renderDetailsInformations = (data: IDetailInformation[], detailClass: string): Array<JSX.Element> => {
