@@ -56,10 +56,6 @@
     position: relative;
     width: 100%;
 
-    @include adaptive(sm) {
-      margin: 0 auto;
-    }
-
     @include adaptive(xsm) {
       min-width: 100%;
     }
