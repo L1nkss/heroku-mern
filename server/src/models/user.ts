@@ -4,7 +4,7 @@ const {
 const bcrypt = require("bcrypt");
 
 export type TUserFavoriteFilms = {
-  id: string,
+  id: number,
   backdropPath: string,
 }
 

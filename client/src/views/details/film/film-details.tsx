@@ -56,7 +56,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const authStatus = useSelector((state: IRootState) => state.user.isLogin);
   const favoriteFilms = useSelector((state: IRootState) => state.user.data.favoriteFilms);
 
-  const { id } = match.params;
+  const id = Number(match.params.id);
 
   const handlePopupClick = useCallback(() => {
     setShowPopup((prevState) => !prevState);
@@ -110,20 +110,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       console.log(e);
     }
   }, [details, userID]);
-
-  const rating = useMemo(() => {
-    if (!details?.data.voteAverage) return undefined;
-
-    return (
-      <p className="film-details__info-text">
-        {details?.data.voteAverage}
-        {" "}
-        /
-        {" "}
-        <strong>10</strong>
-      </p>
-    );
-  }, [details, id]);
 
   const isFilmFavorite = useMemo(() => {
     if (!authStatus) return null;
@@ -205,7 +191,7 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     const data: IDetailsInformationInit[] = [
       {
         id: 3,
-        result: rating,
+        result: details?.data.voteAverage && details?.data.voteAverage,
         header: "Rating",
       },
       {

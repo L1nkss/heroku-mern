@@ -2,10 +2,16 @@
 
 .film-card {
   @include box-shadow-hover-card;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   max-width: 430px;
 
   position: relative;
+
+  @include adaptive(xlsm) {
+    max-width: 100%;
+  }
 
   &--small {
     min-height: 290px;
@@ -16,6 +22,7 @@
   }
 
   &__wrapper {
+    margin-top: auto;
     padding: 12px;
   }
 

@@ -1,10 +1,10 @@
-import { TUserFavoriteFilms } from "../../../../../../server/src/models/user";
+import { IClientFilmData } from "../../films/types/types";
 
 export type TUserData = {
   username: string,
   email: string,
   id: string,
-  favoriteFilms: TUserFavoriteFilms[],
+  favoriteFilms: IClientFilmData[],
 };
 
 export interface IInitialUserState {

@@ -23,7 +23,8 @@ const Actor = ({ match }: RouteMatchProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [details, setDetails] = useState<IActorState>();
 
-  const { id } = match.params;
+  // const { id } = match.params;
+  const id = Number(match.params.id);
 
   const loadActorDetails = useCallback(async () => {
     setLoading(true);

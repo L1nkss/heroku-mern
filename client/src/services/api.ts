@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import dotenv from "dotenv";
+
 import { BASE_URL } from "../constants/constants";
 
 dotenv.config();
@@ -35,7 +36,7 @@ class Api {
     return this.client;
   };
 
-  getGenres = (params = {}) => {
+  getGenres = () => {
     return this.init().get("/genre/movie/list");
   };
 
@@ -45,15 +46,11 @@ class Api {
     });
   };
 
-  getDetails = (id: string) => {
+  getDetails = (id: number) => {
     return this.init().get(`/movie/${id}`);
   };
 
-  getReviews = (id:string) => {
-    return this.init().get(`/movie/${id}/reviews`);
-  };
-
-  getVideo = (id: string) => {
+  getVideo = (id: number) => {
     return this.init().get(`/movie/${id}/videos`);
   };
 
@@ -63,15 +60,15 @@ class Api {
     });
   };
 
-  getPersonDetails = (id: string) => {
+  getPersonDetails = (id: number) => {
     return this.init().get(`/person/${id}`);
   };
 
-  getRecommendations = (id: string) => {
+  getRecommendations = (id: number) => {
     return this.init().get(`movie/${id}/recommendations`);
   };
 
-  getCredits = (id: string) => {
+  getCredits = (id: number) => {
     return this.init().get(`movie/${id}/credits`);
   };
 
