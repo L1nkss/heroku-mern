@@ -23,7 +23,6 @@ const Registration: React.FC<IFormComponentProps> = ({ successCallback, classNam
     evt.preventDefault();
     setFormStatus((prevState) => ({ ...prevState, loading: true, error: false }));
 
-    setStage((prevState) => prevState + 1);
     try {
       const response = await axios.post(
         ENDPOINTS.registration,
@@ -33,6 +32,7 @@ const Registration: React.FC<IFormComponentProps> = ({ successCallback, classNam
           baseURL: "/",
         },
       );
+      console.log("form response", response);
       if (response.status === 200) {
         setStage((prevState) => prevState + 1);
       }
@@ -84,7 +84,7 @@ const Registration: React.FC<IFormComponentProps> = ({ successCallback, classNam
         {formStatus.error && <div className="error form__error">{formStatus.message}</div>}
       </>
     );
-  }, []);
+  }, [formStatus]);
 
   const successfulRegistration = useMemo(() => {
     return (
