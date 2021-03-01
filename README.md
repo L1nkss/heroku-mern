@@ -1,5 +1,7 @@
 # MERN Movie project
 
+*[EN](README.en.md)*
+
 > Fullstack pet project
 
 ### Демо
