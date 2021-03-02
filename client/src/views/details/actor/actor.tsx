@@ -19,7 +19,7 @@ interface IActorState {
   films: IClientFilmData[]
 }
 
-const Actor = ({ match }: RouteMatchProps) => {
+const ActorDetails = ({ match }: RouteMatchProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [details, setDetails] = useState<IActorState>();
 
@@ -118,4 +118,4 @@ const Actor = ({ match }: RouteMatchProps) => {
   );
 };
 
-export default memo(Actor);
+export default memo(ActorDetails);

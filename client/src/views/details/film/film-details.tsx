@@ -235,14 +235,19 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         }
       >
         <div className="content-wrapper film-details">
-          <div className="film-details__image-container">
-            <img
-              className="film-details__image"
-              src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`}
-              alt={`Постер фильма ${details?.data.title}`}
-            />
-            { isFilmFavorite }
-          </div>
+          {
+            details?.data.posterPath
+            && (
+            <div className="film-details__image-container">
+              <img
+                className="film-details__image"
+                src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`}
+                alt={`Постер фильма ${details?.data.title}`}
+              />
+              { isFilmFavorite }
+            </div>
+            )
+          }
           <div className="film-details__content">
             { header }
             { renderDetailsInformations(detailsInformation, "film-details") }

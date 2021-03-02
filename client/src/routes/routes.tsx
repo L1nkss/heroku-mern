@@ -3,7 +3,7 @@ import {
 } from "react-router-dom";
 import { RoutePathes } from "../constants/constants";
 import App from "../views/app/app";
-import ErrorPage from "../views/error/error";
+import ErrorPage from "../views/error-page/error-page";
 import NotFound from "../views/not-found/not-found";
 
 // eslint-disable-next-line import/prefer-default-export

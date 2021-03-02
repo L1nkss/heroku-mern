@@ -2,7 +2,14 @@ import React, { memo } from "react";
 
 const NotFound: React.FC = () => {
   return (
-    <div><h1>HELLO</h1></div>
+    <div className="content-wrapper ta-c">
+      <div>
+        <p>Sorry, access denied</p>
+        <p>
+          Try to login your profile
+        </p>
+      </div>
+    </div>
   );
 };
 

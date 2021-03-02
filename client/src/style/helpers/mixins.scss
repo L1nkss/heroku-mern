@@ -41,7 +41,6 @@
 
   &__content {
     flex-grow: 1;
-    margin-left: 36px;
 
     @include adaptive(sm) {
       margin-left: 0;
@@ -51,6 +50,7 @@
 
   &__image-container {
     align-self: flex-start;
+    margin-right: 36px;
     max-width: 320px;
     min-width: 320px;
     position: relative;

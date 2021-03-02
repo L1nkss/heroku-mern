@@ -22,10 +22,6 @@ import useViewport from "../../utils/hooks/useViewport";
 import history from "../../utils/history";
 import FilmAdapter from "../../utils/adapters/film";
 
-/*
- todo
- не очень красиво с formToShow, исправить по возможности выбор контента для Popup'a
- */
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const { width } = useViewport();
