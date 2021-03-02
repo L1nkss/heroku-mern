@@ -21,13 +21,6 @@ export const ENDPOINTS = {
   checkToken: "/api/checkToken",
 };
 
-export const GENRE_TYPE_ALL = [
-  {
-    id: 63467,
-    name: "All",
-  },
-];
-
 export const REGULARS = {
   SEARCH_YEAR: "^\\d{4}",
 };

@@ -1,14 +1,14 @@
-/* Главная страница */
+/* ==[ ГЛАВНАЯ СТРАНИЦА ]== */
 
 .main {
-  padding-top: 28px;
   display: flex;
+  padding-top: 28px;
   position: relative;
 
   &__aside-menu {
     margin-right: 16px;
 
-    @include adaptive($mobile-xl-name) {
+    @include adaptive(sm) {
       display: none;
     }
   }

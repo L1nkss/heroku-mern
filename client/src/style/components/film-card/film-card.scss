@@ -1,10 +1,17 @@
-/* Карточка с краткой информацией о фильме */
+/* ==[ КАРТОЧКА С ИНФОРМАЦИЕЙ О ФИЛЬМЕ ]== */
 
 .film-card {
   @include box-shadow-hover-card;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 430px;
 
   position: relative;
-  height: 100%;
+
+  @include adaptive(xlsm) {
+    max-width: 100%;
+  }
 
   &--small {
     min-height: 290px;
@@ -15,6 +22,7 @@
   }
 
   &__wrapper {
+    margin-top: auto;
     padding: 12px;
   }
 
@@ -30,30 +38,26 @@
     font-size: 12px;
   }
 
-  &__image {
-    object-fit: contain;
-  }
-
   &__rating {
-    position: absolute;
-    top: -7px;
-    right: -7px;
+    align-items: center;
     border-radius: 50%;
     color: $cl-white;
-
-    padding: 0 6px;
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 34px;
     min-width: 34px;
 
+    padding: 0 6px;
+    position: absolute;
+    right: -7px;
+    top: -7px;
+
     // хак, чтобы всегда был круг, если значение будет большое
-    &:before {
-      content:'';
+    &::before {
+      content: '';
       float: left;
-      width: auto;
       padding-bottom: 100%;
+      width: auto;
     }
 
     &--medium {

@@ -1,11 +1,16 @@
-/* Страница со списком актеров */
+/* ==[ СТРАНИЦА С АКТЕРАМИ ]== */
 
 .credits {
-  position: relative;
   display: grid;
   grid-column-gap: 24px;
   grid-row-gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 180px));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 205px));
+  position: relative;
+
+  @include adaptive(xsm) {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 170px));
+    justify-content: center;
+  }
 
   &__back-button {
     position: absolute;
@@ -16,17 +21,19 @@
 .cast {
   @include box-shadow-hover-card;
 
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  min-height: 320px;
 
   &__image {
     width: 100%;
   }
 
   &__wrapper {
-    padding: 8px 16px;
     display: flex;
     flex-direction: column;
+    margin-top: auto;
+    padding: 8px 16px;
   }
 
   &__name {

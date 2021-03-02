@@ -4,8 +4,12 @@ import React, {
 import { AiFillHeart, AiOutlineYoutube } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-
 import moment from "moment";
+
+import { IClientFilmData, IClientFilmDetails } from "../../../redux/reducers/films/types/types";
+import { IRootState } from "../../../redux/reducers/types/types";
+import { TGenre } from "../../../redux/reducers/genre/types/types";
+
 import {
   IMAGE_SIZE_URL, RoutePathes, YOUTUBE_LINK,
 } from "../../../constants/constants";
@@ -14,21 +18,19 @@ import api from "../../../services/api";
 import Loader from "../../../components/loader/loader";
 import FilmList from "../../../components/film-list/film-list";
 import Popup from "../../../components/popup/popup";
-import Credits from "../../../components/credits/credits";
+import FilmDetailsCredits from "./components/credits";
 import { addFavoriteFilm } from "../../../redux/reducers/user/reducer";
-import { IClientFilmData, IClientFilmDetails } from "../../../redux/reducers/films/types/types";
-import { IRootState } from "../../../redux/reducers/types/types";
-import { TGenre } from "../../../redux/reducers/genre/types/types";
 import { changeActive } from "../../../redux/reducers/genre/reducer";
 import {
   IDetailInformation,
   renderDetailsInformations,
-  checkResultToUndefined,
+  isResultExist,
   IDetailsInformationInit,
 } from "../helpers/helpers";
 import CreditsAdapter, { IClientCredits } from "../../../utils/adapters/credits";
 import FilmAdapter from "../../../utils/adapters/film";
 import history from "../../../utils/history";
+import { timeConvert } from "../../../utils/helpers";
 
 type TVideo = {
   id: string;
@@ -47,21 +49,18 @@ interface IFilmDetailsState {
 const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
   const [details, setDetails] = useState<IFilmDetailsState>();
   const [showPopup, setShowPopup] = useState(false);
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+
   const userID = useSelector((state: IRootState) => state.user.data.id);
   const authStatus = useSelector((state: IRootState) => state.user.isLogin);
   const favoriteFilms = useSelector((state: IRootState) => state.user.data.favoriteFilms);
-  const { id } = match.params;
-  const [showAllCast, setShowAllCast] = useState<boolean>(false);
+
+  const id = Number(match.params.id);
 
   const handlePopupClick = useCallback(() => {
     setShowPopup((prevState) => !prevState);
   }, [id]);
-
-  const handleActorButtonClick = useCallback(() => {
-    setShowAllCast((prevState) => !prevState);
-  }, []);
 
   const getFilmDetailsData = useCallback(async () => {
     setIsLoading(true);
@@ -81,10 +80,8 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       );
     } catch (e) {
       console.log("Ошибка при получении информации о фильме", e);
-      // Если получили статус 404 при получении информации
-      if (e.response.status === 404) {
-        history.push(RoutePathes.NOT_FOUND);
-      }
+      // Если получили ошибку
+      history.push(RoutePathes.ERROR);
     } finally {
       setIsLoading(false);
     }
@@ -113,20 +110,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       console.log(e);
     }
   }, [details, userID]);
-
-  const rating = useMemo(() => {
-    if (!details?.data.voteAverage) return undefined;
-
-    return (
-      <p className="film-details__info-text">
-        {details?.data.voteAverage}
-        {" "}
-        /
-        {" "}
-        <strong>10</strong>
-      </p>
-    );
-  }, [details, id]);
 
   const isFilmFavorite = useMemo(() => {
     if (!authStatus) return null;
@@ -168,25 +151,12 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
 
   // Заголовок
   const header = useMemo(() => {
-    const data = [
-      {
-        id: 1,
-        result: moment(details?.data.releaseDate).format("MMMM DD, YYYY"),
-      },
-      {
-        id: 3,
-        result: `${details?.data.runtime} min`,
-      },
-    ];
     return (
       <header className="film-details__header">
-        <h2 className="film-details__title">{details?.data.title}</h2>
-        <ul className="film-details__sub-header">
-          { data.map((element) => {
-            return <li className="film-details__sub-header-item" key={element.id}>{element.result}</li>;
-          })}
-        </ul>
-        { trailerPreview }
+        <div className="film-details__header-wrapper">
+          <h2 className="film-details__title">{details?.data.title}</h2>
+          { trailerPreview }
+        </div>
       </header>
     );
   }, [details, trailerPreview]);
@@ -202,32 +172,6 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
       </ul>
     );
   }, [details]);
-
-  // Описание фильма
-  const overview = useMemo(() => {
-    if (details?.data.overview.length === 0) return undefined;
-    return (
-      <p className="film-details__info-text">{details?.data.overview}</p>
-    );
-  }, [details]);
-
-  // Актеры
-  const credits = useMemo(() => {
-    if (details?.credits.length === 0) return undefined;
-    const limit = 6;
-    const castToShow = showAllCast ? details?.credits : details?.credits.slice(0, limit);
-    return (
-      <section className="film-details__section">
-        <header className="film-details__section-header">
-          <h3 className="film-details__section-title">Actors</h3>
-          <button onClick={handleActorButtonClick} type="button" className="button button--ghost">
-            {showAllCast ? "Show less" : "Show more"}
-          </button>
-        </header>
-        <Credits data={castToShow} className="film-details__credits" />
-      </section>
-    );
-  }, [details, showAllCast]);
 
   // Фильмы, которые возможно понравятся
   const moreFilms = useMemo(() => {
@@ -247,24 +191,32 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
     const data: IDetailsInformationInit[] = [
       {
         id: 3,
-        result: rating,
+        result: details?.data.voteAverage && details?.data.voteAverage,
         header: "Rating",
-        extraClass: "film-details__info--row",
       },
       {
         id: 1,
         result: genres,
         header: "Genres",
-        extraClass: "film-details__info--row",
       },
       {
         id: 2,
-        result: overview,
+        result: details?.data.overview,
         header: "Overview",
+      },
+      {
+        id: 4,
+        result: details?.data.releaseDate && moment(details?.data.releaseDate).format("D MMMM YYYY"),
+        header: "Date release",
+      },
+      {
+        id: 5,
+        result: details?.data.runtime && timeConvert(details?.data.runtime),
+        header: "Duration",
       },
     ];
 
-    return data.filter(checkResultToUndefined);
+    return data.filter(isResultExist);
   }, [details]);
 
   if (isLoading) return <Loader />;
@@ -283,24 +235,27 @@ const FilmDetails: React.FC<RouteMatchProps> = ({ match }: RouteMatchProps) => {
         }
       >
         <div className="content-wrapper film-details">
-          <div className="film-details__image-container">
-            <img
-              className="film-details__image"
-              src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`}
-              alt={`Постер фильма ${details?.data.title}`}
-            />
-            { isFilmFavorite }
-          </div>
+          {
+            details?.data.posterPath
+            && (
+            <div className="film-details__image-container">
+              <img
+                className="film-details__image"
+                src={`${IMAGE_SIZE_URL.SMALL}/${details?.data.posterPath}`}
+                alt={`Постер фильма ${details?.data.title}`}
+              />
+              { isFilmFavorite }
+            </div>
+            )
+          }
           <div className="film-details__content">
             { header }
-            <div>
-              {renderDetailsInformations(detailsInformation, "film-details")}
-            </div>
+            { renderDetailsInformations(detailsInformation, "film-details") }
           </div>
         </div>
       </div>
       <div className="content-wrapper">
-        { credits }
+        { details?.credits && <FilmDetailsCredits data={details?.credits} showLimit={6} />}
         { moreFilms }
       </div>
       {/* Модальное окно с трейлером */}

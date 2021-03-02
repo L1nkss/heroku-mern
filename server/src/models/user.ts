@@ -1,18 +1,11 @@
 const {
-  Schema, model, Types, mongoose, NextFunction, Document,
+  Schema, model
 } = require("mongoose");
 const bcrypt = require("bcrypt");
 
 export type TUserFavoriteFilms = {
-  id: string,
+  id: number,
   backdropPath: string,
-}
-
-export interface IUser extends Document {
-  username: string;
-  email: string;
-  password: string;
-  favoriteFilms: TUserFavoriteFilms[]
 }
 
 const UserSchema = new Schema({

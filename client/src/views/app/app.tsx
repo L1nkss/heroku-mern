@@ -16,6 +16,7 @@ import { getFilmsRequest } from "../../redux/reducers/films/reducer";
 const App: React.FC = () => {
   const [isUserAuthChecked, setUserAuthStatus] = useState(false);
   const dispatch = useDispatch();
+
   const isDataLoaded = useSelector(isFetchingDone);
 
   useEffect(() => {

@@ -1,17 +1,18 @@
-/* Меню навигации */
+/* ==[ МЕНЮ НАВИГАЦИИ ]== */
 
 .menu {
-  text-align: left;
   background-color: $cl-white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  text-align: left;
 
   + .menu {
     margin-top: 12px;
   }
 
   &__list {
+    background-color: $cl-white;
     display: flex;
     flex-direction: column;
-    background-color: $cl-white;
 
     &--row {
       flex-direction: row;
@@ -19,17 +20,17 @@
   }
 
   &__header {
-    padding: 8px;
     color: $cl-blue-3;
+    padding: 8px;
   }
 
   &__item {
-    padding: 8px 16px;
-    cursor: pointer;
-    min-height: 35px;
-    display: flex;
-    color: rgba(0, 0, 0, 0.87);
     align-items: center;
+    color: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+    display: flex;
+    min-height: 35px;
+    padding: 8px 16px;
     transition: background-color $transition-time;
 
     &--active {
@@ -38,7 +39,7 @@
     }
 
     &:hover:not(.menu__item--active) {
-      background-color: rgba($cl-blue-3, .87);
+      background-color: rgba($cl-blue-3, 0.87);
     }
   }
 }

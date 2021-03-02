@@ -1,18 +1,18 @@
-/* Стили для стилизации компонента content - где отрисовывается вся информация */
+/* ==[ СТРАНИЦА С КОНТЕНТОМ ]== */
 
 .content {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 
   &__header {
-    display: flex;
     align-items: center;
+    background-color: $cl-white;
+    display: flex;
+    margin-bottom: 26px;
     position: sticky;
     top: 0;
-    background-color: $cl-white;
     z-index: 10;
-    margin-bottom: 26px;
   }
 
   &__films {
@@ -21,7 +21,7 @@
   }
 
   &__films-loading {
-    position: relative;
     height: 120px;
+    position: relative;
   }
 }

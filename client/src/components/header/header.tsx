@@ -6,26 +6,22 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import debounce from "lodash.debounce";
 
+import { IClientFilmData } from "../../redux/reducers/films/types/types";
+import { IRootState } from "../../redux/reducers/types/types";
+
 import { IMAGE_SIZE_URL, RoutePathes, BREAKPOINTS } from "../../constants/constants";
 import api from "../../services/api";
 import Menu from "../menu/menu";
-import LoginForm from "../loginForm/loginForm";
-import RegisterForm from "../registerForm/registerForm";
 import Popup from "../popup/popup";
+import Form from "../form/form";
 import Search from "../search/search";
 import noImage from "../film-card/images/no-image.png";
 import GenreMenu from "../genre-menu/genre-menu";
-import { IRootState } from "../../redux/reducers/types/types";
-import { IClientFilmData } from "../../redux/reducers/films/types/types";
 import { setUserDataToDefault } from "../../redux/reducers/user/reducer";
 import useViewport from "../../utils/hooks/useViewport";
 import history from "../../utils/history";
 import FilmAdapter from "../../utils/adapters/film";
 
-/*
- todo
- не очень красиво с formToShow, исправить по возможности выбор контента для Popup'a
- */
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const { width } = useViewport();
@@ -94,8 +90,8 @@ const Header: React.FC = () => {
   };
 
   const toggleButtonsClick = () => {
-    if (formToShow === "login") return <LoginForm successCb={togglePopupStatus} />;
-    if (formToShow === "registration") return <RegisterForm successCb={togglePopupStatus} />;
+    if (formToShow === "login") return <Form type="login" successCallback={togglePopupStatus} />;
+    if (formToShow === "registration") return <Form type="registration" successCallback={togglePopupStatus} />;
     return <></>;
   };
 

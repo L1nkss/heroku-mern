@@ -1,16 +1,16 @@
-import React, { memo, useState } from "react";
+import React, { useState, memo } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { FiUser } from "react-icons/fi";
 
-import { ENDPOINTS } from "../../constants/constants";
+import { IFormComponentProps } from "../types/types";
 
-interface IRegisterFormProps {
-  successCb?: (args?: any) => void
-}
+import { ENDPOINTS } from "../../../constants/constants";
+import { setUserData } from "../../../redux/reducers/user/reducer";
 
-const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterFormProps) => {
+const Login: React.FC<IFormComponentProps> = ({ successCallback, className = "" }: IFormComponentProps) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({});
   const [formStatus, setFormStatus] = useState({
     loading: false,
@@ -23,7 +23,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
     setFormStatus((prevState) => ({ ...prevState, loading: true, error: false }));
     try {
       const response = await axios.post(
-        ENDPOINTS.registration,
+        ENDPOINTS.login,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -31,14 +31,15 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
         },
       );
       if (response.status === 200) {
-        if (successCb) successCb();
+        dispatch(setUserData(response.data));
+        // Если был передан callback, вызываем его
+        if (successCallback) successCallback();
       }
     } catch (e) {
       const { error } = e.response.data;
       setFormStatus({ error: true, loading: false, message: error });
     }
   };
-
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = evt.target;
     setData((prevState) => {
@@ -46,28 +47,16 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
     });
   };
   return (
-    <form className="form" onSubmit={handleFormSubmit}>
-      <p>Регистрация</p>
+    <form className={`form ${className}`} onSubmit={handleFormSubmit}>
+      <p>Авторизация</p>
       <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="username" className="form__input" type="text" placeholder="Username" />
-        <span className="form__icon-wrapper">
-          <FiUser />
-        </span>
-      </div>
-      <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="email" className="form__input" type="email" placeholder="Email" />
+        <input name="email" onChange={handleInputChange} className="form__input" type="email" placeholder="Email" />
         <span className="form__icon-wrapper">
           <AiOutlineMail />
         </span>
       </div>
       <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="password" className="form__input" type="text" placeholder="Password" />
-        <span className="form__icon-wrapper">
-          <RiLockPasswordLine />
-        </span>
-      </div>
-      <div className="form__input-wrapper">
-        <input required onChange={handleInputChange} name="confirm_password" className="form__input" type="text" placeholder="Repeat password" />
+        <input name="password" onChange={handleInputChange} className="form__input" type="password" placeholder="Password" />
         <span className="form__icon-wrapper">
           <RiLockPasswordLine />
         </span>
@@ -81,4 +70,4 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ successCb }: IRegisterForm
   );
 };
 
-export default memo(RegisterForm);
+export default memo(Login);

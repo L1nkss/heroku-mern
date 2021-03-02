@@ -1,19 +1,18 @@
-/* Контейнер с фильмами */
+/* ==[ КОНТЕЙНЕР С ФИЛЬМАМИ ]== */
 
-.films,
 .film-list {
   display: grid;
   grid-column-gap: 30px;
   grid-row-gap: 24px;
-  grid-template-columns: repeat(auto-fit,minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 
   &__loader {
-    position: relative;
     height: 120px;
+    position: relative;
   }
 
   &--small {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 250px));
     grid-column-gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 250px));
   }
 }

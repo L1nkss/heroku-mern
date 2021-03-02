@@ -1,28 +1,30 @@
 import React, {
   memo, useCallback, useEffect, useMemo, useState,
 } from "react";
+import moment from "moment";
 
 import { IMAGE_SIZE_URL, RoutePathes } from "../../../constants/constants";
 import { RouteMatchProps } from "../../../constants/types/types";
 import api from "../../../services/api";
 import Loader from "../../../components/loader/loader";
-import FilmCard from "../../../components/film-card/film-card";
 import { IClientFilmData } from "../../../redux/reducers/films/types/types";
-import { checkResultToUndefined, IDetailsInformationInit, renderDetailsInformations } from "../helpers/helpers";
+import { isResultExist, IDetailsInformationInit, renderDetailsInformations } from "../helpers/helpers";
 import FilmAdapter from "../../../utils/adapters/film";
-import withLink from "../../../utils/HOC/withLink";
 import ActorAdapter, { IClientActorDetails } from "../../../utils/adapters/actor";
 import FilmList from "../../../components/film-list/film-list";
+import history from "../../../utils/history";
 
 interface IActorState {
   information: IClientActorDetails,
   films: IClientFilmData[]
 }
 
-const Actor = ({ match }: RouteMatchProps) => {
-  const { id } = match.params;
-  const [details, setDetails] = useState<IActorState>();
+const ActorDetails = ({ match }: RouteMatchProps) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [details, setDetails] = useState<IActorState>();
+
+  // const { id } = match.params;
+  const id = Number(match.params.id);
 
   const loadActorDetails = useCallback(async () => {
     setLoading(true);
@@ -36,6 +38,7 @@ const Actor = ({ match }: RouteMatchProps) => {
       });
     } catch (e) {
       console.log("Ошибка при загрузке информации о фильме", e);
+      history.push(RoutePathes.ERROR);
     } finally {
       setLoading(false);
     }
@@ -53,59 +56,32 @@ const Actor = ({ match }: RouteMatchProps) => {
     );
   }, [details]);
 
-  const placeOfBirth = useMemo(() => {
-    if (!details?.information.placeOfBirth) return undefined;
-
-    return <p className="actor__info-text">{details?.information.placeOfBirth}</p>;
-  }, [details]);
-
-  const dateOfBirhday = useMemo(() => {
-    if (!details?.information.birthday) return undefined;
-
-    return <p className="actor__info-text">{details?.information.birthday}</p>;
-  }, [details]);
-
-  const dateOfDeathday = useMemo(() => {
-    if (!details?.information.deathday) return undefined;
-
-    return <p className="actor__info-text">{details?.information.deathday}</p>;
-  }, [details]);
-
-  const biography = useMemo(() => {
-    if (!details?.information.biography) return undefined;
-
-    return <p className="actor__info-text">{details?.information.biography}</p>;
-  }, [details]);
-
   // Детальная информация об актере
   const actorDetailsInformation = useMemo(() => {
     const data: IDetailsInformationInit[] = [
       {
         id: 1,
         header: "Place of Birth",
-        result: placeOfBirth,
-        extraClass: "actor__info--row",
+        result: details?.information.placeOfBirth && details?.information.placeOfBirth,
       },
       {
         id: 2,
         header: "Birthday",
-        result: dateOfBirhday,
-        extraClass: "actor__info--row",
+        result: details?.information.birthday && moment(details?.information.birthday).format("D MMMM YYYY"),
       },
       {
         id: 3,
         header: "Deathday",
-        result: dateOfDeathday,
-        extraClass: "actor__info--row",
+        result: details?.information.deathday && moment(details?.information.deathday).format("D MMMM YYYY"),
       },
       {
         id: 4,
         header: "Biography",
-        result: biography,
+        result: details?.information.birthday && details?.information.biography,
       },
     ];
 
-    return data.filter(checkResultToUndefined);
+    return data.filter(isResultExist);
   }, [details]);
 
   if (loading) return <Loader />;
@@ -142,4 +118,4 @@ const Actor = ({ match }: RouteMatchProps) => {
   );
 };
 
-export default memo(Actor);
+export default memo(ActorDetails);

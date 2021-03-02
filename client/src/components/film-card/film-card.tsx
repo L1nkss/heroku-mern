@@ -1,9 +1,10 @@
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
 
-import { IMAGE_SIZE_URL, REGULARS } from "../../constants/constants";
-import { IRootState } from "../../redux/reducers/types/types";
 import { IClientFilmData } from "../../redux/reducers/films/types/types";
+import { IRootState } from "../../redux/reducers/types/types";
+
+import { IMAGE_SIZE_URL, REGULARS } from "../../constants/constants";
 import { getRatingClass } from "../../utils/helpers";
 
 import noImage from "./images/no-image.png";

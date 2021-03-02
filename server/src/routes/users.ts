@@ -11,6 +11,9 @@ router
       const { userID, ...data } = req.body;
       const user = await UserSchema.findOne({ _id: userID });
       const filmIndex = user.favoriteFilms.findIndex((element) => element.id === data.id);
+      // Находим индекс элемента
+      // Если индекс есть, удаляем из списка фильмов
+      // Если индекса нет, добавляем в список
       const updateOptions = filmIndex !== -1
         ? { $pull: { favoriteFilms: { id: data.id } } }
         : { $push: { favoriteFilms: data } };

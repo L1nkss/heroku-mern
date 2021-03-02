@@ -1,0 +1,13 @@
+/* ==[ СТРАНИЦА ДЛЯ ОТОБРАЖЕНИЯ ОШИБКИ НА САЙТЕ ]== */
+
+.error-view {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+
+  &__wrapper {
+    padding: 8px;
+    text-align: center;
+  }
+}

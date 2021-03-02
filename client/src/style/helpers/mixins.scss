@@ -1,17 +1,17 @@
-/* Миксины */
+/* ==[ МИКСИНЫ ]== */
 
 // Центирования контента с максимальной шириной
 @mixin max-center-content {
-  max-width: $max-content-width;
   margin: 0 auto;
+  max-width: $max-content-width;
 }
 
 // Тень для карточки + эффект у hover'a
 @mixin box-shadow-hover-card {
-  box-shadow: 0 1px 3px rgba($cl-black, 0.12), 0 1px 2px rgba($cl-black, 0.24);
-  transition: all $transition-time ease-out;
   background-color: $cl-grey-5;
+  box-shadow: 0 1px 3px rgba($cl-black, 0.12), 0 1px 2px rgba($cl-black, 0.24);
   color: $cl-white;
+  transition: all $transition-time ease-out;
 
   &:hover {
     box-shadow: 0 19px 38px rgba($cl-black, 0.3), 0 15px 12px rgba($cl-black, 0.22);
@@ -21,24 +21,8 @@
 
 // Адаптивность
 @mixin adaptive($point) {
-  // mobile breakpoint
-  @if $point == $mobile-xl-name {
-    @media screen and (max-width: $mobile-xl) {
-      @content
-    }
-  }
-
-  @if $point == $mobile-sm-name {
-    @media screen and (max-width: $mobile-sm) {
-      @content
-    }
-  }
-
-  // tablet breakpoint
-  @if $point == $tablet-sm-name {
-    @media screen and (max-width: $tablet-sm) {
-      @content
-    }
+  @media screen and (max-width: map-get($breakpoints, $point)) {
+    @content;
   }
 }
 
@@ -46,74 +30,69 @@
 @mixin details-view-classes {
   display: flex;
 
-  @include adaptive($tablet-sm-name) {
+  @include adaptive(sm) {
     flex-direction: column;
   }
 
   &__header {
-    position: relative;
     color: $cl-white;
     margin-bottom: 12px;
   }
 
   &__content {
-    margin-left: 36px;
     flex-grow: 1;
 
-    @include adaptive($tablet-sm-name) {
-      margin-top: 12px;
+    @include adaptive(sm) {
       margin-left: 0;
+      margin-top: 12px;
     }
   }
 
   &__image-container {
     align-self: flex-start;
-    position: relative;
+    margin-right: 36px;
     max-width: 320px;
-    width: 100%;
     min-width: 320px;
+    position: relative;
+    width: 100%;
 
-    @include adaptive($tablet-sm-name) {
-      margin: 0 auto;
-    }
-
-    @include adaptive($mobile-sm-name) {
+    @include adaptive(xsm) {
       min-width: 100%;
     }
   }
 
-  &__title  {
+  &__title {
+    font-family: $main-font;
     font-size: 46px;
     margin-bottom: 8px;
-    font-family: $main-font;
   }
 
   &__info {
-    $name: &; // Задаем переменной name имя класса
+    display: flex;
+    font-size: 16px;
     padding: 8px 0;
+  }
 
-    &-header {
-      margin-bottom: 12px;
-      flex-shrink: 0;
-      color: $cl-grey-4;
+  &__info-header {
+    color: #a2a2a2;
+    flex-basis: 15%;
+    flex-shrink: 0;
+    font-weight: 700;
+    max-width: 15%;
+
+    @include adaptive(lg) {
+      flex-basis: 25%;
+      max-width: 25%;
     }
 
-    &-text {
-      color: $cl-white;
-      line-height: 1.5;
-      margin: 0;
+    @include adaptive(xsm) {
+      flex-basis: 35%;
+      max-width: 35%;
     }
+  }
 
-    // Модификатор для текста в строчку
-    &--row {
-      display: flex;
-      align-items: center;
-
-      // Используем переменную, чтобы установить значение для header'a в модификаторе
-      #{$name}-header {
-        margin-bottom: 0;
-        margin-right: 12px;
-      }
-    }
+  &__info-text {
+    color: $cl-white;
+    margin: 0;
   }
 }
