@@ -15,7 +15,7 @@ export interface IDetailInformation {
 }
 
 export const isResultExist = (element: IDetailsInformationInit): element is IDetailInformation => {
-  return ((typeof element.result !== typeof undefined) && (element.result !== null));
+  return ((typeof element.result !== typeof undefined) && (element.result !== null) && (!!element.result));
 };
 
 export const renderDetailsInformations = (data: IDetailInformation[], detailClass: string): Array<JSX.Element> => {

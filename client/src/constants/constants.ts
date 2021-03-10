@@ -12,7 +12,8 @@ export const RoutePathes = {
 };
 
 export const BREAKPOINTS = {
-  MOBILE_XS: 590,
+  XS: 590,
+  SM: 768,
 };
 
 export const ENDPOINTS = {
@@ -61,4 +62,4 @@ export const IMAGE_SIZE_URL = {
   BIG: "https://image.tmdb.org/t/p/w1280/",
 };
 
-export const BASE_URL = "https://api.themoviedb.org/3";
+export const BASE_URL = "https://api.tmdb.org/3";

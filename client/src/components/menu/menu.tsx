@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useCallback, useMemo } from "react";
 
 import { TDiscoverItem, TGenre } from "../../redux/reducers/genre/types/types";
 import { isStringsEqual } from "../../utils/helpers";
@@ -10,7 +10,7 @@ type TItems = {
 
 interface IMenuListProps {
   className?: string; // класс для родительского компонента
-  data?: TItems
+  data?: TItems[]
   withLabel?: boolean
   direction?: "column" | "row";
   activeItem?: string;
@@ -27,34 +27,39 @@ const Menu: React.FC<IMenuListProps> = ({
   withLabel = false,
   render,
 }: IMenuListProps) => {
-  const menuList = useMemo(() => {
-    const items = data && data.items.map((element) => {
-      const isActive = (activeItem && isStringsEqual(element.name, activeItem)) || false;
-
-      return (
-        <li
-          role="presentation"
-          onClick={() => callbackClick && callbackClick(element, isActive)}
-          className={`menu__item ${isActive && "menu__item--active"}`}
-          key={element.id}
-        >
-          {element.name}
-        </li>
-      );
-    });
+  const createMenuItem = useCallback((item) => {
+    const isActive = (activeItem && isStringsEqual(item.name, activeItem)) || false;
 
     return (
-      <>
-        {withLabel && <div className="menu__header"><h4 className="menu__label">{data && data.label}</h4></div>}
-        <ul className="menu__list">{items}</ul>
-      </>
+      <li
+        role="presentation"
+        onClick={() => callbackClick && callbackClick(item, isActive)}
+        className={`menu__item ${isActive && "menu__item--active"}`}
+        key={item.id}
+      >
+        {item.name}
+      </li>
     );
+  }, [activeItem]);
+
+  const menu = useMemo(() => {
+    return data && data.map((list, index) => {
+      const listItems = list.items.map(createMenuItem);
+      return (
+      // Отключаем правило с Index'ом, так как меняться массив не будет и соотственно индекс тоже
+      // eslint-disable-next-line react/no-array-index-key
+        <div className="menu__wrapper" key={index}>
+          {withLabel && <div className="menu__header"><h4 className="menu__label">{list.label}</h4></div>}
+          <ul className="menu__list">{listItems}</ul>
+        </div>
+      );
+    });
   }, [activeItem, data]);
 
   return (
     <nav className={`menu ${className}`}>
       { render && render("menu__item") }
-      { !render && menuList }
+      { !render && menu }
     </nav>
   );
 };

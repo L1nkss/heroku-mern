@@ -32,7 +32,7 @@ const Header: React.FC = () => {
   const userName = useSelector((state: IRootState) => state.user.data.username);
   const [dropDownOptions, setDropDownOptions] = useState<IClientFilmData[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
-  const isMobile = width <= BREAKPOINTS.MOBILE_XS;
+  const isTablet = width <= BREAKPOINTS.SM;
 
   const options = useMemo(() => {
     return (
@@ -96,10 +96,10 @@ const Header: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!isMobile) {
+    if (!isTablet) {
       setShowResponsiveMenu(false);
     }
-  }, [isMobile]);
+  }, [isTablet]);
   const userMenuActions = [
     {
       label: "Избранные фильмы",
@@ -214,7 +214,7 @@ const Header: React.FC = () => {
           </p>
         </h1>
         <Search ref={searchRef} callback={SearchFilm} options={dropDownOptions} optionsView={options} className="header__search" />
-        { isMobile ? burgerMenu : headerAuthComponent }
+        { isTablet ? burgerMenu : headerAuthComponent }
         { responsiveAsideBar(headerAuthComponent) }
       </div>
       { showPopup && <Popup handleCloseClick={togglePopupStatus}>{toggleButtonsClick()}</Popup>}

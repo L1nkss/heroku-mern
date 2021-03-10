@@ -37,7 +37,7 @@ const FilmCard = ({ size = "default", data }: IFilmCardProps) => {
     return currentGenres;
   };
   return (
-    <div className={`film-card ${sizeClasses[size]}`}>
+    <section className={`film-card ${sizeClasses[size]}`}>
       <div className={`film-card__poster ${backdropPath ? "" : "film-card__poster--no-image"}`}>
         <img className="film-card__image" src={image} alt={`Постер фильма ${title}`} width="100%" height="auto" />
       </div>
@@ -57,7 +57,7 @@ const FilmCard = ({ size = "default", data }: IFilmCardProps) => {
         </div>
         )
       }
-    </div>
+    </section>
   );
 };
 
