@@ -61,4 +61,4 @@ export const IMAGE_SIZE_URL = {
   BIG: "https://image.tmdb.org/t/p/w1280/",
 };
 
-export const BASE_URL = "https://api.themoviedb.org/3";
+export const BASE_URL = "https://api.tmdb.org/3";
