@@ -77,7 +77,7 @@ const ActorDetails = ({ match }: RouteMatchProps) => {
       {
         id: 4,
         header: "Biography",
-        result: details?.information.birthday && details?.information.biography,
+        result: details?.information.biography && details?.information.biography,
       },
     ];
 

@@ -28,13 +28,15 @@ const GenreMenu: React.FC<IGenreMenu> = ({ className = "" }: IGenreMenu) => {
   }, [activeGenre]);
 
   const menu = useMemo(() => {
-    const discoverMenu = <Menu callbackClick={handleMenuItemClick} activeItem={activeGenre} data={discoverGenres} withLabel />;
-    const genresMenu = <Menu callbackClick={handleMenuItemClick} activeItem={activeGenre} data={allGenres} withLabel />;
+    const test = <Menu callbackClick={handleMenuItemClick} activeItem={activeGenre} data={[discoverGenres, allGenres]} withLabel />;
+    // const discoverMenu = <Menu callbackClick={handleMenuItemClick} activeItem={activeGenre} data={discoverGenres} withLabel />;
+    // const genresMenu = <Menu callbackClick={handleMenuItemClick} activeItem={activeGenre} data={allGenres} withLabel />;
 
     return (
-      <div className={className}>
-        {discoverMenu}
-        {genresMenu}
+      <div>
+        {test}
+        {/* {discoverMenu} */}
+        {/* {genresMenu} */}
       </div>
     );
   }, [activeGenre, allGenres]);

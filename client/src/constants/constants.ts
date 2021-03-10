@@ -12,7 +12,8 @@ export const RoutePathes = {
 };
 
 export const BREAKPOINTS = {
-  MOBILE_XS: 590,
+  XS: 590,
+  SM: 768,
 };
 
 export const ENDPOINTS = {

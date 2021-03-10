@@ -6,7 +6,7 @@
   position: relative;
 
   &__aside-menu {
-    margin-right: 16px;
+    margin-right: 36px;
 
     @include adaptive(sm) {
       display: none;
