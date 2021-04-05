@@ -24,5 +24,6 @@ module.exports = {
     "no-param-reassign": ["error", { props: false }],
     "react/require-default-props": "off",
     "jsx-a11y/media-has-caption": "off",
+    "linebreak-style": "off",
   },
 };
