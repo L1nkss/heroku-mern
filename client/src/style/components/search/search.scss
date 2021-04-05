@@ -1,13 +1,13 @@
 /* ==[ ПОИСК ]== */
 
 .search {
-  cursor: pointer;
   display: flex;
   position: relative;
 
   &__icon-wrapper {
     align-items: center;
     display: flex;
+    cursor: pointer;
     height: 35px;
     justify-content: center;
     position: relative;
